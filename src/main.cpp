@@ -3,6 +3,11 @@
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Window");
 
+    // Create a rectangle shape
+    sf::RectangleShape rectangle(sf::Vector2f(100, 50));
+    rectangle.setPosition(100, 100);
+    rectangle.setFillColor(sf::Color::Red);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -10,10 +15,24 @@ int main() {
                 window.close();
         }
 
-        window.clear(sf::Color::White);
-        // Draw something here
+        window.clear();
+        window.draw(rectangle); // Draw the rectangle
         window.display();
     }
 
     return 0;
+
 }
+
+
+//main
+
+//Level - map
+
+
+
+
+
+
+
+
