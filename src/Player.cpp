@@ -3,14 +3,14 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
-#include <iostream>
 
 #define MAX_SPEED 0.3f
 #define DECEL_RATE (MAX_SPEED * 2.5f)
 #define ACCEL_RATE (MAX_SPEED * 2.5f)
-#define GROUND_HEIGHT (620 - 50)
 #define AIR_DECEL_RATE (DECEL_RATE * 2.0f)
 #define MAX_AIR_SPEED (MAX_SPEED * 2.0f)
+
+#define GROUND_HEIGHT (620 - 50)
 
 Player::Player(int cx, int cy) {
   shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
@@ -25,14 +25,13 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 Player::~Player() {}
 
-void Player::setPosition(int cx, int cy) {
-  shape.setPosition(x, y);
-}
+void Player::setPosition(int cx, int cy) { shape.setPosition(x, y); }
 
 bool Player::isGrounded() {
   sf::Vector2<float> pos = shape.getPosition();
 
-  if (pos.y < GROUND_HEIGHT) return false;
+  if (pos.y < GROUND_HEIGHT)
+    return false;
   if (pos.y > GROUND_HEIGHT) {
     shape.setPosition(pos.x, GROUND_HEIGHT);
     vy = 0;
@@ -41,9 +40,7 @@ bool Player::isGrounded() {
   return true;
 }
 
-void Player::jump() {
-  vy = -2.0f;
-}
+void Player::jump() { vy = -2.0f; }
 
 void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
@@ -64,15 +61,12 @@ void Player::update(GameState &state) {
     vx = std::max(vx, -MAX_SPEED);
   }
 
-  std::cout << vx << "," << vy << "\n";
-
-
   if (!isGrounded()) {
     bool falling = vy > 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     vy += AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
     vy = std::min(vy, MAX_AIR_SPEED);
     vy = std::max(vy, -MAX_AIR_SPEED);
-  } 
+  }
 
   shape.move(vx, vy);
 }
