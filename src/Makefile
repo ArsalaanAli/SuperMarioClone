@@ -18,7 +18,7 @@ EXECUTABLE := SuperMarioClone
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(SOURCES)
-	$(CC) $(CFLAGS) $(SOURCES) -o $(EXECUTABLE) $(LIBS)
+	$(CC) $(CFLAGS) -I. $(SOURCES) -o $(EXECUTABLE) $(LIBS)
 
 clean:
 	rm -f $(EXECUTABLE)
