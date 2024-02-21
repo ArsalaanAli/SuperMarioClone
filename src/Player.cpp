@@ -2,19 +2,17 @@
 #include "GameState.h"
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
-#include <cstdlib>
 #include <iostream>
 
 #define MAX_SPEED 0.3f
 #define DECEL_RATE (MAX_SPEED * 2.5f)
 #define ACCEL_RATE (MAX_SPEED * 2.5f)
+#define GROUND_HEIGHT (620 - 50)
 
 Player::Player(int cx, int cy) {
-  x = cx;
-  y = cy;
   shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
   shape.setFillColor(sf::Color::Black);
-  shape.setPosition(0, 620 - 50);
+  shape.setPosition(0, 0);
 }
 
 // compatibility for windows.draw(player)
@@ -23,6 +21,20 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 Player::~Player() {}
+
+void Player::setPosition(int cx, int cy) {
+  shape.setPosition(x, y);
+}
+
+bool Player::isGrounded() {
+  sf::Vector2<float> pos = shape.getPosition();
+
+  if (pos.y >= GROUND_HEIGHT) {
+    shape.setPosition(pos.x, GROUND_HEIGHT);
+    return true;
+  }
+  return false;
+}
 
 void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
@@ -39,11 +51,14 @@ void Player::update(GameState &state) {
     vx = std::max(vx, -MAX_SPEED);
   }
 
-  // if (!input.y) {
-  //   vy -= DECEL_RATE * ((vy > 0) - (vy < 0));
-  // } else {
-  //   vy = std::max(vy + input.y * 1.0f, DECEL_RATE);
-  // }
+  std::cout << vx << "," << vy << "\n";
 
-  shape.move(vx, input.y);
+  if (!isGrounded()) {
+    vy += DECEL_RATE * 1.5 * dt;
+    vy = std::max(vy, -MAX_SPEED);
+  } else {
+    vy = 0;
+  }
+
+  shape.move(vx, vy);
 }

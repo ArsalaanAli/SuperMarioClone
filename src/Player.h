@@ -22,4 +22,7 @@ private:
 
   // Velocities
   float vx, vy;
+
+  void setPosition(int cx, int cy);
+  bool isGrounded();
 };
