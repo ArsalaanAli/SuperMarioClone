@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <GameState.h>
+
+#include "GameState.h"
 
 
 GameState::GameState(){

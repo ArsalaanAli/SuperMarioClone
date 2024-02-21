@@ -32,3 +32,5 @@
 *.app
 
 /ext-assets
+.clangd
+SuperMarioClone
