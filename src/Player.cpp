@@ -25,8 +25,6 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 Player::~Player() {}
 
-void Player::setPosition(int cx, int cy) { shape.setPosition(x, y); }
-
 bool Player::isGrounded() {
   sf::Vector2<float> pos = shape.getPosition();
 
@@ -42,6 +40,7 @@ bool Player::isGrounded() {
 
 void Player::jump() { vy = 1.0f; }
 
+// Update called once per gameloop
 void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
@@ -50,15 +49,15 @@ void Player::update(GameState &state) {
     jump();
   }
 
-  if (!input.x) {
+  if (input.x) {
+    vx += input.x * ACCEL_RATE * dt;
+    vx = std::min(vx, MAX_SPEED);
+    vx = std::max(vx, -MAX_SPEED);
+  } else {
     if (abs(vx) > DECEL_RATE * dt)
       vx -= DECEL_RATE * ((vx > 0) - (vx < 0)) * dt;
     else
       vx = 0;
-  } else {
-    vx += input.x * ACCEL_RATE * dt;
-    vx = std::min(vx, MAX_SPEED);
-    vx = std::max(vx, -MAX_SPEED);
   }
 
   if (!isGrounded()) {
