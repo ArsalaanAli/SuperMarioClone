@@ -7,6 +7,8 @@ public:
   Player(int cx, int cy);
   ~Player();
 
+  void jump();
+
   // Update call from gameloop
   void update(GameState &state);
 
