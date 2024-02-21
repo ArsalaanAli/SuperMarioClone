@@ -6,6 +6,8 @@
 #include <iostream>
 
 #define MAX_SPEED 0.3f
+#define DECEL_RATE (MAX_SPEED * 2.5f)
+#define ACCEL_RATE (MAX_SPEED * 2.5f)
 
 Player::Player(int cx, int cy) {
   x = cx;
@@ -25,10 +27,6 @@ Player::~Player() {}
 void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
-  std::cout << input.x << "," << input.y << "\n";
-
-  const float DECEL_RATE = MAX_SPEED * 2.5f;
-  const float ACCEL_RATE = MAX_SPEED * 2.5f;
 
   if (!input.x) {
     if (abs(vx) > DECEL_RATE * dt)
@@ -46,8 +44,6 @@ void Player::update(GameState &state) {
   // } else {
   //   vy = std::max(vy + input.y * 1.0f, DECEL_RATE);
   // }
-
-  std::cout << vx << "," << vy << "\n";
 
   shape.move(vx, input.y);
 }
