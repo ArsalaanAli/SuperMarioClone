@@ -40,7 +40,7 @@ bool Player::isGrounded() {
   return true;
 }
 
-void Player::jump() { vy = -2.0f; }
+void Player::jump() { vy = 1.0f; }
 
 void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
@@ -62,11 +62,11 @@ void Player::update(GameState &state) {
   }
 
   if (!isGrounded()) {
-    bool falling = vy > 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-    vy += AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
+    bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
     vy = std::min(vy, MAX_AIR_SPEED);
     vy = std::max(vy, -MAX_AIR_SPEED);
   }
 
-  shape.move(vx, vy);
+  shape.move(vx, -vy);
 }
