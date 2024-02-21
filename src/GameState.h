@@ -15,6 +15,9 @@ public:
 private:
   sf::Clock clock;
   float deltaTime;
+
+  sf::Vector2<int> input;
+  sf::Vector2<int> updateInputAxis();
 };
 
 #endif // GAMESTATE_H

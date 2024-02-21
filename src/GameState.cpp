@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "SFML/System/Clock.hpp"
 #include "SFML/System/Vector2.hpp"
+#include "SFML/Window/Keyboard.hpp"
 
 
 GameState::GameState(){
@@ -17,12 +18,16 @@ float GameState::getDeltaTime() {
 }
 
 sf::Vector2<int> GameState::getInputAxis() {
+  return input;
+}
+
+sf::Vector2<int> GameState::updateInputAxis() {
   int dir_x = 0, dir_y = 0;
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
     dir_x += 1;
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
     dir_x += -1;
   }
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
@@ -70,6 +75,7 @@ void GameState::runGame(){
 
         // Calculate elapsed time
         deltaTime = clock.restart().asSeconds();
+        input = updateInputAxis();
 
         // // Ensure the player does not move out of the window bounds
         // sf::FloatRect playerBounds = player.getGlobalBounds();
@@ -86,7 +92,7 @@ void GameState::runGame(){
         // }
         
         // updates
-        // player->update(*this);
+        player.update(*this);
 
         // Draw everything
         window.clear(sf::Color::White); // Clear the window with white color

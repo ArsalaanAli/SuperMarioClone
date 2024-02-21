@@ -10,10 +10,6 @@ public:
   // Update call from gameloop
   void update(GameState &state);
 
-
-  // Get underlying SFML object
-  sf::RectangleShape getShape();
-
 private:
   // Position
   int x, y;
