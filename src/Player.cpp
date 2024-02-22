@@ -3,12 +3,14 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
+#include <iostream>
 
-#define MAX_SPEED 0.3f
-#define DECEL_RATE (MAX_SPEED * 2.5f)
-#define ACCEL_RATE (MAX_SPEED * 2.5f)
+#define MAX_SPEED 400.0f
+#define DECEL_RATE 1500.0f
+#define ACCEL_RATE 1500.0f
+#define JUMP_FORCE 1150.0f
 #define AIR_DECEL_RATE (DECEL_RATE * 2.0f)
-#define MAX_AIR_SPEED (MAX_SPEED * 2.0f)
+#define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
 
 #define GROUND_HEIGHT (620 - 50)
 
@@ -43,7 +45,7 @@ bool Player::isGrounded(GameState &state) {
   return false;
 }
 
-void Player::jump() { vy = 1.0f; }
+void Player::jump() { vy = JUMP_FORCE; }
 
 // Update called once per gameloop
 void Player::update(GameState &state) {
