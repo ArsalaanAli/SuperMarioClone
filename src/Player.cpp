@@ -93,6 +93,7 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState& state){
   for (int i = 0; i <= size.y-2; i++){
     if (state.checkCollision(pos.x + newX, pos.y + i) || state.checkCollision(pos.x + size.x + newX, pos.y + i)){
       xoffset = 0;
+      vx = 0;
       break;
     }
   }
@@ -100,6 +101,7 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState& state){
   for (int i = 0; i <= size.x; i++){
     if (state.checkCollision(pos.x + i, pos.y + newY)){
       yoffset = abs(yoffset);
+      vy = yoffset;
       break;
     }
   }
