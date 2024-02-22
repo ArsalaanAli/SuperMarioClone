@@ -16,6 +16,9 @@ Player::Player(int cx, int cy) {
   shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
   shape.setFillColor(sf::Color::Black);
   shape.setPosition(100, 0);
+  cout << shape.getPosition().x << endl;
+  cout << shape.getPosition().y << endl;
+
 }
 
 Player::~Player() {}
@@ -88,7 +91,10 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState& state){
 
   int newX = roundAwayFromZero(xoffset);
   if (state.checkCollision(pos.x + size.x + newX, pos.y + size.y - 1) || state.checkCollision(pos.x + newX, pos.y + size.y - 1)){
-
+    return;
+  }
+  int newY = roundAwayFromZero(yoffset);
+  if (state.checkCollision(pos.x + size.x, pos.y + newY) || state.checkCollision(pos.x, pos.y + newY)){
     return;
   }
   shape.setPosition(pos.x + xoffset, pos.y + yoffset);
