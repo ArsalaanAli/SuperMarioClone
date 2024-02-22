@@ -15,12 +15,13 @@ public:
   GameState();
   void runGame();
   float getDeltaTime();
+  bool checkCollision(int x, int y);
   sf::Vector2<int> getInputAxis();
 
 private:
   sf::Clock clock;
   float deltaTime;
-
+  sf::Image collisionMap;
   sf::Vector2<int> input;
   sf::Vector2<int> updateInputAxis();
 };

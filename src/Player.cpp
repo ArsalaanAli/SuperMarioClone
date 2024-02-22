@@ -17,7 +17,10 @@
 Player::Player(int cx, int cy) {
   shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
   shape.setFillColor(sf::Color::Black);
-  shape.setPosition(0, 0);
+  shape.setPosition(100, 0);
+  cout << shape.getPosition().x << endl;
+  cout << shape.getPosition().y << endl;
+
 }
 
 Player::~Player() {}
@@ -29,17 +32,17 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(shape, states);
 }
 
-bool Player::isGrounded() {
+bool Player::isGrounded(GameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
+  sf::Vector2<float> size = shape.getSize();
 
-  if (pos.y < GROUND_HEIGHT)
-    return false;
-  if (pos.y > GROUND_HEIGHT) {
-    shape.setPosition(pos.x, GROUND_HEIGHT);
-    vy = 0;
+  for (int i = 0; i < shape.getSize().x; i++){
+    if (state.checkCollision(pos.x + i, pos.y + size.y)){
+        vy = 0;
+        return true;
+    }
   }
-
-  return true;
+  return false;
 }
 
 void Player::jump() { vy = JUMP_FORCE; }
@@ -48,8 +51,9 @@ void Player::jump() { vy = JUMP_FORCE; }
 void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
+  bool grounded = isGrounded(state);
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && isGrounded()) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded) {
     jump();
   }
 
@@ -64,16 +68,40 @@ void Player::update(GameState &state) {
       vx = 0;
   }
 
-  if (!isGrounded()) {
+  if (!grounded) {
     bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
     vy = std::min(vy, MAX_AIR_SPEED);
     vy = std::max(vy, -MAX_AIR_SPEED);
   }
+  // shape.move(vx, -vy);
+  // cout << vx << " " << vy << endl;
+  MovePlayer(vx, -vy, state);
+}
 
+void Player::MovePlayer(float xoffset, float yoffset, GameState& state){
+  sf::Vector2<float> pos = shape.getPosition();
+  sf::Vector2<float> size = shape.getSize();
 
-  shape.move(vx * dt, -vy * dt);
+  int newX = roundAwayFromZero(xoffset);
+  for (int i = 0; i <= size.y-2; i++){
+    if (state.checkCollision(pos.x + newX, pos.y + i) || state.checkCollision(pos.x + size.x + newX, pos.y + i)){
+      xoffset = 0;
+      vx = 0;
+      break;
+    }
+  }
+  int newY = roundAwayFromZero(yoffset);
+  for (int i = 0; i <= size.x; i++){
+    if (state.checkCollision(pos.x + i, pos.y + newY)){
+      yoffset = abs(yoffset);
+      vy = yoffset;
+      break;
+    }
+  }
+  shape.setPosition(pos.x + xoffset, pos.y + yoffset);
+}
 
-  std::cout << x << "," << y << "\n";
-  std::cout << vx << "," << vy << "\n";
+int Player::roundAwayFromZero(float x){
+  return x < 0 ? floor(x) : ceil(x);
 }
