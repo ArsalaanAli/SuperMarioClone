@@ -15,7 +15,7 @@
 Player::Player(int cx, int cy) {
   shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
   shape.setFillColor(sf::Color::Black);
-  shape.setPosition(0, 0);
+  shape.setPosition(100, 0);
 }
 
 Player::~Player() {}
@@ -27,16 +27,24 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(shape, states);
 }
 
-bool Player::isGrounded() {
+bool Player::isGrounded(GameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
 
-  if (pos.y < GROUND_HEIGHT)
+  sf::Vector2<float> size = shape.getSize();
+
+  bool collisionDetected = false;
+  for (int i = 0; i < shape.getSize().x; i++){
+    if (state.checkCollision(pos.x + i, pos.y + size.y)){
+      collisionDetected = true;
+      break;
+    }
+  }
+  if(!collisionDetected){
     return false;
-  if (pos.y > GROUND_HEIGHT) {
-    shape.setPosition(pos.x, GROUND_HEIGHT);
-    vy = 0;
   }
 
+
+  vy = 0;
   return true;
 }
 
@@ -46,8 +54,9 @@ void Player::jump() { vy = 1.0f; }
 void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
+  bool grounded = isGrounded(state);
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && isGrounded()) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded) {
     jump();
   }
 
@@ -62,12 +71,29 @@ void Player::update(GameState &state) {
       vx = 0;
   }
 
-  if (!isGrounded()) {
+  if (!grounded) {
     bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
     vy = std::min(vy, MAX_AIR_SPEED);
     vy = std::max(vy, -MAX_AIR_SPEED);
   }
+  // shape.move(vx, -vy);
+  // cout << vx << " " << vy << endl;
+  MovePlayer(vx, -vy, state);
+}
 
-  shape.move(vx, -vy);
+void Player::MovePlayer(float xoffset, float yoffset, GameState& state){
+  sf::Vector2<float> pos = shape.getPosition();
+  sf::Vector2<float> size = shape.getSize();
+
+  int newX = roundAwayFromZero(xoffset);
+  if (state.checkCollision(pos.x + size.x + newX, pos.y + size.y - 1) || state.checkCollision(pos.x + newX, pos.y + size.y - 1)){
+
+    return;
+  }
+  shape.setPosition(pos.x + xoffset, pos.y + yoffset);
+}
+
+int Player::roundAwayFromZero(float x){
+  return x < 0 ? floor(x) : ceil(x);
 }

@@ -4,6 +4,10 @@
 #include "GameState.h"
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
 
 class Player : public sf::Drawable {
 public:
@@ -30,7 +34,9 @@ private:
   float vx, vy;
 
   void setPosition(int cx, int cy);
-  bool isGrounded();
+  bool isGrounded(GameState &state);
+  void MovePlayer(float xoffset, float yoffset, GameState &state);
+  int roundAwayFromZero(float x);
 };
 
 #endif // PLAYER_H
