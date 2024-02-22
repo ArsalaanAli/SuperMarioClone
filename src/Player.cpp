@@ -18,12 +18,14 @@ Player::Player(int cx, int cy) {
   shape.setPosition(0, 0);
 }
 
+Player::~Player() {}
+
+sf::RectangleShape Player::getShape() { return shape; }
+
 // compatibility for windows.draw(player)
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(shape, states);
 }
-
-Player::~Player() {}
 
 bool Player::isGrounded() {
   sf::Vector2<float> pos = shape.getPosition();

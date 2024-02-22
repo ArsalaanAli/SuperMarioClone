@@ -11,6 +11,7 @@ public:
 
   // Update call from gameloop
   void update(GameState &state);
+  sf::RectangleShape getShape();
 
 private:
   // Position
