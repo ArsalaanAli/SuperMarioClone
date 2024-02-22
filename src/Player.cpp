@@ -32,11 +32,6 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 bool Player::isGrounded(GameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
-
-  sf::Vector2<float> size = shape.getSize();
-
-bool Player::isGrounded(GameState &state) {
-  sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
 
   for (int i = 0; i < shape.getSize().x; i++){
@@ -46,13 +41,6 @@ bool Player::isGrounded(GameState &state) {
     }
   }
   return false;
-}
-    return false;
-  }
-
-
-  vy = 0;
-  return true;
 }
 
 void Player::jump() { vy = 1.0f; }
