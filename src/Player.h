@@ -1,3 +1,6 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
 #include "GameState.h"
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
@@ -11,6 +14,7 @@ public:
 
   // Update call from gameloop
   void update(GameState &state);
+  sf::RectangleShape getShape();
 
 private:
   // Position
@@ -28,3 +32,5 @@ private:
   void setPosition(int cx, int cy);
   bool isGrounded();
 };
+
+#endif // PLAYER_H
