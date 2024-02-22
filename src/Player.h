@@ -1,11 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "GameState.h"
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
-#include <iostream>
 #include <cmath>
+#include <iostream>
+
+#include "GameState.h"
 
 using namespace std;
 

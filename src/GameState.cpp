@@ -36,7 +36,7 @@ sf::Vector2<int> GameState::updateInputAxis() {
 }
 
 sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
-                                      Player &player) {
+                           Player &player) {
   float x = player.getShape().getPosition().x + 25;
   float viewX = view.getCenter().x;
 
@@ -53,21 +53,20 @@ sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
   return view;
 }
 
-bool GameState::checkCollision(int x, int y){
-    return collisionMap.getPixel(x, y) == sf::Color::Red;
+bool GameState::checkCollision(int x, int y) {
+  return collisionMap.getPixel(x, y) == sf::Color::Red;
 }
 
 void GameState::runGame() {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
-                            "Super Mario Clone");
-    sf::View view(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-    window.setView(view);
+  sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
+                          "Super Mario Clone");
+  sf::View view(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+  window.setView(view);
 
-    // Load background image
-    sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("assets/map1.png"))
-    {
-        return;
+  // Load background image
+  sf::Texture backgroundTexture;
+  if (!backgroundTexture.loadFromFile("assets/map1.png")) {
+    return;
   }
 
   const float LEVEL_END = backgroundTexture.getSize().x;
