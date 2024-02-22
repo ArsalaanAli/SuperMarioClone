@@ -90,12 +90,12 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState& state){
   sf::Vector2<float> size = shape.getSize();
 
   int newX = roundAwayFromZero(xoffset);
-  if (state.checkCollision(pos.x + size.x + newX, pos.y + size.y - 1) || state.checkCollision(pos.x + newX, pos.y + size.y - 1)){
-    return;
+  if (state.checkCollision(pos.x + size.x + newX, pos.y + size.y - 2) || state.checkCollision(pos.x + newX, pos.y + size.y - 2)){
+    xoffset = 0;
   }
   int newY = roundAwayFromZero(yoffset);
   if (state.checkCollision(pos.x + size.x, pos.y + newY) || state.checkCollision(pos.x, pos.y + newY)){
-    return;
+    yoffset = 0;
   }
   shape.setPosition(pos.x + xoffset, pos.y + yoffset);
 }
