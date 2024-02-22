@@ -1,12 +1,11 @@
-#include <SFML/Graphics.hpp>
-#include <iostream>
-
-#include "GameState.h"
-#include "Player.h"
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Clock.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
+#include <SFML/Graphics.hpp>
+
+#include "GameState.h"
+#include "Player.h"
 
 GameState::GameState() { clock = sf::Clock(); }
 
@@ -36,9 +35,27 @@ sf::Vector2<int> GameState::updateInputAxis() {
   return sf::Vector2<int>(dir_x, dir_y);
 }
 
+sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
+                                      Player &player) {
+  float x = player.getShape().getPosition().x + 25;
+  float viewX = view.getCenter().x;
+
+  // calculate excess from either end as a positive value
+  float excess = ((x > viewX) - (x < viewX)) * (x - viewX) -
+                 VIEW_SCROLL_MARGIN_FROM_CENTER;
+
+  // cover excess based on the end excess is on
+  if (excess > 0 && x > VIEW_SCROLL_MARGIN &&
+      x < LEVEL_END - VIEW_SCROLL_MARGIN) {
+    view.move(((x > viewX) - (x < viewX)) * excess, 0);
+  }
+
+  return view;
+}
 void GameState::runGame() {
-  sf::RenderWindow window(sf::VideoMode(1280, 720), "Super Mario Clone");
-  sf::View view(sf::FloatRect(0, 0, 1280, 720));
+  sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
+                          "Super Mario Clone");
+  sf::View view(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
   window.setView(view);
 
   // Load background image
@@ -46,6 +63,8 @@ void GameState::runGame() {
   if (!backgroundTexture.loadFromFile("assets/map1.png")) {
     return;
   }
+
+  const float LEVEL_END = backgroundTexture.getSize().x;
 
   sf::Image collisionMap;
   if (!collisionMap.loadFromFile("assets/colourmap1.png")) {
@@ -75,24 +94,9 @@ void GameState::runGame() {
     deltaTime = clock.restart().asSeconds();
     input = updateInputAxis();
 
-    view.setCenter(player.getShape().getPosition().x, view.getCenter().y);
+    // update level scroll
+    view = updateLevelScroll(view, LEVEL_END, player);
     window.setView(view);
-
-    // // Ensure the player does not move out of the window bounds
-    // sf::FloatRect playerBounds = player.getGlobalBounds();
-    //
-    // if (collisionMap.getPixel(playerBounds.left, playerBounds.top) ==
-    // sf::Color::Red){
-    // }
-    // if (playerBounds.left < 0)
-    // {
-    //     player.setPosition(0, player.getPosition().y);
-    // }
-    // else if (playerBounds.left + playerBounds.width > window.getSize().x)
-    // {
-    //     player.setPosition(window.getSize().x - playerBounds.width,
-    //     player.getPosition().y);
-    // }
 
     // updates
     player.update(*this);
