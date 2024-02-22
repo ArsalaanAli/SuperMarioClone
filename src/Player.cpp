@@ -3,12 +3,13 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
+#include <iostream>
 
 #define MAX_SPEED 400.0f
-#define DECEL_RATE 1500.0f
-#define ACCEL_RATE 1500.0f
+#define DECEL_RATE 3000.0f
+#define ACCEL_RATE 3000.0f
 #define JUMP_FORCE 1150.0f
-#define AIR_DECEL_RATE (DECEL_RATE * 2.0f)
+#define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
 #define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
 
 #define GROUND_HEIGHT (620 - 50)
@@ -71,19 +72,25 @@ void Player::update(GameState &state) {
     vy = std::max(vy, -MAX_AIR_SPEED);
   }
 
-  MovePlayer(vx, -vy, state);
+  MovePlayer(vx * dt, -vy * dt, state);
+  
+  sf::Vector2<float> pos = shape.getPosition();
+
+  std::cout << vx << "," << vy << "\n";
+  std::cout << pos.x << "," << pos.y << "\n";
 }
 
 void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
+  float dt = state.getDeltaTime();
 
   int newX = roundAwayFromZero(xoffset);
-  for (int i = 0; i <= size.y - 2; i++) {
+  for (int i = 0; i <= size.y - 3; i++) {
     if (state.checkCollision(pos.x + newX, pos.y + i) ||
         state.checkCollision(pos.x + size.x + newX, pos.y + i)) {
+      std::cout << "hitting x\n";
       xoffset = 0;
-      vx = 0;
       break;
     }
   }
@@ -95,6 +102,7 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
       break;
     }
   }
+
   shape.setPosition(pos.x + xoffset, pos.y + yoffset);
 }
 

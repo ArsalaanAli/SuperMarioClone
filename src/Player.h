@@ -23,7 +23,7 @@ public:
 
 private:
   // Position
-  int x, y;
+  float x, y;
 
   // override draw
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

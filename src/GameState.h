@@ -24,6 +24,7 @@ private:
   sf::Image collisionMap;
   sf::Vector2<int> input;
   sf::Vector2<int> updateInputAxis();
+  float LEVEL_END;
 };
 
 #endif // GAMESTATE_H
