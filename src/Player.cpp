@@ -35,14 +35,18 @@ bool Player::isGrounded(GameState &state) {
 
   sf::Vector2<float> size = shape.getSize();
 
-  bool collisionDetected = false;
+bool Player::isGrounded(GameState &state) {
+  sf::Vector2<float> pos = shape.getPosition();
+  sf::Vector2<float> size = shape.getSize();
+
   for (int i = 0; i < shape.getSize().x; i++){
     if (state.checkCollision(pos.x + i, pos.y + size.y)){
-      collisionDetected = true;
-      break;
+        vy = 0;
+        return true;
     }
   }
-  if(!collisionDetected){
+  return false;
+}
     return false;
   }
 
