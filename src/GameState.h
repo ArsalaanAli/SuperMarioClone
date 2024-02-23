@@ -17,6 +17,7 @@ public:
   float getDeltaTime();
   bool checkCollision(int x, int y);
   sf::Vector2<int> getInputAxis();
+  void endLevel(bool win);
 
 private:
   sf::Clock clock;
@@ -25,6 +26,7 @@ private:
   sf::Vector2<int> input;
   sf::Vector2<int> updateInputAxis();
   float LEVEL_END;
+  bool resetLevel;
 };
 
 #endif // GAMESTATE_H
