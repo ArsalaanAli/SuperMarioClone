@@ -3,10 +3,10 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "GameState.h"
 #include "Player.h"
+#include "Enemy.h"
 
 GameState::GameState() { clock = sf::Clock(); resetLevel = false; }
 
@@ -86,6 +86,7 @@ void GameState::runGame() {
   }
 
   Player player = Player(0, 0);
+  Enemy enemy = Enemy(100, 100);
 
   sf::Sprite backgroundSprite(backgroundTexture);
   backgroundSprite.setPosition(0, 0);
@@ -115,11 +116,13 @@ void GameState::runGame() {
 
     // entity updates
     player.update(*this);
+    enemy.update(*this);
 
     // Draw everything
     window.clear(sf::Color::White); // Clear the window with white color
     window.draw(backgroundSprite); // Draw background first
     window.draw(player);
+    window.draw(enemy);
     window.display();
   }
 }
