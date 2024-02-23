@@ -37,7 +37,6 @@ private:
   void setPosition(int cx, int cy);
   bool isGrounded(GameState &state);
   void MovePlayer(float xoffset, float yoffset, GameState &state);
-  int roundAwayFromZero(float x);
 };
 
 #endif // PLAYER_H
