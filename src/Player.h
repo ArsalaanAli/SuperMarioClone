@@ -16,6 +16,7 @@ public:
   ~Player();
 
   void jump();
+  void die();
 
   // Update call from gameloop
   void update(GameState &state);
@@ -34,9 +35,14 @@ private:
   // Velocities
   float vx, vy;
 
+  bool isDying;
+
   void setPosition(int cx, int cy);
+  void processInput(sf::Vector2<int> input, bool grounded, float dt);
+  void gravity();
   bool isGrounded(GameState &state);
   void MovePlayer(float xoffset, float yoffset, GameState &state);
+  bool shouldDie();
 };
 
 #endif // PLAYER_H
