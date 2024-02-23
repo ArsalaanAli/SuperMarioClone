@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "GameState.h"
 #include <iostream>
 
 #define MAX_SPEED 400.0f
@@ -11,7 +12,7 @@
 int Enemy::roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Enemy::Enemy(int cx, int cy) {
-  shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
+  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Red);
   shape.setPosition(1665, 0);
 
@@ -36,7 +37,7 @@ bool Enemy::isGrounded(GameState &state) {
         newY -= 1;
       }
 
-      shape.setPosition(pos.x, newY - 50);
+      shape.setPosition(pos.x, newY - CELL_SIZE);
 
       vy = 0;
       return true;
@@ -51,7 +52,7 @@ bool Enemy::checkPlayerCollision(float px, float py) {
   sf::Vector2<float> pos = shape.getPosition();
 
   float distance = ((pos.x - px) * (pos.x - px)) + ((pos.y - py) * (pos.y - py));
-  return distance < 50 * 50;
+  return distance < CELL_SIZE * CELL_SIZE;
 }
 
 void Enemy::update(GameState &state) {

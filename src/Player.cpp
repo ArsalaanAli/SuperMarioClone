@@ -12,12 +12,12 @@
 #define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
 #define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
 
-#define GROUND_HEIGHT (620 - 50)
+#define GROUND_HEIGHT (620 - CELL_SIZE)
 
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Player::Player(int cx, int cy) {
-  shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
+  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Black);
   shape.setPosition(cx, cy);
   isDying = false;
@@ -44,7 +44,7 @@ bool Player::isGrounded(GameState &state) {
       while (state.checkCollision(pos.x + i, newY)) {
         newY -= 1;
       }
-      shape.setPosition(pos.x, newY - 50);
+      shape.setPosition(pos.x, newY - CELL_SIZE);
 
       vy = 0;
       return true;
