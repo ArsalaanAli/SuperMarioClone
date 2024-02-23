@@ -20,6 +20,9 @@ Player::Player(int cx, int cy) {
   shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
   shape.setFillColor(sf::Color::Black);
   shape.setPosition(cx, cy);
+  isDying = false;
+  vx = 0;
+  vy = 0;
 }
 
 Player::~Player() {}
@@ -44,16 +47,13 @@ bool Player::isGrounded(GameState &state) {
   return false;
 }
 
-void Player::jump() { vy = JUMP_FORCE; }
-
-// Update called once per gameloop
-void Player::update(GameState &state) {
-  float dt = state.getDeltaTime();
-  sf::Vector2<int> input = state.getInputAxis();
-  bool grounded = isGrounded(state);
-
+void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded) {
     jump();
+  }
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+    die();
   }
 
   if (input.x) {
@@ -65,6 +65,40 @@ void Player::update(GameState &state) {
       vx -= DECEL_RATE * ((vx > 0) - (vx < 0)) * dt;
     else
       vx = 0;
+  }
+}
+
+bool Player::shouldDie() {
+  // TODO: include check for enemy collision and any other death conditions
+  return shape.getPosition().y >= 665;
+}
+void Player::jump() { vy = JUMP_FORCE; }
+void Player::die() {
+  if (!isDying) {
+    // on first invocation, jump
+    jump();
+    isDying = true;
+  }
+
+  // disable horizontal movement
+  vx = 0;
+}
+
+// Update called once per gameloop
+void Player::update(GameState &state) {
+  float dt = state.getDeltaTime();
+  sf::Vector2<int> input = state.getInputAxis();
+  bool grounded = isGrounded(state);
+
+  if (shouldDie() || isDying) {
+    die();
+
+    // once going down from jump, reset level
+    if (vy <= 0) {
+      state.endLevel(false);
+    }
+  } else {
+    processInput(input, grounded, dt);
   }
 
   if (!grounded) {
@@ -85,7 +119,6 @@ void Player::update(GameState &state) {
 void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
-  float dt = state.getDeltaTime();
 
   int newX = roundAwayFromZero(xoffset);
   for (int i = 0; i <= size.y - 3; i++) {
@@ -107,4 +140,3 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
 
   shape.setPosition(pos.x + xoffset, pos.y + yoffset);
 }
-

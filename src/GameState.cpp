@@ -3,11 +3,12 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "GameState.h"
 #include "Player.h"
 
-GameState::GameState() { clock = sf::Clock(); }
+GameState::GameState() { clock = sf::Clock(); resetLevel = false; }
 
 float GameState::getDeltaTime() {
   // not using clock.getElapsedTime() since we want since last recorded frame
@@ -57,6 +58,14 @@ bool GameState::checkCollision(int x, int y) {
   return collisionMap.getPixel(x, y) == sf::Color::Red;
 }
 
+void GameState::endLevel(bool win) {
+  if (win) {
+    // load next level
+  } else {
+    resetLevel = true;
+  }
+}
+
 void GameState::runGame() {
   sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
                           "Super Mario Clone");
@@ -69,7 +78,7 @@ void GameState::runGame() {
     return;
   }
 
-  const float LEVEL_END = backgroundTexture.getSize().x;
+  LEVEL_END = backgroundTexture.getSize().x;
 
   if (!collisionMap.loadFromFile("assets/colourmap1.png")) {
     // Error handling if loading fails
@@ -80,11 +89,6 @@ void GameState::runGame() {
 
   sf::Sprite backgroundSprite(backgroundTexture);
   backgroundSprite.setPosition(0, 0);
-
-  // Create the ground
-  sf::RectangleShape ground(sf::Vector2f(1280.0f, 10.0f));
-  ground.setFillColor(sf::Color::Black);
-  ground.setPosition(0.0f, 550.0f);
 
   while (window.isOpen()) {
     sf::Event event;
@@ -98,16 +102,22 @@ void GameState::runGame() {
     deltaTime = clock.restart().asSeconds();
     input = updateInputAxis();
 
+    if (resetLevel) {
+      player = Player(0, 0);
+      view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+
+      resetLevel = false;
+    }
+
     // update level scroll
     view = updateLevelScroll(view, LEVEL_END, player);
     window.setView(view);
 
-    // updates
+    // entity updates
     player.update(*this);
 
     // Draw everything
     window.clear(sf::Color::White); // Clear the window with white color
-    window.draw(ground);
     window.draw(backgroundSprite); // Draw background first
     window.draw(player);
     window.display();
