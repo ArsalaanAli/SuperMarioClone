@@ -15,7 +15,10 @@ public:
   bool checkPlayerCollision(float px, float py);
   sf::RectangleShape getShape();
   void die();
+  void reset();
 private:
+  int spawn_x, spawn_y;
+
   // Velocities
   float vx, vy;
 

@@ -13,18 +13,34 @@
 int Enemy::roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Enemy::Enemy(int cx, int cy) {
+  spawn_x = cx;
+  spawn_y = cy;
+
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Red);
-  shape.setPosition(1665, 0);
+  shape.setPosition(cx, cy);
 
   vx = MAX_SPEED;
   vy = MAX_AIR_SPEED;
+
+  isDying = false;
 }
 
 Enemy::~Enemy() {}
 
 void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(shape, states);
+}
+
+void Enemy::reset() {
+  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+  shape.setFillColor(sf::Color::Red);
+  shape.setPosition(spawn_x, spawn_y);
+
+  vx = MAX_SPEED;
+  vy = MAX_AIR_SPEED;
+
+  isDying = false;
 }
 
 bool Enemy::isGrounded(GameState &state) {
