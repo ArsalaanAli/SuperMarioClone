@@ -47,16 +47,18 @@ bool Enemy::isGrounded(GameState &state) {
   return false;
 }
 
-void Enemy::update(GameState &state) {
-  float dt = state.getDeltaTime();
-  bool grounded = isGrounded(state);
-
-  MoveEnemy(vx * dt, vy * dt, state);
-
+bool Enemy::checkPlayerCollision(float px, float py) {
   sf::Vector2<float> pos = shape.getPosition();
 
-  // std::cout << vx << "," << vy << "\n";
-  // std::cout << pos.x << "," << pos.y << "\n";
+  float distance = ((pos.x - px) * (pos.x - px)) + ((pos.y - py) * (pos.y - py));
+  return distance < 50 * 50;
+}
+
+void Enemy::update(GameState &state) {
+  float dt = state.getDeltaTime();
+  isGrounded(state);
+
+  MoveEnemy(vx * dt, vy * dt, state);
 }
 
 void Enemy::MoveEnemy(float xoffset, float yoffset, GameState &state) {
@@ -78,7 +80,6 @@ void Enemy::MoveEnemy(float xoffset, float yoffset, GameState &state) {
     if (state.checkCollision(pos.x + i, pos.y + newY)) {
       yoffset = abs(yoffset);
       vy = -yoffset;
-
       break;
     }
   }

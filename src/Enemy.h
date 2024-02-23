@@ -12,6 +12,7 @@ public:
   ~Enemy();
 
   void update(GameState &state);
+  bool checkPlayerCollision(float px, float py);
 
 private:
   // Velocities
