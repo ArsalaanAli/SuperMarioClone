@@ -116,7 +116,7 @@ void Player::update(GameState &state) {
 
   MovePlayer(vx * dt, -vy * dt, state);
 
-  sf::Vector2<float> pos = shape.getPosition();
+  // sf::Vector2<float> pos = shape.getPosition();
 
   // std::cout << vx << "," << vy << "\n";
   // std::cout << pos.x << "," << pos.y << "\n";

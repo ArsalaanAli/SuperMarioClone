@@ -7,8 +7,9 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define VIEW_SCROLL_MARGIN 200 
-#define VIEW_SCROLL_MARGIN_FROM_CENTER ((WINDOW_WIDTH / 2.0f) - VIEW_SCROLL_MARGIN)
+#define VIEW_SCROLL_MARGIN 200
+#define VIEW_SCROLL_MARGIN_FROM_CENTER                                         \
+  ((WINDOW_WIDTH / 2.0f) - VIEW_SCROLL_MARGIN)
 
 class GameState {
 public:
