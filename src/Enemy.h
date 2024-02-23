@@ -13,7 +13,8 @@ public:
 
   void update(GameState &state);
   bool checkPlayerCollision(float px, float py);
-
+  sf::RectangleShape getShape();
+  void die();
 private:
   // Velocities
   float vx, vy;
@@ -23,6 +24,8 @@ private:
 
   // Underlying SFML object
   sf::RectangleShape shape;
+
+  bool isDying;
 
   bool isGrounded(GameState &state);
   void MoveEnemy(float xoffset, float yoffset, GameState &state);

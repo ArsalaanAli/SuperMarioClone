@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "GameState.h"
+#include "SFML/Graphics/Color.hpp"
 #include <iostream>
 
 #define MAX_SPEED 400.0f
@@ -49,10 +50,25 @@ bool Enemy::isGrounded(GameState &state) {
 }
 
 bool Enemy::checkPlayerCollision(float px, float py) {
+  if (isDying) return false;
+
   sf::Vector2<float> pos = shape.getPosition();
 
   float distance = ((pos.x - px) * (pos.x - px)) + ((pos.y - py) * (pos.y - py));
   return distance < CELL_SIZE * CELL_SIZE;
+}
+
+sf::RectangleShape Enemy::getShape() { return shape; }
+
+
+void Enemy::die() {
+  if (!isDying) {
+    shape.setFillColor(sf::Color::Yellow); // replace with change to dead texture
+    isDying = true;
+  }
+
+  // disable horizontal movement
+  vx = 0;
 }
 
 void Enemy::update(GameState &state) {

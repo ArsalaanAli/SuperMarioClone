@@ -3,6 +3,7 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "GameState.h"
 #include "Player.h"
@@ -117,6 +118,18 @@ void GameState::runGame() {
     // entity updates
     player.update(*this);
     enemy.update(*this);
+
+    sf::Vector2f pos = player.getShape().getPosition();
+    sf::Vector2f epos = enemy.getShape().getPosition();
+
+    if (enemy.checkPlayerCollision(pos.x, pos.y)) {
+      if (pos.y < epos.y + (CELL_SIZE / 2)) {
+        enemy.die();
+        player.jump();
+      } else {
+        player.die();
+      }
+    }
 
     // Draw everything
     window.clear(sf::Color::White); // Clear the window with white color

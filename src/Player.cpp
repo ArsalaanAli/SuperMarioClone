@@ -79,6 +79,7 @@ bool Player::shouldDie() {
   return shape.getPosition().y >= 665;
 }
 void Player::jump() { vy = JUMP_FORCE; }
+
 void Player::die() {
   if (!isDying) {
     // on first invocation, jump
