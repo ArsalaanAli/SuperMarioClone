@@ -39,7 +39,13 @@ bool Player::isGrounded(GameState &state) {
   sf::Vector2<float> size = shape.getSize();
 
   for (int i = 0; i < shape.getSize().x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + size.y)) {
+    if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
+      float newY = pos.y + size.y;
+      while (state.checkCollision(pos.x + i, newY)) {
+        newY -= 1;
+      }
+      shape.setPosition(pos.x, newY - 50);
+
       vy = 0;
       return true;
     }
@@ -112,8 +118,8 @@ void Player::update(GameState &state) {
 
   sf::Vector2<float> pos = shape.getPosition();
 
-  std::cout << vx << "," << vy << "\n";
-  std::cout << pos.x << "," << pos.y << "\n";
+  // std::cout << vx << "," << vy << "\n";
+  // std::cout << pos.x << "," << pos.y << "\n";
 }
 
 void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
