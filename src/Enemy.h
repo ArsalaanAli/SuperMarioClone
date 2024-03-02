@@ -1,3 +1,5 @@
+#ifndef ENEMY_H
+#define ENEMY_H
 #include "GameState.h"
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
@@ -34,4 +36,4 @@ private:
   void MoveEnemy(float xoffset, float yoffset, GameState &state);
   int roundAwayFromZero(float x);
 };
-
+#endif // ENEMY_H
