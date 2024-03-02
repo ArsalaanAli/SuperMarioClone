@@ -61,7 +61,10 @@ sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
 }
 
 bool GameState::checkCollision(int x, int y) {
-  return collisionMap.getPixel(x, y) == sf::Color::Red;
+  sf::Vector2u size = collisionMap.getSize();
+  if (x > 0 && x < size.x && y > 0 && y<size.y)
+    return collisionMap.getPixel(x, y) == sf::Color::Red;
+  return false;
 }
 
 void GameState::endLevel(bool win) {
