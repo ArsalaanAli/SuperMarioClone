@@ -16,6 +16,8 @@
 
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
+Player::Player() {}
+
 Player::Player(int cx, int cy) {
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Black);

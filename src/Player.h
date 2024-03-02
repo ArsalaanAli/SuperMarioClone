@@ -12,6 +12,7 @@ using namespace std;
 
 class Player : public sf::Drawable {
 public:
+  Player();
   Player(int cx, int cy);
   ~Player();
 
