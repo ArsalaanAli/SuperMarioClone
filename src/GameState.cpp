@@ -9,6 +9,7 @@
 #include "Enemy.h"
 #include "GameState.h"
 #include "Player.h"
+#include "EntityManager.h"
 
 GameState::GameState() {
   clock = sf::Clock();
@@ -93,14 +94,15 @@ void GameState::runGame() {
     return;
   }
 
-  Player player = Player(0, 0);
+  EntityManager em = EntityManager(collisionMap);
 
-  std::vector<Enemy> enemies;
+  em.spawnPlayer(0, 0);
+  Player* player = em.getPlayer();
 
   for (int i = 0; i < 1; i++) {
-    Enemy enemy = Enemy((i + 1) * 1500, 0);
-    enemies.push_back(enemy);
+    em.spawnEnemy((i + 1) * 1500, 0);
   }
+  vector<Enemy>* enemies = em.getEnemies();
 
   sf::Sprite backgroundSprite(backgroundTexture);
   backgroundSprite.setPosition(0, 0);
@@ -113,50 +115,38 @@ void GameState::runGame() {
       }
     }
 
-    // Calculate elapsed time
-    deltaTime = clock.restart().asSeconds();
-    input = updateInputAxis();
-
     if (resetLevel) {
-      player = Player(0, 0);
+      em.spawnPlayer(0, 0);
       view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-      for (auto &enemy : enemies) {
+      for (auto &enemy : *enemies) {
         enemy.reset();
       }
 
       resetLevel = false;
     }
 
+    // Calculate elapsed time
+    deltaTime = clock.restart().asSeconds();
+    input = updateInputAxis();
     // update level scroll
-    view = updateLevelScroll(view, LEVEL_END, player);
+    view = updateLevelScroll(view, LEVEL_END, *player);
     window.setView(view);
 
     // entity updates
-    player.update(*this);
-    for (auto &enemy : enemies) {
+    player->update(*this);
+    for (auto &enemy : *enemies) {
       enemy.update(*this);
-
-      sf::Vector2f pos = player.getShape().getPosition();
-      sf::Vector2f epos = enemy.getShape().getPosition();
-
-      if (enemy.checkPlayerCollision(pos.x, pos.y)) {
-         std::cout << pos.y - epos.y << "\n";
-        if (pos.y - epos.y < -(CELL_SIZE / 2)) {
-          enemy.die();
-          player.jump();
-        } else {
-          player.die();
-        }
-      }
     }
+    em.update(*this);
 
     // Draw everything
     window.clear(sf::Color::White); // Clear the window with white color
     window.draw(backgroundSprite);  // Draw background first
-    for (Enemy enemy : enemies) {
+    for (auto &enemy : *enemies) {
       window.draw(enemy);
     }
-    window.draw(player);
+    window.draw(*player);
+
     window.display();
   }
 }
