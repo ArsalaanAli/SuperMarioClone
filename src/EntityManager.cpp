@@ -10,7 +10,11 @@ Player *EntityManager::getPlayer() { return &player; }
 vector<Enemy>* EntityManager::getEnemies() { return &enemies; }
 
 void EntityManager::update(GameState &state) {
+  player.update(state);
+
   for (auto &enemy : enemies) {
+    enemy.update(state);
+
     sf::Vector2f pos = player.getShape().getPosition();
     sf::Vector2f epos = enemy.getShape().getPosition();
 

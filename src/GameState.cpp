@@ -116,11 +116,8 @@ void GameState::runGame() {
     }
 
     if (resetLevel) {
-      em.spawnPlayer(0, 0);
       view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-      for (auto &enemy : *enemies) {
-        enemy.reset();
-      }
+      em.resetEntities();
 
       resetLevel = false;
     }
@@ -132,11 +129,6 @@ void GameState::runGame() {
     view = updateLevelScroll(view, LEVEL_END, *player);
     window.setView(view);
 
-    // entity updates
-    player->update(*this);
-    for (auto &enemy : *enemies) {
-      enemy.update(*this);
-    }
     em.update(*this);
 
     // Draw everything
