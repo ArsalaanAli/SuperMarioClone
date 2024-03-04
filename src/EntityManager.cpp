@@ -1,5 +1,7 @@
-#include "EntityManager.h"
 #include <iostream>
+
+#include "EntityManager.h"
+#include "GameState.h"
 
 EntityManager::EntityManager(sf::Image collisionMap) { cmap = collisionMap; }
 
@@ -7,11 +9,10 @@ EntityManager::~EntityManager() {}
 
 Player *EntityManager::getPlayer() { return &player; }
 
-vector<Enemy>* EntityManager::getEnemies() { return &enemies; }
+vector<Enemy> *EntityManager::getEnemies() { return &enemies; }
 
-void EntityManager::update(GameState &state) {
+void EntityManager::update(FrameState &state) {
   player.update(state);
-
   for (auto &enemy : enemies) {
     enemy.update(state);
 
