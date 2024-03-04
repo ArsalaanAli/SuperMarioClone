@@ -37,6 +37,10 @@ private:
 
   bool isDying;
 
+  sf::Sprite sprite;
+  sf::Texture spriteTexture;
+
+  void loadSprites();
   void setPosition(int cx, int cy);
   void processInput(sf::Vector2<int> input, bool grounded, float dt);
   void gravity();

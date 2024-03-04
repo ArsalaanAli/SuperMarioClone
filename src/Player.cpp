@@ -17,6 +17,7 @@
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Player::Player(int cx, int cy) {
+  loadSprites();
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Black);
   shape.setPosition(cx, cy);
@@ -25,12 +26,23 @@ Player::Player(int cx, int cy) {
   vy = 0;
 }
 
+void Player::loadSprites(){
+  if (!spriteTexture.loadFromFile("assets/MarioSprites/run0.png")) {
+    cout << "SOMETING WONG" << endl;
+    // Error handling if loading fails
+    return;
+  }
+  sprite.setTexture(spriteTexture);
+  sprite.setPosition(0, 0);
+}
+
 Player::~Player() {}
 
 sf::RectangleShape Player::getShape() { return shape; }
 
 // compatibility for windows.draw(player)
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+  target.draw(sprite);
   target.draw(shape, states);
 }
 
@@ -50,6 +62,7 @@ bool Player::isGrounded(GameState &state) {
       return true;
     }
   }
+
   return false;
 }
 
