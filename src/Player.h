@@ -6,7 +6,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "GameState.h"
+#include "FrameState.h"
 
 using namespace std;
 
@@ -20,7 +20,7 @@ public:
   void die();
 
   // Update call from gameloop
-  void update(GameState &state);
+  void update(FrameState &state);
   sf::RectangleShape getShape();
 
 private:
@@ -41,8 +41,8 @@ private:
   void setPosition(int cx, int cy);
   void processInput(sf::Vector2<int> input, bool grounded, float dt);
   void gravity();
-  bool isGrounded(GameState &state);
-  void MovePlayer(float xoffset, float yoffset, GameState &state);
+  bool isGrounded(FrameState &state);
+  void MovePlayer(float xoffset, float yoffset, FrameState &state);
   bool shouldDie();
 };
 

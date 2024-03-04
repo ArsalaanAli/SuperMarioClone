@@ -1,7 +1,7 @@
+#include "SFML/Graphics/Color.hpp"
+
 #include "Enemy.h"
 #include "GameState.h"
-#include "SFML/Graphics/Color.hpp"
-#include <iostream>
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f
@@ -43,14 +43,14 @@ void Enemy::reset() {
   isDying = false;
 }
 
-bool Enemy::isGrounded(GameState &state) {
+bool Enemy::isGrounded(FrameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
 
   for (int i = 0; i < size.x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
+    if (state.checkLevelCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY)) {
+      while (state.checkLevelCollision(pos.x + i, newY)) {
         newY -= 1;
       }
 
@@ -66,16 +66,17 @@ bool Enemy::isGrounded(GameState &state) {
 }
 
 bool Enemy::checkPlayerCollision(float px, float py) {
-  if (isDying) return false;
+  if (isDying)
+    return false;
 
   sf::Vector2<float> pos = shape.getPosition();
 
-  float distance = ((pos.x - px) * (pos.x - px)) + ((pos.y - py) * (pos.y - py));
+  float distance =
+      ((pos.x - px) * (pos.x - px)) + ((pos.y - py) * (pos.y - py));
   return distance < CELL_SIZE * CELL_SIZE;
 }
 
 sf::RectangleShape Enemy::getShape() { return shape; }
-
 
 void Enemy::die() {
   if (!isDying) {
@@ -87,21 +88,21 @@ void Enemy::die() {
   vx = 0;
 }
 
-void Enemy::update(GameState &state) {
+void Enemy::update(FrameState &state) {
   float dt = state.getDeltaTime();
   isGrounded(state);
 
   MoveEnemy(vx * dt, vy * dt, state);
 }
 
-void Enemy::MoveEnemy(float xoffset, float yoffset, GameState &state) {
+void Enemy::MoveEnemy(float xoffset, float yoffset, FrameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
 
   int newX = roundAwayFromZero(xoffset);
   for (int i = 0; i <= size.y - 3; i++) {
-    if (state.checkCollision(pos.x + newX, pos.y + i) ||
-        state.checkCollision(pos.x + size.x + newX, pos.y + i)) {
+    if (state.checkLevelCollision(pos.x + newX, pos.y + i) ||
+        state.checkLevelCollision(pos.x + size.x + newX, pos.y + i)) {
       xoffset *= -1;
       vx *= -1;
       break;
@@ -110,7 +111,7 @@ void Enemy::MoveEnemy(float xoffset, float yoffset, GameState &state) {
 
   int newY = roundAwayFromZero(yoffset);
   for (int i = 0; i <= size.x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + newY)) {
+    if (state.checkLevelCollision(pos.x + i, pos.y + newY)) {
       yoffset = abs(yoffset);
       vy = -yoffset;
       break;

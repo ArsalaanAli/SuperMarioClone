@@ -1,8 +1,9 @@
 #ifndef ENEMY_H
 #define ENEMY_H
-#include "GameState.h"
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
+
+#include "FrameState.h"
 
 class Enemy : public sf::Drawable {
 public:
@@ -13,7 +14,7 @@ public:
   Enemy &operator=(const Enemy &) = default;
   ~Enemy();
 
-  void update(GameState &state);
+  void update(FrameState &state);
   bool checkPlayerCollision(float px, float py);
   sf::RectangleShape getShape();
   void die();
@@ -32,8 +33,8 @@ private:
 
   bool isDying;
 
-  bool isGrounded(GameState &state);
-  void MoveEnemy(float xoffset, float yoffset, GameState &state);
+  bool isGrounded(FrameState &state);
+  void MoveEnemy(float xoffset, float yoffset, FrameState &state);
   int roundAwayFromZero(float x);
 };
 #endif // ENEMY_H

@@ -1,9 +1,9 @@
-#include "Player.h"
-#include "GameState.h"
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
-#include <iostream>
+
+#include "Player.h"
+#include "GameState.h"
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f
@@ -36,14 +36,14 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(shape, states);
 }
 
-bool Player::isGrounded(GameState &state) {
+bool Player::isGrounded(FrameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
 
   for (int i = 0; i < shape.getSize().x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
+    if (state.checkLevelCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY)) {
+      while (state.checkLevelCollision(pos.x + i, newY)) {
         newY -= 1;
       }
       shape.setPosition(pos.x, newY - CELL_SIZE);
@@ -94,7 +94,7 @@ void Player::die() {
 }
 
 // Update called once per gameloop
-void Player::update(GameState &state) {
+void Player::update(FrameState &state) {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
   bool grounded = isGrounded(state);
@@ -125,14 +125,14 @@ void Player::update(GameState &state) {
   // std::cout << pos.x << "," << pos.y << "\n";
 }
 
-void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
+void Player::MovePlayer(float xoffset, float yoffset, FrameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
 
   int newX = roundAwayFromZero(xoffset);
   for (int i = 0; i <= size.y - 3; i++) {
-    if (state.checkCollision(pos.x + newX, pos.y + i) ||
-        state.checkCollision(pos.x + size.x + newX, pos.y + i)) {
+    if (state.checkLevelCollision(pos.x + newX, pos.y + i) ||
+        state.checkLevelCollision(pos.x + size.x + newX, pos.y + i)) {
       xoffset = 0;
       break;
     }
@@ -140,7 +140,7 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
 
   int newY = roundAwayFromZero(yoffset);
   for (int i = 0; i <= size.x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + newY)) {
+    if (state.checkLevelCollision(pos.x + i, pos.y + newY)) {
       yoffset = abs(yoffset);
       vy = -yoffset;
       break;
