@@ -1,50 +1,17 @@
 #include "SFML/Graphics/Rect.hpp"
-#include "SFML/System/Clock.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
 
-#include "Enemy.h"
+#include "EntityManager.h"
+#include "FrameState.h"
 #include "GameState.h"
 #include "Player.h"
-#include "EntityManager.h"
 
-GameState::GameState() {
-  clock = sf::Clock();
-  resetLevel = false;
-}
+GameState::GameState() {}
 
-float GameState::getDeltaTime() {
-  // not using clock.getElapsedTime() since we want since last recorded frame
-  return deltaTime;
-}
-
-sf::Vector2<int> GameState::getInputAxis() { return input; }
-
-sf::Vector2<int> GameState::updateInputAxis() {
-  int dir_x = 0, dir_y = 0;
-
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-    dir_x += 1;
-  }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-    dir_x += -1;
-  }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-    dir_y += 1;
-  }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-    dir_y += -1;
-  }
-
-  return sf::Vector2<int>(dir_x, dir_y);
-}
-
-sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
-                           Player &player) {
-  float x = player.getShape().getPosition().x + 25;
+sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END, float px) {
+  float x = px + CELL_SIZE / 2;
   float viewX = view.getCenter().x;
 
   // calculate excess from either end as a positive value
@@ -60,21 +27,6 @@ sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
   return view;
 }
 
-bool GameState::checkCollision(int x, int y) {
-  sf::Vector2u size = collisionMap.getSize();
-  if (x > 0 && x < size.x && y > 0 && y<size.y)
-    return collisionMap.getPixel(x, y) == sf::Color::Red;
-  return false;
-}
-
-void GameState::endLevel(bool win) {
-  if (win) {
-    // load next level
-  } else {
-    resetLevel = true;
-  }
-}
-
 void GameState::runGame() {
   sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
                           "Super Mario Clone");
@@ -87,25 +39,24 @@ void GameState::runGame() {
     return;
   }
 
-  LEVEL_END = backgroundTexture.getSize().x;
+  sf::Sprite backgroundSprite(backgroundTexture);
+  backgroundSprite.setPosition(0, 0);
 
+  const int LEVEL_END = backgroundTexture.getSize().x;
+
+  sf::Image collisionMap;
   if (!collisionMap.loadFromFile("assets/colourmap1.png")) {
     // Error handling if loading fails
     return;
   }
 
-  EntityManager em = EntityManager(collisionMap);
+  FrameState state = FrameState();
+  em = EntityManager(collisionMap);
 
   em.spawnPlayer(0, 0);
-  Player* player = em.getPlayer();
-
   for (int i = 0; i < 1; i++) {
     em.spawnEnemy((i + 1) * 1500, 0);
   }
-  vector<Enemy>* enemies = em.getEnemies();
-
-  sf::Sprite backgroundSprite(backgroundTexture);
-  backgroundSprite.setPosition(0, 0);
 
   while (window.isOpen()) {
     sf::Event event;
@@ -115,30 +66,34 @@ void GameState::runGame() {
       }
     }
 
-    if (resetLevel) {
-      view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-      em.resetEntities();
-
-      resetLevel = false;
-    }
-
-    // Calculate elapsed time
-    deltaTime = clock.restart().asSeconds();
-    input = updateInputAxis();
     // update level scroll
-    view = updateLevelScroll(view, LEVEL_END, *player);
+    view = updateLevelScroll(view, LEVEL_END,
+                             em.getPlayer()->getShape().getPosition().x);
     window.setView(view);
 
-    em.update(*this);
+    state.update();
+    em.update(state);
 
     // Draw everything
     window.clear(sf::Color::White); // Clear the window with white color
     window.draw(backgroundSprite);  // Draw background first
-    for (auto &enemy : *enemies) {
+    for (auto &enemy : *em.getEnemies()) {
       window.draw(enemy);
     }
-    window.draw(*player);
+    window.draw(*em.getPlayer());
 
     window.display();
+
+    // Post-frame processing
+    if (state.getReset()) {
+      // bypass win condition while not implemented
+      if (state.getWin() && false) {
+        // TODO: handle win and load next level
+      } else {
+        // reset level
+        view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+        em.resetEntities();
+      }
+    }
   }
 }

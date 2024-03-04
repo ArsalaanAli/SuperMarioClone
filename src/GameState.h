@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <tuple>
 
+#include "EntityManager.h"
+
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define VIEW_SCROLL_MARGIN 200
@@ -13,22 +15,14 @@
 #define CELL_SIZE 50.0f
 
 class GameState {
+
 public:
   GameState();
-  void runGame();
-  float getDeltaTime();
-  bool checkCollision(int x, int y);
-  sf::Vector2<int> getInputAxis();
-  void endLevel(bool win);
+  static EntityManager em;
 
+  void runGame();
+  bool checkCollision(int x, int y);
 private:
-  sf::Clock clock;
-  float deltaTime;
-  sf::Image collisionMap;
-  sf::Vector2<int> input;
-  sf::Vector2<int> updateInputAxis();
-  float LEVEL_END;
-  bool resetLevel;
 };
 
 #endif // GAMESTATE_H
