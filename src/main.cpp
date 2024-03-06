@@ -2,7 +2,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     GameState game;
     game.runGame();
     return 0;
