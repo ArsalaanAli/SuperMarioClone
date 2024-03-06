@@ -13,6 +13,13 @@
 #define CELL_SIZE 50.0f
 #define GROUND_HEIGHT (620 - CELL_SIZE)
 
+enum GameStateEnum
+{
+  MainMenu,
+  Running,
+  Paused
+};
+
 /**
  * @brief The GameState class is responsible for running the game loop and
  * handling input.
@@ -102,6 +109,12 @@ private:
    * @brief Flag to reset the level in gameloop
    */
   bool resetLevel;
+
+  GameStateEnum gameState;
+  void handlePauseInput(sf::Event event);
+  sf::Font font;
+  sf::Font secondaryFont;
+  int selectedMenuItem;
 };
 
 #endif // GAMESTATE_H
