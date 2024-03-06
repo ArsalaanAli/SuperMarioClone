@@ -12,12 +12,12 @@
 #define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
 #define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
 
-#define GROUND_HEIGHT (620 - CELL_SIZE)
+#define GROUND_HEIGHT (620 - 50)
 
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Player::Player(int cx, int cy) {
-  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+  shape = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
   shape.setFillColor(sf::Color::Black);
   shape.setPosition(cx, cy);
   isDying = false;
@@ -39,13 +39,7 @@ bool Player::isGrounded(GameState &state) {
   sf::Vector2<float> size = shape.getSize();
 
   for (int i = 0; i < shape.getSize().x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
-      float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY)) {
-        newY -= 1;
-      }
-      shape.setPosition(pos.x, newY - CELL_SIZE);
-
+    if (state.checkCollision(pos.x + i, pos.y + size.y)) {
       vy = 0;
       return true;
     }
@@ -79,7 +73,6 @@ bool Player::shouldDie() {
   return shape.getPosition().y >= 665;
 }
 void Player::jump() { vy = JUMP_FORCE; }
-
 void Player::die() {
   if (!isDying) {
     // on first invocation, jump
@@ -117,10 +110,10 @@ void Player::update(GameState &state) {
 
   MovePlayer(vx * dt, -vy * dt, state);
 
-  // sf::Vector2<float> pos = shape.getPosition();
+  sf::Vector2<float> pos = shape.getPosition();
 
-  // std::cout << vx << "," << vy << "\n";
-  // std::cout << pos.x << "," << pos.y << "\n";
+  std::cout << vx << "," << vy << "\n";
+  std::cout << pos.x << "," << pos.y << "\n";
 }
 
 void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
