@@ -81,28 +81,29 @@ void GameState::endLevel(bool win) {
 }
 
 void GameState::drawMainMenu(sf::RenderWindow &window) {
+    sf::Vector2f windowCenter = window.getView().getCenter();
 
     // Draw the overlay
-    sf::RectangleShape overlay(sf::Vector2f(window.getView().getCenter().x + WINDOW_WIDTH / 2, window.getView().getCenter().y + WINDOW_HEIGHT / 2));
+    sf::RectangleShape overlay(sf::Vector2f(windowCenter.x + WINDOW_WIDTH / 2, windowCenter.y + WINDOW_HEIGHT / 2));
     overlay.setFillColor(sf::Color(0, 0, 0, 100)); // Semi-transparent black overlay
     window.draw(overlay);
 
+    // Draw "TIME" label
     sf::Text timeLabel("TIME", secondaryFont, 50);
-    timeLabel.setPosition(100, 10);
+    timeLabel.setPosition(windowCenter.x - 400, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
     timeLabel.setFillColor(sf::Color(255, 255, 0));
     window.draw(timeLabel);
 
     std::string timeString = std::to_string(getDeltaTime());
-
     sf::Text time(timeString, secondaryFont, 50);
-    time.setPosition(260, 10);
+    time.setPosition(windowCenter.x - 240, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
     time.setFillColor(sf::Color(255, 255, 0));
     window.draw(time);
 
-    float bannerWidth = window.getSize().x * 0.50f;
-    float bannerHeight = window.getSize().y * 0.40f;
-    float bannerX = (window.getSize().x - bannerWidth) / 2;
-    float bannerY = window.getSize().y * 0.18f;
+    float bannerWidth = window.getView().getSize().x * 0.50f;
+    float bannerHeight = window.getView().getSize().y * 0.40f;
+    float bannerX = windowCenter.x - bannerWidth / 2;
+    float bannerY = windowCenter.y - window.getView().getSize().y / 2 + window.getView().getSize().y * 0.18f;
 
     // Draw the banner
     sf::RectangleShape banner(sf::Vector2f(bannerWidth, bannerHeight));
@@ -127,17 +128,16 @@ void GameState::drawMainMenu(sf::RenderWindow &window) {
     copyRightText.setFillColor(sf::Color::White);
     window.draw(copyRightText);
 
-    // Draw "Start Game" button
     sf::RectangleShape startButton(sf::Vector2f(300, 60));
-    startButton.setPosition((window.getSize().x - 300) / 2, window.getSize().y - 200);
+    startButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 200);
     startButton.setFillColor(sf::Color(0, 150, 136));
     startButton.setOutlineThickness(2);
     startButton.setOutlineColor(sf::Color(0, 188, 212));
 
+    // Check mouse interaction with "Start Game" button
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
         startButton.setFillColor(sf::Color(76, 175, 80));
-
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             gameState = Running;
         }
@@ -147,24 +147,24 @@ void GameState::drawMainMenu(sf::RenderWindow &window) {
 
     window.draw(startButton);
 
+    // Draw "Start Game" text
     sf::Text startGameText("Start Game", secondaryFont, 35);
     sf::FloatRect textBounds = startGameText.getLocalBounds();
-    startGameText.setPosition(startButton.getPosition().x + (startButton.getSize().x - textBounds.width) / 2,
-                              startButton.getPosition().y + (startButton.getSize().y - textBounds.height) / 2 - 10);
+    startGameText.setPosition(windowCenter.x - textBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 190);
     startGameText.setFillColor(sf::Color::White);
     window.draw(startGameText);
 
     // Draw "Quit Game" button
     sf::RectangleShape quitButton(sf::Vector2f(300, 60));
-    quitButton.setPosition((window.getSize().x - 300) / 2, window.getSize().y - 100);
+    quitButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 100);
     quitButton.setFillColor(sf::Color(244, 67, 54)); 
     quitButton.setOutlineThickness(2);
     quitButton.setOutlineColor(sf::Color::White);
 
+    // Check mouse interaction with "Quit Game" button
     sf::Vector2i mousePositionQuit = sf::Mouse::getPosition(window);
     if (quitButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePositionQuit))) {
         quitButton.setFillColor(sf::Color(233, 30, 99)); 
-
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             window.close();
         }
@@ -174,15 +174,16 @@ void GameState::drawMainMenu(sf::RenderWindow &window) {
 
     window.draw(quitButton);
 
+    // Draw "Quit Game" text
     sf::Text quitGameText("Quit Game", secondaryFont, 35);
     sf::FloatRect quitTextBounds = quitGameText.getLocalBounds();
-    quitGameText.setPosition(quitButton.getPosition().x + (quitButton.getSize().x - quitTextBounds.width) / 2,
-                             quitButton.getPosition().y + (quitButton.getSize().y - quitTextBounds.height) / 2 - 10);
+    quitGameText.setPosition(windowCenter.x - quitTextBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 100);
     quitGameText.setFillColor(sf::Color::White);
     window.draw(quitGameText);
 
     window.display();
 }
+
 
 void GameState::drawPausePopup(sf::RenderWindow &window) {
     // Get the center of the window
@@ -246,6 +247,7 @@ void GameState::drawPausePopup(sf::RenderWindow &window) {
 
     window.draw(selector);
 }
+
 
 void GameState::handlePauseInput(sf::Event event) {
     if (event.type == sf::Event::KeyPressed) {
@@ -317,7 +319,9 @@ void GameState::runGame() {
                         selectedMenuItem = 0;
                         break;
                     case 2:
-                        window.close();
+                        resetLevel = true;
+                        gameState = MainMenu;
+                        // window.close();
                         break;
                     default:
                         break;
