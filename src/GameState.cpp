@@ -91,7 +91,7 @@ sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
 bool GameState::checkCollision(int x, int y)
 {
     sf::Vector2u size = collisionMap.getSize();
-    if (x > 0 && x < size.x && y > 0 && y < size.y)
+    if (x > 0 && x < static_cast<int>(size.x) && y > 0 && y < static_cast<int>(size.y))
         return collisionMap.getPixel(x, y) == sf::Color::Red;
     return false;
 }
@@ -214,7 +214,7 @@ void GameState::drawMainMenu(sf::RenderWindow &window)
     // Draw "Quit Game" text
     sf::Text quitGameText("Quit Game", secondaryFont, 35);
     sf::FloatRect quitTextBounds = quitGameText.getLocalBounds();
-    quitGameText.setPosition(windowCenter.x - quitTextBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 100);
+    quitGameText.setPosition(windowCenter.x - quitTextBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 95);
     quitGameText.setFillColor(sf::Color::White);
     window.draw(quitGameText);
 
@@ -371,7 +371,7 @@ void GameState::runGame()
 
                     handlePauseInput(event);
 
-                    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+                    if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
                     {
                         gameState = Running;
                     }
