@@ -376,53 +376,46 @@ void GameState::runGame()
 
     // Spawn player and enemies
     Player player = Player(0, 0);
-    std::vector<Enemy> enemies;
 
-    for (int i = 0; i < 1; i++)
-    {
-        Enemy enemy = Enemy((i + 1) * 1500, 0);
-        enemies.push_back(enemy);
-    }
+    sf::Sprite backgroundSprite(backgroundTexture);
+    backgroundSprite.setPosition(0, 0);
 
-    // Game loop
     while (window.isOpen())
     {
-
-        while (window.isOpen())
+        sf::Event event;
+        while (window.pollEvent(event))
         {
-            sf::Event event;
-            while (window.pollEvent(event))
+            if (event.type == sf::Event::Closed)
             {
-                if (event.type == sf::Event::Closed)
+                window.close();
+            }
+
+            if (event.type == sf::Event::KeyPressed)
+            {
+                switch (gameState)
                 {
-                    window.close();
-                }
-                // Handle events based on game state
-                if (gameState == MainMenu)
-                {
-                    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
+                case MainMenu:
+                    if (event.key.code == sf::Keyboard::Enter)
                     {
                         gameState = Running;
                     }
-                }
-                else if (gameState == Running)
-                {
-                    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P)
+                    break;
+
+                case Running:
+                    if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape)
                     {
                         gameState = Paused;
                     }
-                }
-                else if (gameState == Paused)
-                {
+                    break;
 
+                case Paused:
                     handlePauseInput(event, window);
 
-                    if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
+                    if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape)
                     {
                         gameState = Running;
                     }
-
-                    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
+                    else if (event.key.code == sf::Keyboard::Enter)
                     {
                         switch (selectedMenuItem)
                         {
@@ -438,80 +431,84 @@ void GameState::runGame()
                         case 2:
                             resetLevel = true;
                             gameState = MainMenu;
-                            // window.close();
                             break;
                         default:
                             break;
                         }
                     }
+                    break;
+
+                default:
+                    break;
                 }
             }
+        }
 
-            if (gameState == MainMenu)
+        if (gameState == MainMenu)
+        {
+            window.draw(backgroundSprite);
+            drawMainMenu(window);
+        }
+        else if (gameState == Running)
+        {
+            deltaTime = clock.restart().asSeconds();
+            input = updateInputAxis();
+
+            if (resetLevel)
             {
-                window.draw(backgroundSprite);
-                drawMainMenu(window);
-            }
-            else if (gameState == Running)
-            {
-                deltaTime = clock.restart().asSeconds();
-                input = updateInputAxis();
-
-                if (resetLevel)
-                {
-                    player = Player(0, 0);
-                    view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-                    for (auto &enemy : enemies)
-                    {
-                        enemy.reset();
-                    }
-
-                    resetLevel = false;
-                }
-
-                view = updateLevelScroll(view, LEVEL_END, player);
-                window.setView(view);
-
-                // Entity updates
-                player.update(*this);
+                player = Player(0, 0);
+                view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
                 for (auto &enemy : enemies)
                 {
-                    enemy.update(*this);
+                    enemy.reset();
+                }
 
-                    sf::Vector2f pos = player.getShape().getPosition();
-                    sf::Vector2f epos = enemy.getShape().getPosition();
+                resetLevel = false;
+            }
 
-                    // Check for player collision with enemy
-                    if (enemy.checkPlayerCollision(pos.x, pos.y))
+            view = updateLevelScroll(view, LEVEL_END, player);
+            window.setView(view);
+
+            // Entity updates
+            player.update(*this);
+            for (auto &enemy : enemies)
+            {
+                enemy.update(*this);
+
+                sf::Vector2f pos = player.getShape().getPosition();
+                sf::Vector2f epos = enemy.getShape().getPosition();
+
+                // Check for player collision with enemy
+                if (enemy.checkPlayerCollision(pos.x, pos.y))
+                {
+                    // Check if player is above enemy
+                    if (pos.y - epos.y < -(CELL_SIZE / 2))
                     {
-                        // Check if player is above enemy
-                        if (pos.y - epos.y < -(CELL_SIZE / 2))
-                        {
-                            enemy.die();
-                            player.jump();
-                        }
-                        else
-                        {
-                            player.die();
-                        }
+                        enemy.die();
+                        player.jump();
+                    }
+                    else
+                    {
+                        player.die();
                     }
                 }
-
-                // Draw everything
-                window.clear(sf::Color::White); // Clear the window with white color
-                window.draw(backgroundSprite);  // Draw background first
-                for (Enemy enemy : enemies)
-                {
-                    window.draw(enemy);
-                }
-                window.draw(player);
             }
-            else if (gameState == Paused)
+
+            // Draw everything
+            window.clear(sf::Color::White); // Clear the window with white color
+            window.draw(backgroundSprite);  // Draw background first
+            for (Enemy enemy : enemies)
             {
-                window.draw(backgroundSprite);
-                drawPausePopup(window);
+                window.draw(enemy);
             }
-
-            window.display();
+            window.draw(player);
         }
+        else if (gameState == Paused)
+        {
+            window.draw(backgroundSprite);
+            drawPausePopup(window);
+        }
+
+        window.display();
     }
+}
