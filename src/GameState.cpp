@@ -330,45 +330,53 @@ void GameState::runGame() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            // Handle events based on game state
-            if (gameState == MainMenu) {
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-                    gameState = Running;
-                }
-            } else if (gameState == Running) {
-                if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-                    gameState = Paused;
-                }
-            } else if (gameState == Paused) {
 
-                 handlePauseInput(event, window);
-                 
-                if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
-                    gameState = Running;
-                }
+            if (event.type == sf::Event::KeyPressed) {
+                switch (gameState) {
+                    case MainMenu:
+                        if (event.key.code == sf::Keyboard::Enter) {
+                            gameState = Running;
+                        }
+                        break;
 
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
-                    switch (selectedMenuItem) {
-                    case 0:
-                        gameState = Running;
-                        selectedMenuItem = 0;
+                    case Running:
+                        if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape) {
+                            gameState = Paused;
+                        }
                         break;
-                    case 1:
-                        resetLevel = true;
-                        gameState = Running;
-                        selectedMenuItem = 0;
+
+                    case Paused:
+                        handlePauseInput(event, window);
+                        
+                        if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape) {
+                            gameState = Running;
+                        } else if (event.key.code == sf::Keyboard::Enter) {
+                            switch (selectedMenuItem) {
+                                case 0:
+                                    gameState = Running;
+                                    selectedMenuItem = 0;
+                                    break;
+                                case 1:
+                                    resetLevel = true;
+                                    gameState = Running;
+                                    selectedMenuItem = 0;
+                                    break;
+                                case 2:
+                                    resetLevel = true;
+                                    gameState = MainMenu;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
                         break;
-                    case 2:
-                        resetLevel = true;
-                        gameState = MainMenu;
-                        // window.close();
-                        break;
+
                     default:
                         break;
-                    }
                 }
             }
         }
+    
 
         if (gameState == MainMenu) {
             window.draw(backgroundSprite);
