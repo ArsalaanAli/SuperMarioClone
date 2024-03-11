@@ -71,6 +71,9 @@ public:
    * @param win Whether the player won the level. If false, the level is incomplete so restart the level
    */
   void endLevel(bool win);
+  void drawMainMenu(sf::RenderWindow &window);
+  void drawPausePopup(sf::RenderWindow &window);
+  bool isMouseOverText(sf::RenderWindow &window, sf::Text &text);
 
 private:
   /**
@@ -111,7 +114,7 @@ private:
   bool resetLevel;
 
   GameStateEnum gameState;
-  void handlePauseInput(sf::Event event);
+  void handlePauseInput(sf::Event event, sf::RenderWindow &window);
   sf::Font font;
   sf::Font secondaryFont;
   int selectedMenuItem;
