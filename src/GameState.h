@@ -22,6 +22,7 @@ public:
   void endLevel(bool win);
   void drawMainMenu(sf::RenderWindow& window);
   void drawPausePopup(sf::RenderWindow& window);
+   bool isMouseOverText(sf::RenderWindow& window, sf::Text& text);
 
 private:
   sf::Clock clock;
@@ -32,7 +33,7 @@ private:
   float LEVEL_END;
   bool resetLevel;
   GameStateEnum gameState;
-  void handlePauseInput(sf::Event event);
+void handlePauseInput(sf::Event event, sf::RenderWindow& window);
   sf::Font font;
   sf::Font secondaryFont;
   int selectedMenuItem;

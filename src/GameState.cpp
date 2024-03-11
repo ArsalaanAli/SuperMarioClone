@@ -186,6 +186,13 @@ void GameState::drawMainMenu(sf::RenderWindow &window) {
 }
 
 
+bool GameState::isMouseOverText(sf::RenderWindow& window, sf::Text& text) {
+    sf::FloatRect bounds = text.getGlobalBounds();
+    sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    return bounds.contains(mousePos);
+}
+
+
 void GameState::drawPausePopup(sf::RenderWindow &window) {
     // Get the center of the window
     sf::Vector2f windowCenter = window.getView().getCenter();
@@ -225,6 +232,16 @@ void GameState::drawPausePopup(sf::RenderWindow &window) {
     window.draw(resumeText);
     window.draw(restartText);
     window.draw(quitText);
+    
+    
+    // Check if mouse is over any menu item and update selectedMenuItem
+    if (isMouseOverText(window, resumeText)) {
+        selectedMenuItem = 0;
+    } else if (isMouseOverText(window, restartText)) {
+        selectedMenuItem = 1;
+    } else if (isMouseOverText(window, quitText)) {
+        selectedMenuItem = 2;
+    }
 
     // Draw the selection indicator
     sf::ConvexShape selector;
@@ -250,7 +267,7 @@ void GameState::drawPausePopup(sf::RenderWindow &window) {
 }
 
 
-void GameState::handlePauseInput(sf::Event event) {
+void GameState::handlePauseInput(sf::Event event, sf::RenderWindow& window) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Up) {
             // Move selection up (from first item to last item)
@@ -258,6 +275,28 @@ void GameState::handlePauseInput(sf::Event event) {
         } else if (event.key.code == sf::Keyboard::Down) {
             // Move selection down (from last item to first item)
             selectedMenuItem = (selectedMenuItem == 2) ? 0 : selectedMenuItem + 1;
+        }
+    }
+    
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+            switch (selectedMenuItem) {
+            case 0:
+                gameState = Running;
+                selectedMenuItem = 0;
+                break;
+            case 1:
+                resetLevel = true;
+                gameState = Running;
+                selectedMenuItem = 0;
+                break;
+            case 2:
+                resetLevel = true;
+                gameState = MainMenu;
+                break;
+            default:
+                break;
+            }
         }
     }
 }
@@ -302,8 +341,8 @@ void GameState::runGame() {
                 }
             } else if (gameState == Paused) {
 
-                handlePauseInput(event);
-
+                 handlePauseInput(event, window);
+                 
                 if ((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::P) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
                     gameState = Running;
                 }
