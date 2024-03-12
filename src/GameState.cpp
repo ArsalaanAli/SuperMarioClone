@@ -180,7 +180,6 @@ void GameState::runGame()
       // Check for player collision with enemy
       if (enemy.checkPlayerCollision(pos.x, pos.y))
       {
-        std::cout << pos.y - epos.y << "\n";
         // Check if player is above enemy
         if (pos.y - epos.y < -(CELL_SIZE / 2))
         {
