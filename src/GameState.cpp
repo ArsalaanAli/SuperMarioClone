@@ -61,7 +61,7 @@ sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
 
 bool GameState::checkCollision(int x, int y) {
   sf::Vector2u size = collisionMap.getSize();
-  if (x > 0 && x < size.x && y > 0 && y<size.y)
+  if (x > 0 && x < size.x && y > 0 && y < size.y)
     return collisionMap.getPixel(x, y) == sf::Color::Red;
   return false;
 }
@@ -140,7 +140,7 @@ void GameState::runGame() {
       sf::Vector2f epos = enemy.getShape().getPosition();
 
       if (enemy.checkPlayerCollision(pos.x, pos.y)) {
-         std::cout << pos.y - epos.y << "\n";
+        std::cout << pos.y - epos.y << "\n";
         if (pos.y - epos.y < -(CELL_SIZE / 2)) {
           enemy.die();
           player.jump();
