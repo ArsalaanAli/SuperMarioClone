@@ -25,6 +25,11 @@ public:
   GameState();
 
   /**
+   * @brief Destroy the Game State object
+   */
+  ~GameState();
+
+  /**
    * @brief Run the game loop.
    */
   void runGame();
