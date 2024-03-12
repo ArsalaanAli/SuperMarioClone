@@ -43,7 +43,7 @@ sf::RectangleShape Player::getShape() { return shape; }
 // compatibility for windows.draw(player)
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
   target.draw(sprite);
-  target.draw(shape, states);
+  // target.draw(shape, states);
 }
 
 bool Player::isGrounded(GameState &state) {
