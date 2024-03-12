@@ -362,7 +362,7 @@ void GameState::runGame()
             {
                 window.close();
             }
-
+            // Handle events based on game state
             if (event.type == sf::Event::MouseButtonPressed)
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
