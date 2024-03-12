@@ -19,9 +19,9 @@ These keys can be pressed together to further diversify player movement.
 
 ## How to run
 1. Navigate to the SuperMarioClone folder in the repository.
-2. Type: "make"
-3. Type: "./SuperMarioClone"
-4. Press "Q" to restart the level, or navaigate to the window controller on the top right of the screen to close or resize the window.
+2. Type: `make`
+3. Type: `./SuperMarioClone`
+4. Press `Q` to restart the level, or navaigate to the window controller on the top right of the screen to close or resize the window.
 
 ## How to play
 The goal of the game is to traverse the level, bypass enemies, and collect as many coins and powerups as possible, all while minimizing the time to complete the level.
