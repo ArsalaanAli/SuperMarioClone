@@ -19,7 +19,7 @@ These keys can be pressed together to further diversify player movement.
 
 ## How to install
 1. Download the zip file and unzip it to a location of your choosing
-2. Download SFML and ensure it is installed in the correct directory.
+2. Download SFML and ensure it is installed in the correct directory. (for linux use `sudo apt-get install libsfml-dev`)
 
 ## How to run
 1. Open Ubuntu or an equivalent Linux system.
