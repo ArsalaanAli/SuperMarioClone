@@ -1,12 +1,19 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "SFML/Graphics/Drawable.hpp"
-#include "SFML/Graphics/RectangleShape.hpp"
 #include <cmath>
 #include <iostream>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "GameState.h"
+
+#define MAX_SPEED 400.0f
+#define DECEL_RATE 3000.0f
+#define ACCEL_RATE 3000.0f
+#define JUMP_FORCE 1150.0f
+#define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
+#define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
 
 using namespace std;
 

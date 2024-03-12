@@ -1,18 +1,9 @@
-#include "Player.h"
-#include "GameState.h"
-#include "SFML/Graphics/RectangleShape.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "SFML/Window/Keyboard.hpp"
 #include <iostream>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
-#define MAX_SPEED 400.0f
-#define DECEL_RATE 3000.0f
-#define ACCEL_RATE 3000.0f
-#define JUMP_FORCE 1150.0f
-#define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
-#define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
-
-#define GROUND_HEIGHT (620 - CELL_SIZE)
+#include "Player.h"
 
 /**
  * @brief Round a float away from zero.

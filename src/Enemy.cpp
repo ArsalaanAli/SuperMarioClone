@@ -1,14 +1,7 @@
-#include "Enemy.h"
-#include "GameState.h"
-#include "SFML/Graphics/Color.hpp"
 #include <iostream>
+#include <SFML/Graphics/Color.hpp>
 
-#define MAX_SPEED 400.0f
-#define DECEL_RATE 3000.0f
-#define ACCEL_RATE 3000.0f
-#define JUMP_FORCE 1150.0f
-#define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
-#define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
+#include "Enemy.h"
 
 int Enemy::roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 

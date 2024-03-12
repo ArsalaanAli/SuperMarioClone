@@ -11,6 +11,7 @@
 #define VIEW_SCROLL_MARGIN_FROM_CENTER \
   ((WINDOW_WIDTH / 2.0f) - VIEW_SCROLL_MARGIN)
 #define CELL_SIZE 50.0f
+#define GROUND_HEIGHT (620 - CELL_SIZE)
 
 /**
  * @brief The GameState class is responsible for running the game loop and

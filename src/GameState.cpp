@@ -1,14 +1,14 @@
-#include "SFML/Graphics/Rect.hpp"
-#include "SFML/System/Clock.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "SFML/Window/Keyboard.hpp"
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Keyboard.hpp>
+#include <SFML/Graphics.hpp>
 
-#include "Enemy.h"
 #include "GameState.h"
 #include "Player.h"
+#include "Enemy.h"
 
 GameState::GameState()
 {
