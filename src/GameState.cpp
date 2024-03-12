@@ -307,7 +307,7 @@ void GameState::runGame() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-
+    // Handle events based on game state
     if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
             switch (selectedMenuItem) {
