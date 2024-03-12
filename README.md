@@ -17,11 +17,16 @@ Super Mario Adventure is a 2D side-scrolling platform game where players control
 
 These keys can be pressed together to further diversify player movement.
 
+## How to install
+1. Download the zip file and unzip it to a location of your choosing
+2. Download SFML and ensure it is installed in the correct directory.
+
 ## How to run
-1. Navigate to the SuperMarioClone folder in the repository.
-2. Type: `make`
-3. Type: `./SuperMarioClone`
-4. Press `Q` to restart the level, or navaigate to the window controller on the top right of the screen to close or resize the window.
+1. Open Ubuntu or an equivalent Linux system.
+2. Navigate to the SuperMarioClone folder in the repository.
+3. Type: `make`
+4. Type: `./SuperMarioClone`
+5. Press `Q` to restart the level, or navaigate to the window controller on the top right of the screen to close or resize the window.
 
 ## How to play
 The goal of the game is to traverse the level, bypass enemies, and collect as many coins and powerups as possible, all while minimizing the time to complete the level.
