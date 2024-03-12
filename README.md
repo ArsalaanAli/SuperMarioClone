@@ -11,9 +11,9 @@ Super Mario Adventure is a 2D side-scrolling platform game where players control
 - enemies
 
 ## Controls
-To move left - press the left arrow key
-To move right - press the right arrow key
-To jump - press the space bar
+- To move left - press the left arrow key
+- To move right - press the right arrow key
+- To jump - press the space bar
 
 These keys can be pressed together to further diversify player movement.
 
