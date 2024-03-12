@@ -217,8 +217,6 @@ void GameState::drawMainMenu(sf::RenderWindow &window)
     quitGameText.setPosition(windowCenter.x - quitTextBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 95);
     quitGameText.setFillColor(sf::Color::White);
     window.draw(quitGameText);
-
-    window.display();
 }
 
 bool GameState::isMouseOverText(sf::RenderWindow &window, sf::Text &text)
@@ -322,31 +320,6 @@ void GameState::handlePauseInput(sf::Event event, sf::RenderWindow &window)
             selectedMenuItem = (selectedMenuItem == 2) ? 0 : selectedMenuItem + 1;
         }
     }
-
-    if (event.type == sf::Event::MouseButtonPressed)
-    {
-        if (event.mouseButton.button == sf::Mouse::Left)
-        {
-            switch (selectedMenuItem)
-            {
-            case 0:
-                gameState = Running;
-                selectedMenuItem = 0;
-                break;
-            case 1:
-                resetLevel = true;
-                gameState = Running;
-                selectedMenuItem = 0;
-                break;
-            case 2:
-                resetLevel = true;
-                gameState = MainMenu;
-                break;
-            default:
-                break;
-            }
-        }
-    }
 }
 
 void GameState::runGame()
@@ -388,6 +361,31 @@ void GameState::runGame()
             if (event.type == sf::Event::Closed)
             {
                 window.close();
+            }
+
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                    switch (selectedMenuItem)
+                    {
+                    case 0:
+                        gameState = Running;
+                        selectedMenuItem = 0;
+                        break;
+                    case 1:
+                        resetLevel = true;
+                        gameState = Running;
+                        selectedMenuItem = 0;
+                        break;
+                    case 2:
+                        resetLevel = true;
+                        gameState = MainMenu;
+                        break;
+                    default:
+                        break;
+                    }
+                }
             }
 
             if (event.type == sf::Event::KeyPressed)
