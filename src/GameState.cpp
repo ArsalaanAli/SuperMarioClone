@@ -117,7 +117,7 @@ void GameState::runGame()
 
   LEVEL_END = backgroundTexture.getSize().x;
 
-  if (!collisionMap.loadFromFile("assets/colourmap1.png"))
+  if (!collisionMap.loadFromFile("assets/newcolourmap1.png"))
   {
     // Error handling if loading fails
     return;
