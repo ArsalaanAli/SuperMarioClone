@@ -1,7 +1,6 @@
 #include "Enemy.h"
 #include "GameState.h"
 #include "SFML/Graphics/Color.hpp"
-#include <iostream>
 #include <cmath>
 
 #define MAX_SPEED 400.0f

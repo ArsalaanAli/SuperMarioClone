@@ -3,7 +3,6 @@
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <vector>
 
 #include "Enemy.h"

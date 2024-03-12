@@ -3,7 +3,6 @@
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
-#include <iostream>
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f

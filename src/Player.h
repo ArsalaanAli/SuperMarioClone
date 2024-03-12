@@ -4,7 +4,6 @@
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 #include <cmath>
-#include <iostream>
 
 #include "GameState.h"
 
