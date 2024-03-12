@@ -139,7 +139,6 @@ void GameState::runGame() {
       sf::Vector2f epos = enemy.getShape().getPosition();
 
       if (enemy.checkPlayerCollision(pos.x, pos.y)) {
-        std::cout << pos.y - epos.y << "\n";
         if (pos.y - epos.y < -(CELL_SIZE / 2)) {
           enemy.die();
           player.jump();
