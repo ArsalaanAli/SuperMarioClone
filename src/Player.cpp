@@ -27,12 +27,14 @@ Player::Player(int cx, int cy) {
 }
 
 void Player::loadSprites(){
-  if (!spriteTexture.loadFromFile("assets/MarioSprites/run0.png")) {
+  if (!spriteTexture.loadFromFile("assets/MarioSprites/run0.png"))
+  {
     cout << "SOMETING WONG" << endl;
     // Error handling if loading fails
     return;
   }
   sprite.setTexture(spriteTexture);
+  sprite.setScale(2, 2);
   sprite.setPosition(0, 0);
 }
 
@@ -42,9 +44,9 @@ sf::RectangleShape Player::getShape() { return shape; }
 
 // compatibility for windows.draw(player)
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-  target.draw(sprite);
-  // target.draw(shape, states);
+  target.draw(sprite); // Draw the sprite member variable
 }
+
 
 bool Player::isGrounded(GameState &state) {
   sf::Vector2<float> pos = shape.getPosition();
@@ -109,6 +111,7 @@ void Player::update(GameState &state) {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
   bool grounded = isGrounded(state);
+    cout <<"1 " << vy << endl;
 
   if (shouldDie() || isDying) {
     die();
@@ -123,9 +126,12 @@ void Player::update(GameState &state) {
 
   if (!grounded) {
     bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-    vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
-    vy = std::min(vy, MAX_AIR_SPEED);
-    vy = std::max(vy, -MAX_AIR_SPEED);
+    if(dt<0.1){
+      vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
+      vy = std::min(vy, MAX_AIR_SPEED);
+      vy = std::max(vy, -MAX_AIR_SPEED);
+      cout <<"2 " << vy << endl;
+    }
   }
 
   MovePlayer(vx * dt, -vy * dt, state);
@@ -137,8 +143,10 @@ void Player::update(GameState &state) {
 }
 
 void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
-  sf::Vector2<float> pos = shape.getPosition();
-  sf::Vector2<float> size = shape.getSize();
+  sf::Vector2<float> pos = sprite.getPosition();
+  sf::Vector2<float> size;
+  size.x = sprite.getGlobalBounds().width;
+  size.y = sprite.getGlobalBounds().height;
 
   int newX = roundAwayFromZero(xoffset);
   for (int i = 0; i <= size.y - 3; i++) {
@@ -158,5 +166,6 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
     }
   }
 
-  shape.setPosition(pos.x + xoffset, pos.y + yoffset);
+  cout << pos.x + xoffset << " " <<pos.y <<" " << yoffset << endl;
+  sprite.setPosition(pos.x + xoffset, pos.y + yoffset);
 }
