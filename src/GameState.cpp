@@ -322,7 +322,7 @@ void Game::handlePauseInput(sf::Event event, sf::RenderWindow &window)
   }
 }
 
-void Game::runGame()
+void Game::run()
 {
   // Create the main window and view
   sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),

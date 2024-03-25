@@ -40,7 +40,7 @@ public:
   /**
    * @brief Run the game loop.
    */
-  void runGame();
+  void run();
 
   /**
    * @brief Get the Delta Time object
