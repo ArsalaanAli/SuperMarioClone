@@ -24,9 +24,16 @@ Game::Game()
   {
     std::cerr << "Failed to load font file!" << std::endl;
   }
+
+  window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
+                                "Super Mario Clone");
+  window->setView(sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)));
 }
 
-Game::~Game() {}
+Game::~Game()
+{
+  delete window;
+}
 
 float Game::getDeltaTime()
 {
@@ -65,13 +72,13 @@ sf::Vector2<int> Game::updateInputAxis()
  *
  * @param view The current view.
  * @param LEVEL_END The end of the level.
- * @param player The player object.
+ * @param px The player's x coordinate.
  * @return The updated view.
  */
-sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
-                           Player &player)
+sf::View updateLevelScroll(sf::View view, const float &LEVEL_END,
+                           int px)
 {
-  float x = player.getShape().getPosition().x + (CELL_SIZE / 2);
+  float x = px + (CELL_SIZE / 2);
   float viewX = view.getCenter().x;
 
   // calculate excess from either end as a positive value
@@ -108,31 +115,31 @@ void Game::endLevel(bool win)
   }
 }
 
-void Game::drawMainMenu(sf::RenderWindow &window)
+void Game::drawMainMenu()
 {
-  sf::Vector2f windowCenter = window.getView().getCenter();
+  sf::Vector2f windowCenter = window->getView().getCenter();
 
   // Draw the overlay
   sf::RectangleShape overlay(sf::Vector2f(windowCenter.x + WINDOW_WIDTH / 2, windowCenter.y + WINDOW_HEIGHT / 2));
   overlay.setFillColor(sf::Color(0, 0, 0, 100)); // Semi-transparent black overlay
-  window.draw(overlay);
+  window->draw(overlay);
 
   // Draw "TIME" label
   sf::Text timeLabel("TIME", secondaryFont, 50);
   timeLabel.setPosition(windowCenter.x - 400, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
   timeLabel.setFillColor(sf::Color(255, 255, 0));
-  window.draw(timeLabel);
+  window->draw(timeLabel);
 
   std::string timeString = std::to_string(getDeltaTime());
   sf::Text time(timeString, secondaryFont, 50);
   time.setPosition(windowCenter.x - 240, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
   time.setFillColor(sf::Color(255, 255, 0));
-  window.draw(time);
+  window->draw(time);
 
-  float bannerWidth = window.getView().getSize().x * 0.50f;
-  float bannerHeight = window.getView().getSize().y * 0.40f;
+  float bannerWidth = window->getView().getSize().x * 0.50f;
+  float bannerHeight = window->getView().getSize().y * 0.40f;
   float bannerX = windowCenter.x - bannerWidth / 2;
-  float bannerY = windowCenter.y - window.getView().getSize().y / 2 + window.getView().getSize().y * 0.18f;
+  float bannerY = windowCenter.y - window->getView().getSize().y / 2 + window->getView().getSize().y * 0.18f;
 
   // Draw the banner
   sf::RectangleShape banner(sf::Vector2f(bannerWidth, bannerHeight));
@@ -140,22 +147,22 @@ void Game::drawMainMenu(sf::RenderWindow &window)
   banner.setFillColor(sf::Color(222, 66, 28));
   banner.setOutlineThickness(2);
   banner.setOutlineColor(sf::Color::White);
-  window.draw(banner);
+  window->draw(banner);
 
   sf::Text superText("SUPER", font, 80);
   superText.setPosition(bannerX + 10, bannerY + 10);
   superText.setFillColor(sf::Color(255, 255, 0));
-  window.draw(superText);
+  window->draw(superText);
 
   sf::Text marioCloneText("MARIO CLONE", font, 80);
   marioCloneText.setPosition(bannerX + 10, bannerY + bannerHeight - 170);
   marioCloneText.setFillColor(sf::Color(0, 255, 255));
-  window.draw(marioCloneText);
+  window->draw(marioCloneText);
 
   sf::Text copyRightText("c Nintendo 1985", secondaryFont, 30);
   copyRightText.setPosition(bannerX + bannerWidth - 345, bannerY + bannerHeight);
   copyRightText.setFillColor(sf::Color::White);
-  window.draw(copyRightText);
+  window->draw(copyRightText);
 
   sf::RectangleShape startButton(sf::Vector2f(300, 60));
   startButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 200);
@@ -164,8 +171,8 @@ void Game::drawMainMenu(sf::RenderWindow &window)
   startButton.setOutlineColor(sf::Color(0, 188, 212));
 
   // Check mouse interaction with "Start Game" button
-  sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-  if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition)))
+  sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
+  if (startButton.getGlobalBounds().contains(window->mapPixelToCoords(mousePosition)))
   {
     startButton.setFillColor(sf::Color(76, 175, 80));
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -178,14 +185,14 @@ void Game::drawMainMenu(sf::RenderWindow &window)
     startButton.setFillColor(sf::Color(0, 150, 136));
   }
 
-  window.draw(startButton);
+  window->draw(startButton);
 
   // Draw "Start Game" text
   sf::Text startGameText("Start Game", secondaryFont, 35);
   sf::FloatRect textBounds = startGameText.getLocalBounds();
   startGameText.setPosition(windowCenter.x - textBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 190);
   startGameText.setFillColor(sf::Color::White);
-  window.draw(startGameText);
+  window->draw(startGameText);
 
   // Draw "Quit Game" button
   sf::RectangleShape quitButton(sf::Vector2f(300, 60));
@@ -195,13 +202,13 @@ void Game::drawMainMenu(sf::RenderWindow &window)
   quitButton.setOutlineColor(sf::Color::White);
 
   // Check mouse interaction with "Quit Game" button
-  sf::Vector2i mousePositionQuit = sf::Mouse::getPosition(window);
-  if (quitButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePositionQuit)))
+  sf::Vector2i mousePositionQuit = sf::Mouse::getPosition(*window);
+  if (quitButton.getGlobalBounds().contains(window->mapPixelToCoords(mousePositionQuit)))
   {
     quitButton.setFillColor(sf::Color(233, 30, 99));
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-      window.close();
+      window->close();
     }
   }
   else
@@ -209,37 +216,37 @@ void Game::drawMainMenu(sf::RenderWindow &window)
     quitButton.setFillColor(sf::Color(244, 67, 54));
   }
 
-  window.draw(quitButton);
+  window->draw(quitButton);
 
   // Draw "Quit Game" text
   sf::Text quitGameText("Quit Game", secondaryFont, 35);
   sf::FloatRect quitTextBounds = quitGameText.getLocalBounds();
   quitGameText.setPosition(windowCenter.x - quitTextBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 95);
   quitGameText.setFillColor(sf::Color::White);
-  window.draw(quitGameText);
+  window->draw(quitGameText);
 }
 
-bool Game::isMouseOverText(sf::RenderWindow &window, sf::Text &text)
+bool Game::isMouseOverText(sf::Text &text)
 {
   sf::FloatRect bounds = text.getGlobalBounds();
-  sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+  sf::Vector2f mousePos = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
   return bounds.contains(mousePos);
 }
 
-void Game::drawPausePopup(sf::RenderWindow &window)
+void Game::drawPausePopup()
 {
   // Get the center of the window
-  sf::Vector2f windowCenter = window.getView().getCenter();
+  sf::Vector2f windowCenter = window->getView().getCenter();
 
   // Draw the overlay
   sf::RectangleShape overlay(sf::Vector2f(windowCenter.x + WINDOW_WIDTH / 2, windowCenter.y + WINDOW_HEIGHT / 2));
   overlay.setFillColor(sf::Color(0, 0, 0, 128)); // Semi-transparent black overlay
-  window.draw(overlay);
+  window->draw(overlay);
 
   // Draw the "Paused" text
   sf::Text pauseText("Paused", font, 50);
   pauseText.setPosition(windowCenter.x - pauseText.getLocalBounds().width / 2, windowCenter.y - 200);
-  window.draw(pauseText);
+  window->draw(pauseText);
 
   // Define the dimensions and position of the menu box
   float boxWidth = 300;
@@ -247,7 +254,7 @@ void Game::drawPausePopup(sf::RenderWindow &window)
   sf::RectangleShape menuBox(sf::Vector2f(boxWidth, boxHeight));
   menuBox.setFillColor(sf::Color::Black);
   menuBox.setPosition(windowCenter.x - boxWidth / 2, windowCenter.y - boxHeight / 2);
-  window.draw(menuBox);
+  window->draw(menuBox);
 
   // Define the menu items
   sf::Text resumeText("Resume", secondaryFont, 30);
@@ -263,20 +270,20 @@ void Game::drawPausePopup(sf::RenderWindow &window)
   quitText.setPosition(windowCenter.x - quitText.getLocalBounds().width / 2, windowCenter.y + 2 * textOffsetY + restartText.getLocalBounds().height - 50);
 
   // Draw menu items
-  window.draw(resumeText);
-  window.draw(restartText);
-  window.draw(quitText);
+  window->draw(resumeText);
+  window->draw(restartText);
+  window->draw(quitText);
 
   // Check if mouse is over any menu item and update selectedMenuItem
-  if (isMouseOverText(window, resumeText))
+  if (isMouseOverText(resumeText))
   {
     selectedMenuItem = 0;
   }
-  else if (isMouseOverText(window, restartText))
+  else if (isMouseOverText(restartText))
   {
     selectedMenuItem = 1;
   }
-  else if (isMouseOverText(window, quitText))
+  else if (isMouseOverText(quitText))
   {
     selectedMenuItem = 2;
   }
@@ -302,10 +309,10 @@ void Game::drawPausePopup(sf::RenderWindow &window)
     break;
   }
 
-  window.draw(selector);
+  window->draw(selector);
 }
 
-void Game::handlePauseInput(sf::Event event, sf::RenderWindow &window)
+void Game::handlePauseInput(sf::Event event)
 {
   if (event.type == sf::Event::KeyPressed)
   {
@@ -324,12 +331,6 @@ void Game::handlePauseInput(sf::Event event, sf::RenderWindow &window)
 
 void Game::run()
 {
-  // Create the main window and view
-  sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
-                          "Super Mario Clone");
-  sf::View view(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-  window.setView(view);
-
   // Load level assets
   sf::Texture backgroundTexture;
   if (!backgroundTexture.loadFromFile("assets/map1.png"))
@@ -357,14 +358,14 @@ void Game::run()
     enemies.push_back(enemy);
   }
 
-  while (window.isOpen())
+  while (window->isOpen())
   {
     sf::Event event;
-    while (window.pollEvent(event))
+    while (window->pollEvent(event))
     {
       if (event.type == sf::Event::Closed)
       {
-        window.close();
+        window->close();
       }
       // Handle events based on game state
       if (event.type == sf::Event::MouseButtonPressed)
@@ -411,7 +412,7 @@ void Game::run()
           break;
 
         case Paused:
-          handlePauseInput(event, window);
+          handlePauseInput(event);
 
           if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape)
           {
@@ -448,18 +449,20 @@ void Game::run()
 
     if (gameState == MainMenu)
     {
-      window.draw(backgroundSprite);
-      drawMainMenu(window);
+      window->draw(backgroundSprite);
+      drawMainMenu();
     }
     else if (gameState == Running)
     {
       deltaTime = clock.restart().asSeconds();
       input = updateInputAxis();
 
+      sf::View newView = updateLevelScroll(window->getView(), LEVEL_END, player.getShape().getPosition().x);
+
       if (resetLevel)
       {
         player = Player(0, 0);
-        view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+        newView = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
         for (auto &enemy : enemies)
         {
           enemy.reset();
@@ -468,8 +471,7 @@ void Game::run()
         resetLevel = false;
       }
 
-      view = updateLevelScroll(view, LEVEL_END, player);
-      window.setView(view);
+      window->setView(newView);
 
       // Entity updates
       player.update(*this);
@@ -497,20 +499,20 @@ void Game::run()
       }
 
       // Draw everything
-      window.clear(sf::Color::White); // Clear the window with white color
-      window.draw(backgroundSprite);  // Draw background first
+      window->clear(sf::Color::White); // Clear the window with white color
+      window->draw(backgroundSprite);  // Draw background first
       for (Enemy enemy : enemies)
       {
-        window.draw(enemy);
+        window->draw(enemy);
       }
-      window.draw(player);
+      window->draw(player);
     }
     else if (gameState == Paused)
     {
-      window.draw(backgroundSprite);
-      drawPausePopup(window);
+      window->draw(backgroundSprite);
+      drawPausePopup();
     }
 
-    window.display();
+    window->display();
   }
 }
