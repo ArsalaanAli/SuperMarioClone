@@ -349,9 +349,13 @@ void GameState::runGame()
 
     // Spawn player and enemies
     Player player = Player(0, 0);
+    std::vector<Enemy> enemies;
 
-    sf::Sprite backgroundSprite(backgroundTexture);
-    backgroundSprite.setPosition(0, 0);
+    for (int i = 0; i < 1; i++)
+    {
+        Enemy enemy = Enemy((i + 1) * 1500, 0);
+        enemies.push_back(enemy);
+    }
 
     while (window.isOpen())
     {
