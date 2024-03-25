@@ -6,7 +6,7 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 
-#include "GameState.h"
+#include "Game.h"
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f
@@ -20,8 +20,7 @@ using namespace std;
 /**
  * @brief The Player class is responsible for handling player input and interations.
  */
-class Player : public sf::Drawable
-{
+class Player : public sf::Drawable {
 public:
   /**
    * @brief Construct a new Player object
@@ -51,7 +50,7 @@ public:
    *
    * @param state The current game state.
    */
-  void update(Game &state);
+  void update(Game& state);
 
   /**
    * @brief Get the underlying sf::Shape object for the player.
@@ -73,7 +72,7 @@ private:
    * @param target The window to draw the player on.
    * @param states The render states to apply to the player.
    */
-  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   /**
    * @brief The underlying shape of the player.
@@ -113,7 +112,7 @@ private:
    * @param state The current game state.
    * @return Whether the player is grounded.
    */
-  bool isGrounded(Game &state);
+  bool isGrounded(Game& state);
 
   /**
    * @brief Move the player.
@@ -122,7 +121,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MovePlayer(float xoffset, float yoffset, Game &state);
+  void MovePlayer(float xoffset, float yoffset, Game& state);
 
   /**
    * @brief Check if the player should die.

@@ -1,5 +1,5 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef Game_H
+#define Game_H
 
 #include "SFML/System/Vector2.hpp"
 #include <SFML/Graphics.hpp>
@@ -13,19 +13,17 @@
 #define CELL_SIZE 50.0f
 #define GROUND_HEIGHT (620 - CELL_SIZE)
 
-enum GameStateEnum
-{
+enum GameState {
   MainMenu,
   Running,
   Paused
 };
 
 /**
- * @brief The GameState class is responsible for running the game loop and
+ * @brief The Game class is responsible for running the game loop and
  * handling input.
  */
-class Game
-{
+class Game {
 public:
   /**
    * @brief Construct a new Game State object
@@ -73,13 +71,13 @@ public:
   void endLevel(bool win);
   void drawMainMenu();
   void drawPausePopup();
-  bool isMouseOverText(sf::Text &text);
+  bool isMouseOverText(sf::Text& text);
 
 private:
   /**
    * @brief The main window of the game.
    */
-  sf::RenderWindow *window;
+  sf::RenderWindow* window;
 
   /**
    * @brief the internal clock of game loop
@@ -118,11 +116,11 @@ private:
    */
   bool resetLevel;
 
-  GameStateEnum gameState;
+  GameState state;
   void handlePauseInput(sf::Event event);
   sf::Font font;
   sf::Font secondaryFont;
   int selectedMenuItem;
 };
 
-#endif // GAMESTATE_H
+#endif // Game_H

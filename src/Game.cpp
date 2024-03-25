@@ -6,14 +6,14 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "GameState.h"
+#include "Game.h"
 #include "Player.h"
 #include "Enemy.h"
 
 Game::Game() {
   clock = sf::Clock();
   resetLevel = false;
-  gameState = MainMenu;
+  state = MainMenu;
 
   if (!font.loadFromFile("assets/SuperMario256.ttf")) {
     std::cerr << "Failed to load font file!" << std::endl;
@@ -157,7 +157,7 @@ void Game::drawMainMenu() {
   if (startButton.getGlobalBounds().contains(window->mapPixelToCoords(mousePosition))) {
     startButton.setFillColor(sf::Color(76, 175, 80));
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-      gameState = Running;
+      state = Running;
     }
   } else {
     startButton.setFillColor(sf::Color(0, 150, 136));
@@ -326,17 +326,17 @@ void Game::run() {
         if (event.mouseButton.button == sf::Mouse::Left) {
           switch (selectedMenuItem) {
           case 0:
-            gameState = Running;
+            state = Running;
             selectedMenuItem = 0;
             break;
           case 1:
             resetLevel = true;
-            gameState = Running;
+            state = Running;
             selectedMenuItem = 0;
             break;
           case 2:
             resetLevel = true;
-            gameState = MainMenu;
+            state = MainMenu;
             break;
           default:
             break;
@@ -345,16 +345,16 @@ void Game::run() {
       }
 
       if (event.type == sf::Event::KeyPressed) {
-        switch (gameState) {
+        switch (state) {
         case MainMenu:
           if (event.key.code == sf::Keyboard::Enter) {
-            gameState = Running;
+            state = Running;
           }
           break;
 
         case Running:
           if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape) {
-            gameState = Paused;
+            state = Paused;
           }
           break;
 
@@ -362,21 +362,21 @@ void Game::run() {
           handlePauseInput(event);
 
           if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape) {
-            gameState = Running;
+            state = Running;
           } else if (event.key.code == sf::Keyboard::Enter) {
             switch (selectedMenuItem) {
             case 0:
-              gameState = Running;
+              state = Running;
               selectedMenuItem = 0;
               break;
             case 1:
               resetLevel = true;
-              gameState = Running;
+              state = Running;
               selectedMenuItem = 0;
               break;
             case 2:
               resetLevel = true;
-              gameState = MainMenu;
+              state = MainMenu;
               break;
             default:
               break;
@@ -390,10 +390,10 @@ void Game::run() {
       }
     }
 
-    if (gameState == MainMenu) {
+    if (state == MainMenu) {
       window->draw(backgroundSprite);
       drawMainMenu();
-    } else if (gameState == Running) {
+    } else if (state == Running) {
       deltaTime = clock.restart().asSeconds();
       input = updateInputAxis();
 
@@ -438,7 +438,7 @@ void Game::run() {
         window->draw(enemy);
       }
       window->draw(player);
-    } else if (gameState == Paused) {
+    } else if (state == Paused) {
       window->draw(backgroundSprite);
       drawPausePopup();
     }
