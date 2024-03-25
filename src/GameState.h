@@ -24,18 +24,18 @@ enum GameStateEnum
  * @brief The GameState class is responsible for running the game loop and
  * handling input.
  */
-class GameState
+class Game
 {
 public:
   /**
    * @brief Construct a new Game State object
    */
-  GameState();
+  Game();
 
   /**
    * @brief Destroy the Game State object
    */
-  ~GameState();
+  ~Game();
 
   /**
    * @brief Run the game loop.

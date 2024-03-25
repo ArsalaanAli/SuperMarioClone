@@ -32,7 +32,7 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const
   target.draw(shape, states);
 }
 
-bool Player::isGrounded(GameState &state)
+bool Player::isGrounded(Game &state)
 {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
@@ -108,7 +108,7 @@ void Player::die()
 }
 
 // Update called once per gameloop
-void Player::update(GameState &state)
+void Player::update(Game &state)
 {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
@@ -142,7 +142,7 @@ void Player::update(GameState &state)
   MovePlayer(vx * dt, -vy * dt, state);
 }
 
-void Player::MovePlayer(float xoffset, float yoffset, GameState &state)
+void Player::MovePlayer(float xoffset, float yoffset, Game &state)
 {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();

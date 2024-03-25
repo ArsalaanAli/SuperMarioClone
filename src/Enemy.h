@@ -34,7 +34,7 @@ public:
    *
    * @param state The current game state.
    */
-  void update(GameState &state);
+  void update(Game &state);
 
   /**
    * @brief Check if the player has collided with the enemy.
@@ -99,7 +99,7 @@ private:
    * @param state The current game state.
    * @return Whether the enemy is grounded.
    */
-  bool isGrounded(GameState &state);
+  bool isGrounded(Game &state);
 
   /**
    * @brief Move the enemy.
@@ -108,7 +108,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MoveEnemy(float xoffset, float yoffset, GameState &state);
+  void MoveEnemy(float xoffset, float yoffset, Game &state);
 
   /**
    * @brief Round a float away from zero.

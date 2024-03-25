@@ -51,7 +51,7 @@ public:
    *
    * @param state The current game state.
    */
-  void update(GameState &state);
+  void update(Game &state);
 
   /**
    * @brief Get the underlying sf::Shape object for the player.
@@ -113,7 +113,7 @@ private:
    * @param state The current game state.
    * @return Whether the player is grounded.
    */
-  bool isGrounded(GameState &state);
+  bool isGrounded(Game &state);
 
   /**
    * @brief Move the player.
@@ -122,7 +122,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MovePlayer(float xoffset, float yoffset, GameState &state);
+  void MovePlayer(float xoffset, float yoffset, Game &state);
 
   /**
    * @brief Check if the player should die.

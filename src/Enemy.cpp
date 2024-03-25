@@ -40,7 +40,7 @@ void Enemy::reset()
   isDying = false;
 }
 
-bool Enemy::isGrounded(GameState &state)
+bool Enemy::isGrounded(Game &state)
 {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
@@ -95,7 +95,7 @@ void Enemy::die()
   vx = 0;
 }
 
-void Enemy::update(GameState &state)
+void Enemy::update(Game &state)
 {
   float dt = state.getDeltaTime();
   isGrounded(state);
@@ -104,7 +104,7 @@ void Enemy::update(GameState &state)
   MoveEnemy(vx * dt, vy * dt, state);
 }
 
-void Enemy::MoveEnemy(float xoffset, float yoffset, GameState &state)
+void Enemy::MoveEnemy(float xoffset, float yoffset, Game &state)
 {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();

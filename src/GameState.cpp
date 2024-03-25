@@ -10,7 +10,7 @@
 #include "Player.h"
 #include "Enemy.h"
 
-GameState::GameState()
+Game::Game()
 {
   clock = sf::Clock();
   resetLevel = false;
@@ -26,17 +26,17 @@ GameState::GameState()
   }
 }
 
-GameState::~GameState() {}
+Game::~Game() {}
 
-float GameState::getDeltaTime()
+float Game::getDeltaTime()
 {
   // not using clock.getElapsedTime() since we want since last recorded frame
   return deltaTime;
 }
 
-sf::Vector2<int> GameState::getInputAxis() { return input; }
+sf::Vector2<int> Game::getInputAxis() { return input; }
 
-sf::Vector2<int> GameState::updateInputAxis()
+sf::Vector2<int> Game::updateInputAxis()
 {
   int dir_x = 0, dir_y = 0;
 
@@ -88,7 +88,7 @@ sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
   return view;
 }
 
-bool GameState::checkCollision(int x, int y)
+bool Game::checkCollision(int x, int y)
 {
   sf::Vector2u size = collisionMap.getSize();
   if (x > 0 && x < static_cast<int>(size.x) && y > 0 && y < static_cast<int>(size.y))
@@ -96,7 +96,7 @@ bool GameState::checkCollision(int x, int y)
   return false;
 }
 
-void GameState::endLevel(bool win)
+void Game::endLevel(bool win)
 {
   if (win)
   {
@@ -108,7 +108,7 @@ void GameState::endLevel(bool win)
   }
 }
 
-void GameState::drawMainMenu(sf::RenderWindow &window)
+void Game::drawMainMenu(sf::RenderWindow &window)
 {
   sf::Vector2f windowCenter = window.getView().getCenter();
 
@@ -219,14 +219,14 @@ void GameState::drawMainMenu(sf::RenderWindow &window)
   window.draw(quitGameText);
 }
 
-bool GameState::isMouseOverText(sf::RenderWindow &window, sf::Text &text)
+bool Game::isMouseOverText(sf::RenderWindow &window, sf::Text &text)
 {
   sf::FloatRect bounds = text.getGlobalBounds();
   sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
   return bounds.contains(mousePos);
 }
 
-void GameState::drawPausePopup(sf::RenderWindow &window)
+void Game::drawPausePopup(sf::RenderWindow &window)
 {
   // Get the center of the window
   sf::Vector2f windowCenter = window.getView().getCenter();
@@ -305,7 +305,7 @@ void GameState::drawPausePopup(sf::RenderWindow &window)
   window.draw(selector);
 }
 
-void GameState::handlePauseInput(sf::Event event, sf::RenderWindow &window)
+void Game::handlePauseInput(sf::Event event, sf::RenderWindow &window)
 {
   if (event.type == sf::Event::KeyPressed)
   {
@@ -322,7 +322,7 @@ void GameState::handlePauseInput(sf::Event event, sf::RenderWindow &window)
   }
 }
 
-void GameState::runGame()
+void Game::runGame()
 {
   // Create the main window and view
   sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
