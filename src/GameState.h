@@ -13,6 +13,13 @@
 #define CELL_SIZE 50.0f
 #define GROUND_HEIGHT (620 - CELL_SIZE)
 
+enum GameStateEnum
+{
+  MainMenu,
+  Running,
+  Paused
+};
+
 /**
  * @brief The GameState class is responsible for running the game loop and
  * handling input.
@@ -64,6 +71,9 @@ public:
    * @param win Whether the player won the level. If false, the level is incomplete so restart the level
    */
   void endLevel(bool win);
+  void drawMainMenu(sf::RenderWindow &window);
+  void drawPausePopup(sf::RenderWindow &window);
+  bool isMouseOverText(sf::RenderWindow &window, sf::Text &text);
 
 private:
   /**
@@ -102,6 +112,12 @@ private:
    * @brief Flag to reset the level in gameloop
    */
   bool resetLevel;
+
+  GameStateEnum gameState;
+  void handlePauseInput(sf::Event event, sf::RenderWindow &window);
+  sf::Font font;
+  sf::Font secondaryFont;
+  int selectedMenuItem;
 };
 
 #endif // GAMESTATE_H
