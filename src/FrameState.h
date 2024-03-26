@@ -1,3 +1,6 @@
+#ifndef FRAME_STATE_H
+#define FRAME_STATE_H
+
 #include "SFML/System/Vector2.hpp"
 
 struct FrameState {
@@ -11,3 +14,5 @@ struct FrameState {
    */
   sf::Vector2<int> input;
 };
+
+#endif // FRAME_STATE_H

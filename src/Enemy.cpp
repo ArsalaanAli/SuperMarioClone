@@ -6,14 +6,15 @@
 
 int Enemy::roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
-Enemy::Enemy(int cx, int cy)
-{
+Enemy::Enemy(int cx, int cy, const sf::Image& collisionMap) {
   spawn_x = cx;
   spawn_y = cy;
 
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Red);
   shape.setPosition(cx, cy);
+
+  cmap = collisionMap;
 
   vx = MAX_SPEED;
   vy = MAX_AIR_SPEED;
@@ -23,13 +24,11 @@ Enemy::Enemy(int cx, int cy)
 
 Enemy::~Enemy() {}
 
-void Enemy::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
+void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   target.draw(shape, states);
 }
 
-void Enemy::reset()
-{
+void Enemy::reset() {
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Red);
   shape.setPosition(spawn_x, spawn_y);
@@ -40,19 +39,22 @@ void Enemy::reset()
   isDying = false;
 }
 
-bool Enemy::isGrounded(Game &state)
-{
+bool Enemy::checkCollision(int x, int y) {
+  sf::Vector2u size = cmap.getSize();
+  if (x > 0 && x < static_cast<int>(size.x) && y > 0 && y < static_cast<int>(size.y))
+    return cmap.getPixel(x, y) == sf::Color::Red;
+  return false;
+}
+
+bool Enemy::isGrounded() {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
 
-  for (int i = 0; i < size.x; i++)
-  {
-    if (state.checkCollision(pos.x + i, pos.y + size.y + 1))
-    {
+  for (int i = 0; i < size.x; i++) {
+    if (checkCollision(pos.x + i, pos.y + size.y + 1)) {
       // snap to ground
       float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY))
-      {
+      while (checkCollision(pos.x + i, newY)) {
         newY -= 1;
       }
 
@@ -67,8 +69,7 @@ bool Enemy::isGrounded(Game &state)
   return false;
 }
 
-bool Enemy::checkPlayerCollision(float px, float py)
-{
+bool Enemy::checkPlayerCollision(float px, float py) {
   // if the enemy is dying, don't check for collision
   if (isDying)
     return false;
@@ -82,10 +83,8 @@ bool Enemy::checkPlayerCollision(float px, float py)
 
 sf::RectangleShape Enemy::getShape() { return shape; }
 
-void Enemy::die()
-{
-  if (!isDying)
-  {
+void Enemy::die() {
+  if (!isDying) {
     // on first invocation, change color
     shape.setFillColor(sf::Color::Yellow); // replace with change to dead texture
     isDying = true;
@@ -95,28 +94,24 @@ void Enemy::die()
   vx = 0;
 }
 
-void Enemy::update(Game &state)
-{
-  float dt = state.getDeltaTime();
-  isGrounded(state);
+void Enemy::update(const FrameState& state) {
+  float dt = state.deltaTime;
+  isGrounded();
 
   // move the enemy based on its velocity
-  MoveEnemy(vx * dt, vy * dt, state);
+  MoveEnemy(vx * dt, vy * dt);
 }
 
-void Enemy::MoveEnemy(float xoffset, float yoffset, Game &state)
-{
+void Enemy::MoveEnemy(float xoffset, float yoffset) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
 
   int newX = roundAwayFromZero(xoffset);
 
   // check for collision on left and right sides
-  for (int i = 0; i <= size.y - 3; i++)
-  {
-    if (state.checkCollision(pos.x + newX, pos.y + i) ||
-        state.checkCollision(pos.x + size.x + newX, pos.y + i))
-    {
+  for (int i = 0; i <= size.y - 3; i++) {
+    if (checkCollision(pos.x + newX, pos.y + i) ||
+      checkCollision(pos.x + size.x + newX, pos.y + i)) {
       // if collision, invert x movement
       xoffset *= -1;
       vx *= -1;
@@ -127,10 +122,8 @@ void Enemy::MoveEnemy(float xoffset, float yoffset, Game &state)
   int newY = roundAwayFromZero(yoffset);
 
   // check for collision on top and bottom sides
-  for (int i = 0; i <= size.x; i++)
-  {
-    if (state.checkCollision(pos.x + i, pos.y + newY))
-    {
+  for (int i = 0; i <= size.x; i++) {
+    if (checkCollision(pos.x + i, pos.y + newY)) {
       // if collision, invert y movement
       yoffset = abs(yoffset);
       vy = -yoffset;

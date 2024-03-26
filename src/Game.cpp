@@ -31,13 +31,6 @@ Game::~Game() {
   delete window;
 }
 
-float Game::getDeltaTime() {
-  // not using clock.getElapsedTime() since we want since last recorded frame
-  return deltaTime;
-}
-
-sf::Vector2<int> Game::getInputAxis() { return input; }
-
 sf::Vector2<int> Game::updateInputAxis() {
   int dir_x = 0, dir_y = 0;
 
@@ -307,11 +300,11 @@ void Game::run() {
   }
 
   // Spawn player and enemies
-  Player player = Player(0, 0);
+  Player player = Player(0, 0, collisionMap);
   std::vector<Enemy> enemies;
 
   for (int i = 0; i < 1; i++) {
-    Enemy enemy = Enemy((i + 1) * 1500, 0);
+    Enemy enemy = Enemy((i + 1) * 1500, 0, collisionMap);
     enemies.push_back(enemy);
   }
 
@@ -394,13 +387,13 @@ void Game::run() {
       window->draw(backgroundSprite);
       drawMainMenu();
     } else if (state == Running) {
-      deltaTime = clock.restart().asSeconds();
-      input = updateInputAxis();
+      fstate.deltaTime = clock.restart().asSeconds();
+      fstate.input = updateInputAxis();
 
       sf::View newView = updateLevelScroll(window->getView(), LEVEL_END, player.getShape().getPosition().x);
 
       if (resetLevel) {
-        player = Player(0, 0);
+        player = Player(0, 0, collisionMap);
         newView = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
         for (auto& enemy : enemies) {
           enemy.reset();
@@ -412,9 +405,9 @@ void Game::run() {
       window->setView(newView);
 
       // Entity updates
-      player.update(*this);
+      player.update(fstate);
       for (auto& enemy : enemies) {
-        enemy.update(*this);
+        enemy.update(fstate);
 
         sf::Vector2f pos = player.getShape().getPosition();
         sf::Vector2f epos = enemy.getShape().getPosition();

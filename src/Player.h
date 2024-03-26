@@ -23,17 +23,33 @@ using namespace std;
 class Player : public sf::Drawable {
 public:
   /**
+   * @brief Default constructor for a new Player object
+   */
+  Player();
+
+  /**
    * @brief Construct a new Player object
    *
    * @param cx spawnpoint x
    * @param cy spawnpoint y
+   * @param collisionMap The collision map of the level.
    */
-  Player(int cx, int cy);
+  Player(int cx, int cy, const sf::Image& collisionMap);
 
   /**
    * @brief Destroy the Player object
    */
   ~Player();
+
+  /**
+   * @brief Check if the player is colliding with the level.
+   *
+   * @param x The x coordinate.
+   * @param y The y coordinate.
+   *
+   * @return Whether the player is colliding with the level.
+   */
+  bool checkCollision(int x, int y);
 
   /**
    * @brief Jump the player.
@@ -50,7 +66,7 @@ public:
    *
    * @param state The current game state.
    */
-  void update(Game& state);
+  void update(const FrameState& state);
 
   /**
    * @brief Get the underlying sf::Shape object for the player.
@@ -78,6 +94,11 @@ private:
    * @brief The underlying shape of the player.
    */
   sf::RectangleShape shape;
+
+  /**
+   * @brief The collision map of the level.
+   */
+  sf::Image cmap;
 
   /**
    * @brief The player's velocity.
@@ -112,7 +133,7 @@ private:
    * @param state The current game state.
    * @return Whether the player is grounded.
    */
-  bool isGrounded(Game& state);
+  bool isGrounded();
 
   /**
    * @brief Move the player.
@@ -121,7 +142,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MovePlayer(float xoffset, float yoffset, Game& state);
+  void MovePlayer(float xoffset, float yoffset);
 
   /**
    * @brief Check if the player should die.

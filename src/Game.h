@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <tuple>
 
+#include "FrameState.h"
+
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define VIEW_SCROLL_MARGIN 200
@@ -18,6 +20,7 @@ enum GameState {
   Running,
   Paused
 };
+
 
 /**
  * @brief The Game class is responsible for running the game loop and
@@ -39,6 +42,13 @@ public:
    * @brief Run the game loop.
    */
   void run();
+
+  /**
+   * @brief End the level.
+   *
+   * @param win Whether the player won the level. If false, the level is incomplete so restart the level
+   */
+  static void endLevel(bool win);
 
   /**
    * @brief Get the Delta Time object
@@ -63,17 +73,16 @@ public:
    */
   bool checkCollision(int x, int y);
 
-  /**
-   * @brief End the level.
-   *
-   * @param win Whether the player won the level. If false, the level is incomplete so restart the level
-   */
-  void endLevel(bool win);
   void drawMainMenu();
   void drawPausePopup();
   bool isMouseOverText(sf::Text& text);
 
 private:
+  /**
+   * @brief Flag to reset the level in gameloop
+   */
+  static bool resetLevel;
+
   /**
    * @brief The main window of the game.
    */
@@ -85,19 +94,14 @@ private:
   sf::Clock clock;
 
   /**
-   * @brief The current time since the last frame.
+   * @brief The state of the current frame.
    */
-  float deltaTime;
+  FrameState fstate;
 
   /**
    * @brief The collision map of the currently loaded level.
    */
   sf::Image collisionMap;
-
-  /**
-   * @brief The input axis as a 2D vector.
-   */
-  sf::Vector2<int> input;
 
   /**
    * @brief Update the input axis based on the current input.
@@ -110,11 +114,6 @@ private:
    * @brief The marked end of the currently loaded level.
    */
   float LEVEL_END;
-
-  /**
-   * @brief Flag to reset the level in gameloop
-   */
-  bool resetLevel;
 
   GameState state;
   void handlePauseInput(sf::Event event);

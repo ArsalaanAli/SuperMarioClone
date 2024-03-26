@@ -21,7 +21,7 @@ public:
    * @param cx The spawnpoint x
    * @param cy The spawnpoint y
    */
-  Enemy(int cx, int cy);
+  Enemy(int cx, int cy, const sf::Image& collisionMap);
 
   /**
    * @brief Destroy the Enemy object
@@ -33,7 +33,17 @@ public:
    *
    * @param state The current game state.
    */
-  void update(Game& state);
+  void update(const FrameState& state);
+
+  /**
+   * @brief Check if the entity is colliding with the level.
+   *
+   * @param x The x coordinate.
+   * @param y The y coordinate.
+   *
+   * @return Whether the player is colliding with the level.
+   */
+  bool checkCollision(int x, int y);
 
   /**
    * @brief Check if the player has collided with the enemy.
@@ -88,6 +98,11 @@ private:
   sf::RectangleShape shape;
 
   /**
+   * @brief The collision map of the level.
+   */
+  sf::Image cmap;
+
+  /**
    * @brief Flag for whether the enemy is dying.
    */
   bool isDying;
@@ -98,7 +113,7 @@ private:
    * @param state The current game state.
    * @return Whether the enemy is grounded.
    */
-  bool isGrounded(Game& state);
+  bool isGrounded();
 
   /**
    * @brief Move the enemy.
@@ -107,7 +122,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MoveEnemy(float xoffset, float yoffset, Game& state);
+  void MoveEnemy(float xoffset, float yoffset);
 
   /**
    * @brief Round a float away from zero.
