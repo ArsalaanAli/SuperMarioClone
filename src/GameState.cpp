@@ -93,7 +93,14 @@ void GameState::endLevel(bool win) {
   if (win) {
     // load next level
   } else {
-    resetLevel = true;
+    lives -= 1;
+
+    if (lives == 0) {
+      gameState = MainMenu;
+      lives = 4;
+    } else {
+      resetLevel = true;
+    }
   }
 }
 
@@ -213,6 +220,12 @@ void GameState::drawHud(sf::RenderWindow& window) {
   coinsText.setPosition(windowCenter.x - 400, 75);
   coinsText.setFillColor(sf::Color(255, 255, 0));
   window.draw(coinsText);
+
+  std::string Lives = "LIVES " + std::to_string(lives);
+  sf::Text livesText(Lives, secondaryFont, 50);
+  livesText.setPosition(windowCenter.x + 100, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
+  livesText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(livesText);
 }
 
 bool GameState::isMouseOverText(sf::RenderWindow& window, sf::Text& text) {
@@ -333,6 +346,8 @@ void GameState::runGame() {
   Player player = Player(0, 0);
   std::vector<Enemy> enemies;
   std::vector<Coin> coins;
+  coinsCollected = 0;
+  lives = 3;
 
   for (int i = 0; i < 1; i++) {
     Enemy enemy = Enemy((i + 1) * 1500, 0);
@@ -465,17 +480,14 @@ void GameState::runGame() {
       }
 
       for (auto& coin : coins) {
-        // sf::Vector2<float> pos = player.getShape().getPosition();
-        // sf::Vector2<float> cpos = coin.shape.getPosition();
-
         if (coin.shape.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
           coinsCollected++;
+          std::cout << "Coins: " << coinsCollected << std::endl;
         }
 
         coins.erase(std::remove_if(coins.begin(), coins.end(), [&](Coin c) {
           return c.shape.getGlobalBounds().intersects(player.getShape().getGlobalBounds());
           }), coins.end());
-        std::cout << "Coins: " << coinsCollected << std::endl;
       }
 
       // Draw everything

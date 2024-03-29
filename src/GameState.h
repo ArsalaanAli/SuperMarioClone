@@ -128,6 +128,11 @@ private:
    * @brief The player's current score.
    */
   int coinsCollected;
+
+  /**
+   * @brief The player's current lives.
+   */
+  int lives;
 };
 
 #endif // GAMESTATE_H
