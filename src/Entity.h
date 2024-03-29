@@ -25,6 +25,13 @@ public:
   ~Entity();
 
   /**
+   * @brief Get the underlying sf::Shape object for the entity.
+   *
+   * @return The underlying sf::Shape object.
+   */
+  sf::RectangleShape getShape();
+
+  /**
    * @brief Update loop for the entity called every frame.
    *
    * @param state The current game state.
@@ -32,11 +39,12 @@ public:
   void update(GameState& state);
 
   /**
-   * @brief Get the underlying sf::Shape object for the entity.
+   * @brief Handle entity collision with the world.
    *
-   * @return The underlying sf::Shape object.
+   * @param xoffset The x offset of the collision.
+   * @param yoffset The y offset of the collision.
    */
-  sf::RectangleShape getShape();
+  void onCollision(float xoffset, float yoffset);
 
   /**
    * @brief Kill the entity.

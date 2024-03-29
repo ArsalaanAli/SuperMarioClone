@@ -57,12 +57,10 @@ bool Entity::isGrounded(GameState& state) {
 
       shape.setPosition(pos.x, newY - CELL_SIZE);
 
-      // vy = 0;
       return true;
     }
   }
 
-  // vy = MAX_AIR_SPEED;
   return false;
 }
 
@@ -70,6 +68,16 @@ void Entity::update(GameState& state) {}
 
 void Entity::MoveEntity(float xoffset, float yoffset, GameState& state) {
   shape.move(xoffset, yoffset);
+}
+
+void Entity::onCollision(float xoffset, float yoffset) {
+  if (xoffset) {
+    vx = 0;
+  }
+
+  if (yoffset) {
+    vy = 0;
+  }
 }
 
 void Entity::die() {
