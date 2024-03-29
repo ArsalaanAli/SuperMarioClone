@@ -48,8 +48,7 @@ public:
    */
   void reset();
 
-private:
-
+protected:
   /**
    * @brief The entity's spawnpoint.
    */
