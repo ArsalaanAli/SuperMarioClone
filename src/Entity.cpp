@@ -9,7 +9,6 @@ Entity::Entity() {
   spawn_x = cx;
   spawn_y = cy;
 
-  // TODO:
   // vx = MAX_SPEED;
   // vy = MAX_AIR_SPEED;
 
@@ -20,7 +19,7 @@ Entity::Entity() {
   isDying = false;
 }
 
-Entity::Entity(int cx, int cy, float init_vx = 0, float init_vy = 0) {
+Entity::Entity(int cx, int cy) {
   spawn_x = cx;
   spawn_y = cy;
 
@@ -58,12 +57,12 @@ bool Entity::isGrounded(GameState& state) {
 
       shape.setPosition(pos.x, newY - CELL_SIZE);
 
-      vy = 0;
+      // vy = 0;
       return true;
     }
   }
 
-  vy = MAX_AIR_SPEED;
+  // vy = MAX_AIR_SPEED;
   return false;
 }
 
