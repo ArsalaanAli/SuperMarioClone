@@ -20,7 +20,7 @@ public:
 
   // Update call from gameloop
   void update(GameState &state);
-  sf::RectangleShape getShape();
+  sf::Sprite getShape();
 
 private:
   // Position
@@ -30,8 +30,6 @@ private:
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
   // Underlying SFML object
-  sf::RectangleShape shape;
-
   // Velocities
   float vx, vy;
 
