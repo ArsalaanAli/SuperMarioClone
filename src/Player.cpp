@@ -14,21 +14,50 @@
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Player::Player(int cx, int cy) {
+  cout << "START" << endl;
   loadSprites();
+  cout << "LOADED" << endl;
   isDying = false;
   vx = 0;
   vy = 0;
+  animationTime = 0;
+  curFrame = 0;
+  curAnim = 0;
 }
 
 void Player::loadSprites(){
-  if (!spriteTexture.loadFromFile("assets/MarioSprites/run0.png"))
-  {
-    // Error handling if loading fails
-    return;
+  for (int i = 0; i < numSprites.size(); i++){
+    vector<sf::Texture> tempVec;
+    textures.push_back(tempVec);
   }
-  sprite.setTexture(spriteTexture);
-  sprite.setScale(2, 2);
+  cout << numSprites[STAND] << endl;
+  // load standing sprites
+  for (int i = 0; i < numSprites[STAND]; i++)
+  {
+    sf::Texture temp;
+    if (!temp.loadFromFile("assets/MarioSprites/stand" + to_string(i) + ".png"))
+    {
+      cout << "error getting png" << endl;
+      return;
+    }
+    textures[STAND].push_back(temp);
+  }
+  //load running sprites
+  for (int i = 0; i < numSprites[RUN]; i++){
+    sf::Texture temp;
+    if (!temp.loadFromFile("assets/MarioSprites/run" + to_string(i) + ".png")){
+        cout << "error getting png" << endl;
+        return;
+      }
+      textures[RUN].push_back(temp);
+  }
+  cout << textures[0].size()<<endl;
+  cout << textures[1].size()<<endl;
+  sprite.setTexture(textures[0][0]);
+  sprite.setScale(SCALE, SCALE);
   sprite.setPosition(0, 0);
+  sf::FloatRect bounds = sprite.getLocalBounds();
+  sprite.setOrigin(bounds.width / 2.f, sprite.getOrigin().y);
 }
 
 Player::~Player() {}
@@ -50,13 +79,10 @@ bool Player::isGrounded(GameState &state) {
   for (int i = 0; i < size.x; i++) {
     if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY))
-      {
+      while (state.checkCollision(pos.x + i, newY)){
         newY -= 1;
       }
       sprite.setPosition(pos.x, newY - CELL_SIZE);
-      cout << "resetting y" << endl;
-
       vy = 0;
       return true;
     }
@@ -78,15 +104,21 @@ void Player::processInput(sf::Vector2<int> input, bool grounded, float dt)
   }
 
   // handle horizontal movement
-  if (input.x)
-  {
+  if (input.x){
+    curAnim = RUN;
+    if(input.x < 0 && sprite.getScale().x > 0){
+      sprite.scale(-1,1);
+    }
+    if(input.x > 0 && sprite.getScale().x < 0){
+      sprite.scale(-1,1);
+    }
     // accelerate
     vx += input.x * ACCEL_RATE * dt;
     vx = std::min(vx, MAX_SPEED);
     vx = std::max(vx, -MAX_SPEED);
   }
-  else
-  {
+  else{
+    curAnim = STAND;
     // decelerate
     if (abs(vx) > DECEL_RATE * dt)
       vx -= DECEL_RATE * ((vx > 0) - (vx < 0)) * dt;
@@ -126,7 +158,7 @@ void Player::update(GameState &state)
   {
     die();
 
-    // once going down from jump, trigger reset level
+    // once going down from jump, triggestandingr reset level
     if (vy <= 0)
     {
       state.endLevel(false);
@@ -150,10 +182,18 @@ void Player::update(GameState &state)
 
   // move player based on velocity
   MovePlayer(vx * dt, -vy * dt, state);
+  AnimatePlayer(state.getDeltaTime());
+  cout << "FRAME" << endl;
+}
 
-
-  // std::cout << vx << "," << vy << "\n";
-  // std::cout << pos.x << "," << pos.y << "\n";
+void Player::AnimatePlayer(float deltaTime){
+  animationTime += deltaTime;
+  cout << animationTime<<endl;
+  if (animationTime > animationInterval){
+    curFrame = (curFrame + 1) % numSprites[curAnim];
+    animationTime = 0;
+    sprite.setTexture(textures[curAnim][curFrame]);
+  }
 }
 
 void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {

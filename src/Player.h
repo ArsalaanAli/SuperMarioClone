@@ -55,6 +55,10 @@ public:
   sf::Sprite getShape();
 
 private:
+  static const int SCALE = 2;
+  static const int STAND = 0;
+  static const int RUN = 1;
+
   /**
    * @brief The player's position.
    */
@@ -79,8 +83,15 @@ private:
   bool isDying;
 
   sf::Sprite sprite;
-  sf::Texture spriteTexture;
+  vector<vector<sf::Texture>> textures;
 
+  vector<int> numSprites = {1, 3};
+  int curFrame;
+  int curAnim;
+  float animationInterval = 0.15f;
+  float animationTime;
+
+  void AnimatePlayer(float deltaTime);
   void loadSprites();
   void setPosition(int cx, int cy);
 
