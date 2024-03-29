@@ -52,13 +52,7 @@ public:
    * @param state The current game state.
    */
   void update(GameState &state);
-
-  /**
-   * @brief Get the underlying sf::Shape object for the player.
-   *
-   * @return The underlying sf::Shape object.
-   */
-  sf::RectangleShape getShape();
+  sf::Sprite getShape();
 
 private:
   /**
@@ -75,14 +69,8 @@ private:
    */
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 
-  /**
-   * @brief The underlying shape of the player.
-   */
-  sf::RectangleShape shape;
-
-  /**
-   * @brief The player's velocity.
-   */
+  // Underlying SFML object
+  // Velocities
   float vx, vy;
 
   /**
@@ -90,12 +78,10 @@ private:
    */
   bool isDying;
 
-  /**
-   * @brief Set the position of the player.
-   *
-   * @param cx The x coordinate.
-   * @param cy The y coordinate.
-   */
+  sf::Sprite sprite;
+  sf::Texture spriteTexture;
+
+  void loadSprites();
   void setPosition(int cx, int cy);
 
   /**

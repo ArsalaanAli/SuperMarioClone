@@ -13,46 +13,55 @@
  */
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
-Player::Player(int cx, int cy)
-{
-  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
-  shape.setFillColor(sf::Color::Black);
-  shape.setPosition(cx, cy);
+Player::Player(int cx, int cy) {
+  loadSprites();
   isDying = false;
   vx = 0;
   vy = 0;
 }
 
-Player::~Player() {}
-
-sf::RectangleShape Player::getShape() { return shape; }
-
-void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const
-{
-  target.draw(shape, states);
+void Player::loadSprites(){
+  if (!spriteTexture.loadFromFile("assets/MarioSprites/run0.png"))
+  {
+    // Error handling if loading fails
+    return;
+  }
+  sprite.setTexture(spriteTexture);
+  sprite.setScale(2, 2);
+  sprite.setPosition(0, 0);
 }
 
-bool Player::isGrounded(GameState &state)
-{
-  sf::Vector2<float> pos = shape.getPosition();
-  sf::Vector2<float> size = shape.getSize();
+Player::~Player() {}
 
-  for (int i = 0; i < shape.getSize().x; i++)
-  {
-    if (state.checkCollision(pos.x + i, pos.y + size.y + 1))
-    {
-      // snap to ground
+sf::Sprite Player::getShape() { return sprite; }
+
+// compatibility for windows.draw(player)
+void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+  target.draw(sprite); // Draw the sprite member variable
+}
+
+
+bool Player::isGrounded(GameState &state) {
+  sf::Vector2<float> pos = sprite.getPosition();
+  sf::Vector2<float> size;
+  size.x = sprite.getGlobalBounds().width;
+  size.y = sprite.getGlobalBounds().height;
+
+  for (int i = 0; i < size.x; i++) {
+    if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
       while (state.checkCollision(pos.x + i, newY))
       {
         newY -= 1;
       }
-      shape.setPosition(pos.x, newY - CELL_SIZE);
+      sprite.setPosition(pos.x, newY - CELL_SIZE);
+      cout << "resetting y" << endl;
 
       vy = 0;
       return true;
     }
   }
+
   return false;
 }
 
@@ -86,10 +95,9 @@ void Player::processInput(sf::Vector2<int> input, bool grounded, float dt)
   }
 }
 
-bool Player::shouldDie()
-{
-  // check if player is below the screen
-  return shape.getPosition().y >= 665;
+bool Player::shouldDie() {
+  // TODO: include check for enemy collision and any other death conditions
+  return sprite.getPosition().y >= 665;
 }
 
 void Player::jump() { vy = JUMP_FORCE; }
@@ -133,19 +141,26 @@ void Player::update(GameState &state)
   if (!grounded)
   {
     bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-    vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
-    vy = std::min(vy, MAX_AIR_SPEED);
-    vy = std::max(vy, -MAX_AIR_SPEED);
+    if(dt<0.1){
+      vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
+      vy = std::min(vy, MAX_AIR_SPEED);
+      vy = std::max(vy, -MAX_AIR_SPEED);
+    }
   }
 
   // move player based on velocity
   MovePlayer(vx * dt, -vy * dt, state);
+
+
+  // std::cout << vx << "," << vy << "\n";
+  // std::cout << pos.x << "," << pos.y << "\n";
 }
 
-void Player::MovePlayer(float xoffset, float yoffset, GameState &state)
-{
-  sf::Vector2<float> pos = shape.getPosition();
-  sf::Vector2<float> size = shape.getSize();
+void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
+  sf::Vector2<float> pos = sprite.getPosition();
+  sf::Vector2<float> size;
+  size.x = sprite.getGlobalBounds().width;
+  size.y = sprite.getGlobalBounds().height;
 
   int newX = roundAwayFromZero(xoffset);
 
@@ -175,6 +190,6 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state)
     }
   }
 
-  // move player
-  shape.setPosition(pos.x + xoffset, pos.y + yoffset);
+  // cout << pos.x + xoffset << " " <<pos.y <<" " << yoffset << endl;
+  sprite.setPosition(pos.x + xoffset, pos.y + yoffset);
 }
