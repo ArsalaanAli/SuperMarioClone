@@ -70,7 +70,7 @@ public:
    */
   void endLevel(bool win);
   void drawMainMenu(sf::RenderWindow& window);
-  void drawHud(sf::RenderWindow& window);
+  void drawHud(sf::RenderWindow& window, int time, int coinsCollected, int lives, int score);
   void drawPausePopup(sf::RenderWindow& window);
   bool isMouseOverText(sf::RenderWindow& window, sf::Text& text);
 
@@ -133,6 +133,11 @@ private:
    * @brief The player's current lives.
    */
   int lives;
+
+  /**
+   * @brief The number of enemies killed.
+   */
+  int kills;
 };
 
 #endif // GAMESTATE_H

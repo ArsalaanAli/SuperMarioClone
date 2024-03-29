@@ -199,14 +199,14 @@ void GameState::drawMainMenu(sf::RenderWindow& window) {
   window.draw(quitGameText);
 }
 
-void GameState::drawHud(sf::RenderWindow& window) {
+void GameState::drawHud(sf::RenderWindow& window, int time, int coinsCollected, int lives, int score) {
   sf::Vector2f windowCenter = window.getView().getCenter();
-  std::string time = "TIME " + std::to_string(clock.getElapsedTime().asMilliseconds());
-  sf::Text timeText(time, secondaryFont, 50);
+
+  std::string Time = "TIME " + std::to_string(time);
+  sf::Text timeText(Time, secondaryFont, 50);
   timeText.setPosition(windowCenter.x - 400, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
   timeText.setFillColor(sf::Color(255, 255, 0));
   window.draw(timeText);
-
 
   std::string coins = "COINS " + std::to_string(coinsCollected);
   sf::Text coinsText(coins, secondaryFont, 50);
@@ -219,6 +219,12 @@ void GameState::drawHud(sf::RenderWindow& window) {
   livesText.setPosition(windowCenter.x + 100, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
   livesText.setFillColor(sf::Color(255, 255, 0));
   window.draw(livesText);
+
+  std::string Score = "SCORE " + std::to_string(score);
+  sf::Text scoreText(Score, secondaryFont, 50);
+  scoreText.setPosition(windowCenter.x + 100, 75);
+  scoreText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(scoreText);
 }
 
 bool GameState::isMouseOverText(sf::RenderWindow& window, sf::Text& text) {
@@ -453,6 +459,7 @@ void GameState::runGame() {
           coins.push_back(coin);
         }
         coinsCollected = 0;
+        kills = 0;
         lives -= 1;
 
         resetLevel = false;
@@ -475,6 +482,7 @@ void GameState::runGame() {
           if (pos.y - epos.y < -(CELL_SIZE / 2)) {
             enemy.die();
             player.jump();
+            kills += 1;
           } else {
             player.die();
           }
@@ -484,13 +492,11 @@ void GameState::runGame() {
       for (auto& coin : coins) {
         if (coin.shape.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
           coinsCollected++;
-          std::cout << "Coins: " << coinsCollected << std::endl;
           switch (coinsCollected) {
           case 1:
           case 5:
           case 10:
             lives += 1;
-            std::cout << "Lives: " << lives << std::endl;
           default:
             break;
           }
@@ -501,11 +507,14 @@ void GameState::runGame() {
           }), coins.end());
       }
 
+      int time = clock.getElapsedTime().asSeconds();
+      int score = player.getShape().getPosition().x + coinsCollected * 100 + kills * 500;
+
       // Draw everything
       window.clear(sf::Color::White); // Clear the window with white color
       window.draw(backgroundSprite);  // Draw background first
 
-      drawHud(window);
+      drawHud(window, time, coinsCollected, lives, score);
 
       for (Enemy enemy : enemies) {
         window.draw(enemy);
