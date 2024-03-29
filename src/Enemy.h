@@ -13,8 +13,7 @@
 /**
  * @brief The Enemy class is responsible for handling enemy movement and interactions.
  */
-class Enemy : public sf::Drawable
-{
+class Enemy : public sf::Drawable {
 public:
   /**
    * @brief Construct a new Enemy object
@@ -34,7 +33,7 @@ public:
    *
    * @param state The current game state.
    */
-  void update(GameState &state);
+  void update(GameState& state);
 
   /**
    * @brief Check if the player has collided with the enemy.
@@ -81,7 +80,7 @@ private:
    * @param target The window to draw the enemy on.
    * @param states The render states to apply to the enemy.
    */
-  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   /**
    * @brief The underlying shape of the enemy.
@@ -99,7 +98,7 @@ private:
    * @param state The current game state.
    * @return Whether the enemy is grounded.
    */
-  bool isGrounded(GameState &state);
+  bool isGrounded(GameState& state);
 
   /**
    * @brief Move the enemy.
@@ -108,7 +107,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MoveEnemy(float xoffset, float yoffset, GameState &state);
+  void MoveEnemy(float xoffset, float yoffset, GameState& state);
 
   /**
    * @brief Round a float away from zero.
