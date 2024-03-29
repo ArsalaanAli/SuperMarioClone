@@ -1,19 +1,16 @@
-#include "Player.h"
-#include "GameState.h"
-#include "SFML/Graphics/RectangleShape.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "SFML/Window/Keyboard.hpp"
 #include <iostream>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
-#define MAX_SPEED 400.0f
-#define DECEL_RATE 3000.0f
-#define ACCEL_RATE 3000.0f
-#define JUMP_FORCE 1150.0f
-#define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
-#define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
+#include "Player.h"
 
-#define GROUND_HEIGHT (620 - CELL_SIZE)
-
+/**
+ * @brief Round a float away from zero.
+ *
+ * @param x The float to round.
+ * @return the rounded float.
+ */
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Player::Player(int cx, int cy) {
@@ -53,7 +50,8 @@ bool Player::isGrounded(GameState &state) {
   for (int i = 0; i < size.x; i++) {
     if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY)) {
+      while (state.checkCollision(pos.x + i, newY))
+      {
         newY -= 1;
       }
       sprite.setPosition(pos.x, newY - CELL_SIZE);
@@ -67,20 +65,29 @@ bool Player::isGrounded(GameState &state) {
   return false;
 }
 
-void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded) {
+void Player::processInput(sf::Vector2<int> input, bool grounded, float dt)
+{
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded)
+  {
     jump();
   }
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+  {
     die();
   }
 
-  if (input.x) {
+  // handle horizontal movement
+  if (input.x)
+  {
+    // accelerate
     vx += input.x * ACCEL_RATE * dt;
     vx = std::min(vx, MAX_SPEED);
     vx = std::max(vx, -MAX_SPEED);
-  } else {
+  }
+  else
+  {
+    // decelerate
     if (abs(vx) > DECEL_RATE * dt)
       vx -= DECEL_RATE * ((vx > 0) - (vx < 0)) * dt;
     else
@@ -92,10 +99,13 @@ bool Player::shouldDie() {
   // TODO: include check for enemy collision and any other death conditions
   return sprite.getPosition().y >= 665;
 }
+
 void Player::jump() { vy = JUMP_FORCE; }
 
-void Player::die() {
-  if (!isDying) {
+void Player::die()
+{
+  if (!isDying)
+  {
     // on first invocation, jump
     jump();
     isDying = true;
@@ -106,23 +116,30 @@ void Player::die() {
 }
 
 // Update called once per gameloop
-void Player::update(GameState &state) {
+void Player::update(GameState &state)
+{
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
   bool grounded = isGrounded(state);
 
-  if (shouldDie() || isDying) {
+  if (shouldDie() || isDying)
+  {
     die();
 
-    // once going down from jump, reset level
-    if (vy <= 0) {
+    // once going down from jump, trigger reset level
+    if (vy <= 0)
+    {
       state.endLevel(false);
     }
-  } else {
+  }
+  else
+  {
     processInput(input, grounded, dt);
   }
 
-  if (!grounded) {
+  // handle vertical movement and gravity
+  if (!grounded)
+  {
     bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
     if(dt<0.1){
       vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
@@ -131,6 +148,7 @@ void Player::update(GameState &state) {
     }
   }
 
+  // move player based on velocity
   MovePlayer(vx * dt, -vy * dt, state);
 
 
@@ -145,17 +163,27 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
   size.y = sprite.getGlobalBounds().height;
 
   int newX = roundAwayFromZero(xoffset);
-  for (int i = 0; i <= size.y - 3; i++) {
+
+  // check for collision on left and right sides
+  for (int i = 0; i <= size.y - 3; i++)
+  {
     if (state.checkCollision(pos.x + newX, pos.y + i) ||
-        state.checkCollision(pos.x + size.x + newX, pos.y + i)) {
+        state.checkCollision(pos.x + size.x + newX, pos.y + i))
+    {
+      // if collision, ignore x movement
       xoffset = 0;
       break;
     }
   }
 
   int newY = roundAwayFromZero(yoffset);
-  for (int i = 0; i <= size.x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + newY)) {
+
+  // check for collision on top and bottom sides
+  for (int i = 0; i <= size.x; i++)
+  {
+    if (state.checkCollision(pos.x + i, pos.y + newY))
+    {
+      // if collision, invert y movement
       yoffset = abs(yoffset);
       vy = -yoffset;
       break;
