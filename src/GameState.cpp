@@ -14,7 +14,6 @@ typedef struct {
   sf::RectangleShape shape;
 } Coin;
 
-
 GameState::GameState() {
   dt_clock = sf::Clock();
   resetLevel = false;
@@ -440,11 +439,18 @@ void GameState::runGame() {
 
       if (resetLevel) {
         clock.restart();
-        coins = std::vector<Coin>();
         player = Player(0, 0);
         view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
         for (auto& enemy : enemies) {
           enemy.reset();
+        }
+        coins = std::vector<Coin>();
+        for (int i = 0; i < 1; i++) {
+          Coin coin;
+          coin.shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+          coin.shape.setFillColor(sf::Color::Green);
+          coin.shape.setPosition((i + 1) * 1000, 500);
+          coins.push_back(coin);
         }
         coinsCollected = 0;
         lives -= 1;
@@ -479,6 +485,15 @@ void GameState::runGame() {
         if (coin.shape.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
           coinsCollected++;
           std::cout << "Coins: " << coinsCollected << std::endl;
+          switch (coinsCollected) {
+          case 1:
+          case 5:
+          case 10:
+            lives += 1;
+            std::cout << "Lives: " << lives << std::endl;
+          default:
+            break;
+          }
         }
 
         coins.erase(std::remove_if(coins.begin(), coins.end(), [&](Coin c) {
