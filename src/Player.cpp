@@ -20,9 +20,8 @@ Player::Player(int cx, int cy) {
   vy = 0;
 }
 
-void Player::loadSprites(){
-  if (!spriteTexture.loadFromFile("assets/MarioSprites/run0.png"))
-  {
+void Player::loadSprites() {
+  if (!spriteTexture.loadFromFile("assets/MarioSprites/run0.png")) {
     // Error handling if loading fails
     return;
   }
@@ -36,12 +35,12 @@ Player::~Player() {}
 sf::Sprite Player::getShape() { return sprite; }
 
 // compatibility for windows.draw(player)
-void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   target.draw(sprite); // Draw the sprite member variable
 }
 
 
-bool Player::isGrounded(GameState &state) {
+bool Player::isGrounded(GameState& state) {
   sf::Vector2<float> pos = sprite.getPosition();
   sf::Vector2<float> size;
   size.x = sprite.getGlobalBounds().width;
@@ -50,12 +49,10 @@ bool Player::isGrounded(GameState &state) {
   for (int i = 0; i < size.x; i++) {
     if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY))
-      {
+      while (state.checkCollision(pos.x + i, newY)) {
         newY -= 1;
       }
       sprite.setPosition(pos.x, newY - CELL_SIZE);
-      cout << "resetting y" << endl;
 
       vy = 0;
       return true;
@@ -65,28 +62,22 @@ bool Player::isGrounded(GameState &state) {
   return false;
 }
 
-void Player::processInput(sf::Vector2<int> input, bool grounded, float dt)
-{
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded)
-  {
+void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded) {
     jump();
   }
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-  {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
     die();
   }
 
   // handle horizontal movement
-  if (input.x)
-  {
+  if (input.x) {
     // accelerate
     vx += input.x * ACCEL_RATE * dt;
     vx = std::min(vx, MAX_SPEED);
     vx = std::max(vx, -MAX_SPEED);
-  }
-  else
-  {
+  } else {
     // decelerate
     if (abs(vx) > DECEL_RATE * dt)
       vx -= DECEL_RATE * ((vx > 0) - (vx < 0)) * dt;
@@ -102,10 +93,8 @@ bool Player::shouldDie() {
 
 void Player::jump() { vy = JUMP_FORCE; }
 
-void Player::die()
-{
-  if (!isDying)
-  {
+void Player::die() {
+  if (!isDying) {
     // on first invocation, jump
     jump();
     isDying = true;
@@ -116,32 +105,26 @@ void Player::die()
 }
 
 // Update called once per gameloop
-void Player::update(GameState &state)
-{
+void Player::update(GameState& state) {
   float dt = state.getDeltaTime();
   sf::Vector2<int> input = state.getInputAxis();
   bool grounded = isGrounded(state);
 
-  if (shouldDie() || isDying)
-  {
+  if (shouldDie() || isDying) {
     die();
 
     // once going down from jump, trigger reset level
-    if (vy <= 0)
-    {
+    if (vy <= 0) {
       state.endLevel(false);
     }
-  }
-  else
-  {
+  } else {
     processInput(input, grounded, dt);
   }
 
   // handle vertical movement and gravity
-  if (!grounded)
-  {
+  if (!grounded) {
     bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-    if(dt<0.1){
+    if (dt < 0.1) {
       vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
       vy = std::min(vy, MAX_AIR_SPEED);
       vy = std::max(vy, -MAX_AIR_SPEED);
@@ -156,7 +139,7 @@ void Player::update(GameState &state)
   // std::cout << pos.x << "," << pos.y << "\n";
 }
 
-void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
+void Player::MovePlayer(float xoffset, float yoffset, GameState& state) {
   sf::Vector2<float> pos = sprite.getPosition();
   sf::Vector2<float> size;
   size.x = sprite.getGlobalBounds().width;
@@ -165,11 +148,9 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
   int newX = roundAwayFromZero(xoffset);
 
   // check for collision on left and right sides
-  for (int i = 0; i <= size.y - 3; i++)
-  {
+  for (int i = 0; i <= size.y - 3; i++) {
     if (state.checkCollision(pos.x + newX, pos.y + i) ||
-        state.checkCollision(pos.x + size.x + newX, pos.y + i))
-    {
+      state.checkCollision(pos.x + size.x + newX, pos.y + i)) {
       // if collision, ignore x movement
       xoffset = 0;
       break;
@@ -179,10 +160,8 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState &state) {
   int newY = roundAwayFromZero(yoffset);
 
   // check for collision on top and bottom sides
-  for (int i = 0; i <= size.x; i++)
-  {
-    if (state.checkCollision(pos.x + i, pos.y + newY))
-    {
+  for (int i = 0; i <= size.x; i++) {
+    if (state.checkCollision(pos.x + i, pos.y + newY)) {
       // if collision, invert y movement
       yoffset = abs(yoffset);
       vy = -yoffset;
