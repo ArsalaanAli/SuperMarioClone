@@ -90,17 +90,11 @@ bool GameState::checkCollision(int x, int y) {
 }
 
 void GameState::endLevel(bool win) {
-  if (win) {
-    // load next level
+  if (win || lives == 1) {
+    gameState = MainMenu;
+    lives = 4;
   } else {
-    lives -= 1;
-
-    if (lives == 0) {
-      gameState = MainMenu;
-      lives = 4;
-    } else {
-      resetLevel = true;
-    }
+    resetLevel = true;
   }
 }
 
@@ -452,6 +446,8 @@ void GameState::runGame() {
         for (auto& enemy : enemies) {
           enemy.reset();
         }
+        coinsCollected = 0;
+        lives -= 1;
 
         resetLevel = false;
       }
