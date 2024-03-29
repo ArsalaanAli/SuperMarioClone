@@ -13,8 +13,7 @@
 #define CELL_SIZE 50.0f
 #define GROUND_HEIGHT (620 - CELL_SIZE)
 
-enum GameStateEnum
-{
+enum GameStateEnum {
   MainMenu,
   Running,
   Paused
@@ -24,8 +23,7 @@ enum GameStateEnum
  * @brief The GameState class is responsible for running the game loop and
  * handling input.
  */
-class GameState
-{
+class GameState {
 public:
   /**
    * @brief Construct a new Game State object
@@ -71,13 +69,20 @@ public:
    * @param win Whether the player won the level. If false, the level is incomplete so restart the level
    */
   void endLevel(bool win);
-  void drawMainMenu(sf::RenderWindow &window);
-  void drawPausePopup(sf::RenderWindow &window);
-  bool isMouseOverText(sf::RenderWindow &window, sf::Text &text);
+  void drawMainMenu(sf::RenderWindow& window);
+  void drawHud(sf::RenderWindow& window);
+  void drawPausePopup(sf::RenderWindow& window);
+  bool isMouseOverText(sf::RenderWindow& window, sf::Text& text);
 
 private:
+
   /**
    * @brief the internal clock of game loop
+   */
+  sf::Clock dt_clock;
+
+  /**
+   * @brief the internal clock of whole game
    */
   sf::Clock clock;
 
@@ -114,10 +119,15 @@ private:
   bool resetLevel;
 
   GameStateEnum gameState;
-  void handlePauseInput(sf::Event event, sf::RenderWindow &window);
+  void handlePauseInput(sf::Event event, sf::RenderWindow& window);
   sf::Font font;
   sf::Font secondaryFont;
   int selectedMenuItem;
+
+  /**
+   * @brief The player's current score.
+   */
+  int coinsCollected;
 };
 
 #endif // GAMESTATE_H

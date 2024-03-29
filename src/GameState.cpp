@@ -10,50 +10,46 @@
 #include "Player.h"
 #include "Enemy.h"
 
-GameState::GameState()
-{
-  clock = sf::Clock();
+typedef struct {
+  sf::RectangleShape shape;
+} Coin;
+
+
+GameState::GameState() {
+  dt_clock = sf::Clock();
   resetLevel = false;
   gameState = MainMenu;
 
-  if (!font.loadFromFile("assets/SuperMario256.ttf"))
-  {
+  if (!font.loadFromFile("assets/SuperMario256.ttf")) {
     std::cerr << "Failed to load font file!" << std::endl;
   }
-  if (!secondaryFont.loadFromFile("assets/pixel-nes.otf"))
-  {
+  if (!secondaryFont.loadFromFile("assets/pixel-nes.otf")) {
     std::cerr << "Failed to load font file!" << std::endl;
   }
 }
 
 GameState::~GameState() {}
 
-float GameState::getDeltaTime()
-{
-  // not using clock.getElapsedTime() since we want since last recorded frame
+float GameState::getDeltaTime() {
+  // not using dt_clock.getElapsedTime() since we want since last recorded frame
   return deltaTime;
 }
 
 sf::Vector2<int> GameState::getInputAxis() { return input; }
 
-sf::Vector2<int> GameState::updateInputAxis()
-{
+sf::Vector2<int> GameState::updateInputAxis() {
   int dir_x = 0, dir_y = 0;
 
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-  {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
     dir_x += 1;
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-  {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
     dir_x += -1;
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-  {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
     dir_y += 1;
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-  {
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
     dir_y += -1;
   }
 
@@ -68,48 +64,40 @@ sf::Vector2<int> GameState::updateInputAxis()
  * @param player The player object.
  * @return The updated view.
  */
-sf::View updateLevelScroll(sf::View &view, const float &LEVEL_END,
-                           Player &player)
-{
+sf::View updateLevelScroll(sf::View& view, const float& LEVEL_END,
+  Player& player) {
   float x = player.getShape().getPosition().x + (CELL_SIZE / 2);
   float viewX = view.getCenter().x;
 
   // calculate excess from either end as a positive value
   float excess = ((x > viewX) - (x < viewX)) * (x - viewX) -
-                 VIEW_SCROLL_MARGIN_FROM_CENTER;
+    VIEW_SCROLL_MARGIN_FROM_CENTER;
 
   // cover excess based on the end excess is on
   if (excess > 0 && x > VIEW_SCROLL_MARGIN &&
-      x < LEVEL_END - VIEW_SCROLL_MARGIN)
-  {
+    x < LEVEL_END - VIEW_SCROLL_MARGIN) {
     view.move(((x > viewX) - (x < viewX)) * excess, 0);
   }
 
   return view;
 }
 
-bool GameState::checkCollision(int x, int y)
-{
+bool GameState::checkCollision(int x, int y) {
   sf::Vector2u size = collisionMap.getSize();
   if (x > 0 && x < static_cast<int>(size.x) && y > 0 && y < static_cast<int>(size.y))
     return collisionMap.getPixel(x, y) == sf::Color::Red;
   return false;
 }
 
-void GameState::endLevel(bool win)
-{
-  if (win)
-  {
+void GameState::endLevel(bool win) {
+  if (win) {
     // load next level
-  }
-  else
-  {
+  } else {
     resetLevel = true;
   }
 }
 
-void GameState::drawMainMenu(sf::RenderWindow &window)
-{
+void GameState::drawMainMenu(sf::RenderWindow& window) {
   sf::Vector2f windowCenter = window.getView().getCenter();
 
   // Draw the overlay
@@ -165,16 +153,12 @@ void GameState::drawMainMenu(sf::RenderWindow &window)
 
   // Check mouse interaction with "Start Game" button
   sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-  if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition)))
-  {
+  if (startButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
     startButton.setFillColor(sf::Color(76, 175, 80));
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-    {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       gameState = Running;
     }
-  }
-  else
-  {
+  } else {
     startButton.setFillColor(sf::Color(0, 150, 136));
   }
 
@@ -196,16 +180,12 @@ void GameState::drawMainMenu(sf::RenderWindow &window)
 
   // Check mouse interaction with "Quit Game" button
   sf::Vector2i mousePositionQuit = sf::Mouse::getPosition(window);
-  if (quitButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePositionQuit)))
-  {
+  if (quitButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePositionQuit))) {
     quitButton.setFillColor(sf::Color(233, 30, 99));
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-    {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       window.close();
     }
-  }
-  else
-  {
+  } else {
     quitButton.setFillColor(sf::Color(244, 67, 54));
   }
 
@@ -219,15 +199,29 @@ void GameState::drawMainMenu(sf::RenderWindow &window)
   window.draw(quitGameText);
 }
 
-bool GameState::isMouseOverText(sf::RenderWindow &window, sf::Text &text)
-{
+void GameState::drawHud(sf::RenderWindow& window) {
+  sf::Vector2f windowCenter = window.getView().getCenter();
+  std::string time = "TIME " + std::to_string(clock.getElapsedTime().asMilliseconds());
+  sf::Text timeText(time, secondaryFont, 50);
+  timeText.setPosition(windowCenter.x - 400, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
+  timeText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(timeText);
+
+
+  std::string coins = "COINS " + std::to_string(coinsCollected);
+  sf::Text coinsText(coins, secondaryFont, 50);
+  coinsText.setPosition(windowCenter.x - 400, 75);
+  coinsText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(coinsText);
+}
+
+bool GameState::isMouseOverText(sf::RenderWindow& window, sf::Text& text) {
   sf::FloatRect bounds = text.getGlobalBounds();
   sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
   return bounds.contains(mousePos);
 }
 
-void GameState::drawPausePopup(sf::RenderWindow &window)
-{
+void GameState::drawPausePopup(sf::RenderWindow& window) {
   // Get the center of the window
   sf::Vector2f windowCenter = window.getView().getCenter();
 
@@ -268,16 +262,11 @@ void GameState::drawPausePopup(sf::RenderWindow &window)
   window.draw(quitText);
 
   // Check if mouse is over any menu item and update selectedMenuItem
-  if (isMouseOverText(window, resumeText))
-  {
+  if (isMouseOverText(window, resumeText)) {
     selectedMenuItem = 0;
-  }
-  else if (isMouseOverText(window, restartText))
-  {
+  } else if (isMouseOverText(window, restartText)) {
     selectedMenuItem = 1;
-  }
-  else if (isMouseOverText(window, quitText))
-  {
+  } else if (isMouseOverText(window, quitText)) {
     selectedMenuItem = 2;
   }
 
@@ -289,8 +278,7 @@ void GameState::drawPausePopup(sf::RenderWindow &window)
   selector.setPoint(2, sf::Vector2f(0, 20));
   selector.setFillColor(sf::Color::White);
 
-  switch (selectedMenuItem)
-  {
+  switch (selectedMenuItem) {
   case 0:
     selector.setPosition(resumeText.getPosition().x - 30, resumeText.getPosition().y + resumeText.getGlobalBounds().height / 2);
     break;
@@ -305,35 +293,28 @@ void GameState::drawPausePopup(sf::RenderWindow &window)
   window.draw(selector);
 }
 
-void GameState::handlePauseInput(sf::Event event, sf::RenderWindow &window)
-{
-  if (event.type == sf::Event::KeyPressed)
-  {
-    if (event.key.code == sf::Keyboard::Up)
-    {
+void GameState::handlePauseInput(sf::Event event, sf::RenderWindow& window) {
+  if (event.type == sf::Event::KeyPressed) {
+    if (event.key.code == sf::Keyboard::Up) {
       // Move selection up (from first item to last item)
       selectedMenuItem = (selectedMenuItem == 0) ? 2 : selectedMenuItem - 1;
-    }
-    else if (event.key.code == sf::Keyboard::Down)
-    {
+    } else if (event.key.code == sf::Keyboard::Down) {
       // Move selection down (from last item to first item)
       selectedMenuItem = (selectedMenuItem == 2) ? 0 : selectedMenuItem + 1;
     }
   }
 }
 
-void GameState::runGame()
-{
+void GameState::runGame() {
   // Create the main window and view
   sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
-                          "Super Mario Clone");
+    "Super Mario Clone");
   sf::View view(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
   window.setView(view);
 
   // Load level assets
   sf::Texture backgroundTexture;
-  if (!backgroundTexture.loadFromFile("assets/map1.png"))
-  {
+  if (!backgroundTexture.loadFromFile("assets/map1.png")) {
     return;
   }
   sf::Sprite backgroundSprite(backgroundTexture);
@@ -346,32 +327,36 @@ void GameState::runGame()
     return;
   }
 
+  clock = sf::Clock();
+
   // Spawn player and enemies
   Player player = Player(0, 0);
   std::vector<Enemy> enemies;
+  std::vector<Coin> coins;
 
-  for (int i = 0; i < 1; i++)
-  {
+  for (int i = 0; i < 1; i++) {
     Enemy enemy = Enemy((i + 1) * 1500, 0);
     enemies.push_back(enemy);
   }
 
-  while (window.isOpen())
-  {
+  for (int i = 0; i < 1; i++) {
+    Coin coin;
+    coin.shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+    coin.shape.setFillColor(sf::Color::Green);
+    coin.shape.setPosition((i + 1) * 1000, 500);
+    coins.push_back(coin);
+  }
+
+  while (window.isOpen()) {
     sf::Event event;
-    while (window.pollEvent(event))
-    {
-      if (event.type == sf::Event::Closed)
-      {
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed) {
         window.close();
       }
       // Handle events based on game state
-      if (event.type == sf::Event::MouseButtonPressed)
-      {
-        if (event.mouseButton.button == sf::Mouse::Left)
-        {
-          switch (selectedMenuItem)
-          {
+      if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+          switch (selectedMenuItem) {
           case 0:
             gameState = Running;
             selectedMenuItem = 0;
@@ -391,20 +376,16 @@ void GameState::runGame()
         }
       }
 
-      if (event.type == sf::Event::KeyPressed)
-      {
-        switch (gameState)
-        {
+      if (event.type == sf::Event::KeyPressed) {
+        switch (gameState) {
         case MainMenu:
-          if (event.key.code == sf::Keyboard::Enter)
-          {
+          if (event.key.code == sf::Keyboard::Enter) {
             gameState = Running;
           }
           break;
 
         case Running:
-          if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape)
-          {
+          if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape) {
             gameState = Paused;
           }
           break;
@@ -412,14 +393,10 @@ void GameState::runGame()
         case Paused:
           handlePauseInput(event, window);
 
-          if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape)
-          {
+          if (event.key.code == sf::Keyboard::P || event.key.code == sf::Keyboard::Escape) {
             gameState = Running;
-          }
-          else if (event.key.code == sf::Keyboard::Enter)
-          {
-            switch (selectedMenuItem)
-            {
+          } else if (event.key.code == sf::Keyboard::Enter) {
+            switch (selectedMenuItem) {
             case 0:
               gameState = Running;
               selectedMenuItem = 0;
@@ -445,22 +422,19 @@ void GameState::runGame()
       }
     }
 
-    if (gameState == MainMenu)
-    {
+    if (gameState == MainMenu) {
       window.draw(backgroundSprite);
       drawMainMenu(window);
-    }
-    else if (gameState == Running)
-    {
-      deltaTime = clock.restart().asSeconds();
+    } else if (gameState == Running) {
+      deltaTime = dt_clock.restart().asSeconds();
       input = updateInputAxis();
 
-      if (resetLevel)
-      {
+      if (resetLevel) {
+        clock.restart();
+        coins = std::vector<Coin>();
         player = Player(0, 0);
         view = sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-        for (auto &enemy : enemies)
-        {
+        for (auto& enemy : enemies) {
           enemy.reset();
         }
 
@@ -472,40 +446,53 @@ void GameState::runGame()
 
       // Entity updates
       player.update(*this);
-      for (auto &enemy : enemies)
-      {
+      for (auto& enemy : enemies) {
         enemy.update(*this);
 
         sf::Vector2f pos = player.getShape().getPosition();
         sf::Vector2f epos = enemy.getShape().getPosition();
 
         // Check for player collision with enemy
-        if (enemy.checkPlayerCollision(pos.x, pos.y))
-        {
+        if (enemy.checkPlayerCollision(pos.x, pos.y)) {
           // Check if player is above enemy
-          if (pos.y - epos.y < -(CELL_SIZE / 2))
-          {
+          if (pos.y - epos.y < -(CELL_SIZE / 2)) {
             enemy.die();
             player.jump();
-          }
-          else
-          {
+          } else {
             player.die();
           }
         }
       }
 
+      for (auto& coin : coins) {
+        // sf::Vector2<float> pos = player.getShape().getPosition();
+        // sf::Vector2<float> cpos = coin.shape.getPosition();
+
+        if (coin.shape.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
+          coinsCollected++;
+        }
+
+        coins.erase(std::remove_if(coins.begin(), coins.end(), [&](Coin c) {
+          return c.shape.getGlobalBounds().intersects(player.getShape().getGlobalBounds());
+          }), coins.end());
+        std::cout << "Coins: " << coinsCollected << std::endl;
+      }
+
       // Draw everything
       window.clear(sf::Color::White); // Clear the window with white color
       window.draw(backgroundSprite);  // Draw background first
-      for (Enemy enemy : enemies)
-      {
+
+      drawHud(window);
+
+      for (Enemy enemy : enemies) {
         window.draw(enemy);
       }
+
+      for (Coin coin : coins) {
+        window.draw(coin.shape);
+      }
       window.draw(player);
-    }
-    else if (gameState == Paused)
-    {
+    } else if (gameState == Paused) {
       window.draw(backgroundSprite);
       drawPausePopup(window);
     }
