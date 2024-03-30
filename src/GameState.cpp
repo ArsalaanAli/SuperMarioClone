@@ -1,3 +1,7 @@
+#if 1
+#else
+
+
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
@@ -469,7 +473,7 @@ void GameState::runGame() {
       window.setView(view);
 
       // Entity updates
-      player.update(*this);
+      // player.update(*this);
       for (auto& enemy : enemies) {
         enemy.update(*this);
 
@@ -532,3 +536,4 @@ void GameState::runGame() {
     window.display();
   }
 }
+#endif
