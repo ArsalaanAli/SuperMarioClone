@@ -14,6 +14,8 @@ int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Player::Player(int cx, int cy) {
   loadSprites();
+  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+  shape.setPosition(cx, cy);
   isDying = false;
   vx = 0;
   vy = 0;
@@ -52,7 +54,7 @@ void Player::loadSprites() {
 
 Player::~Player() {}
 
-sf::Sprite Player::getShape() { return sprite; }
+sf::RectangleShape Player::getShape() { return shape; }
 
 // compatibility for windows.draw(player)
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -61,25 +63,26 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 
 bool Player::isGrounded() {
-  sf::Vector2<float> pos = sprite.getPosition();
+  sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size;
-  size.x = sprite.getGlobalBounds().width;
-  size.y = sprite.getGlobalBounds().height;
+  size.x = shape.getGlobalBounds().width;
+  size.y = shape.getGlobalBounds().height;
   Level* level = Game::getInstance()->getLevel();
 
+  bool grounded = false;
   for (int i = 0; i < size.x; i++) {
     if (level->checkCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
-      while (level->checkCollision(pos.x + i, newY)) {
+      while (level->checkCollision(pos.x + i, newY + 1)) {
         newY -= 1;
       }
-      sprite.setPosition(pos.x, newY - CELL_SIZE);
+      shape.setPosition(pos.x, newY - CELL_SIZE);
       vy = 0;
-      return true;
+      grounded = true;
     }
   }
 
-  return false;
+  return grounded;
 }
 
 void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
@@ -94,9 +97,11 @@ void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
   // handle horizontal movement
   if (input.x) {
     curAnim = RUN;
+    // L -> R
     if (input.x < 0 && sprite.getScale().x > 0) {
       sprite.scale(-1, 1);
     }
+    // R -> L
     if (input.x > 0 && sprite.getScale().x < 0) {
       sprite.scale(-1, 1);
     }
@@ -116,7 +121,7 @@ void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
 
 bool Player::shouldDie() {
   // TODO: include check for enemy collision and any other death conditions
-  return sprite.getPosition().y >= 665;
+  return shape.getPosition().y >= 665;
 }
 
 void Player::jump() { vy = JUMP_FORCE; }
@@ -145,6 +150,7 @@ void Player::update() {
     // once going down from jump, trigger reset level
     if (vy <= 0) {
       Game::getInstance()->getLevel()->endLevel(false);
+      isDying = false;
     }
   } else {
     processInput(input, grounded, dt);
@@ -153,11 +159,9 @@ void Player::update() {
   // handle vertical movement and gravity
   if (!grounded) {
     bool falling = vy <= 0 || !sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
-    if (dt < 0.1) {
-      vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
-      vy = std::min(vy, MAX_AIR_SPEED);
-      vy = std::max(vy, -MAX_AIR_SPEED);
-    }
+    vy -= AIR_DECEL_RATE * (falling ? 2.0f : 1.0f) * dt;
+    vy = std::min(vy, MAX_AIR_SPEED);
+    vy = std::max(vy, -MAX_AIR_SPEED);
   }
 
   // move player based on velocity
@@ -172,13 +176,14 @@ void Player::AnimatePlayer(float deltaTime) {
     animationTime = 0;
     sprite.setTexture(textures[curAnim][curFrame]);
   }
+  sprite.setPosition(shape.getPosition().x + CELL_SIZE / 2, shape.getPosition().y);
 }
 
 void Player::MovePlayer(float xoffset, float yoffset) {
-  sf::Vector2<float> pos = sprite.getPosition();
+  sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size;
-  size.x = sprite.getGlobalBounds().width;
-  size.y = sprite.getGlobalBounds().height;
+  size.x = shape.getGlobalBounds().width;
+  size.y = shape.getGlobalBounds().height;
   Level* level = Game::getInstance()->getLevel();
 
   int newX = roundAwayFromZero(xoffset);
@@ -205,5 +210,5 @@ void Player::MovePlayer(float xoffset, float yoffset) {
     }
   }
 
-  sprite.setPosition(pos.x + xoffset, pos.y + yoffset);
+  shape.setPosition(pos.x + xoffset, pos.y + yoffset);
 }

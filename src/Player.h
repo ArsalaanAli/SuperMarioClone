@@ -52,7 +52,7 @@ public:
    *
    * @return The player's shape.
    */
-  sf::Sprite getShape();
+  sf::RectangleShape getShape();
 
 private:
   static const int SCALE = 2;
@@ -81,6 +81,11 @@ private:
    * @brief Flag for whether the player is dying.
    */
   bool isDying;
+
+  /**
+   * @brief The player's shape.
+   */
+  sf::RectangleShape shape;
 
   /**
    * @brief The player's sprite.
@@ -128,14 +133,6 @@ private:
    * @brief Load the player's sprites.
    */
   void loadSprites();
-
-  /**
-   * @brief Set the player's position.
-   *
-   * @param cx The x position.
-   * @param cy The y position.
-   */
-  void setPosition(int cx, int cy);
 
   /**
    * @brief Process the input for the player.
