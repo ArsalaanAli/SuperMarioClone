@@ -74,7 +74,20 @@ void Level::update() {
   player.update();
   for (auto& enemy : enemies) {
     enemy.update();
-    std::cout << "Enemy position: " << enemy.getShape().getPosition().x << std::endl;
+
+    sf::Vector2f pos = player.getShape().getPosition();
+    sf::Vector2f epos = enemy.getShape().getPosition();
+
+    // Check for player collision with enemy
+    if (enemy.checkPlayerCollision(pos.x, pos.y)) {
+      // Check if player is above enemy
+      if (pos.y - epos.y < -(CELL_SIZE / 2)) {
+        enemy.die();
+        player.jump();
+      } else {
+        player.die();
+      }
+    }
   }
 
   window->setView(updateLevelScroll(
@@ -87,10 +100,10 @@ void Level::draw(sf::RenderWindow& window) {
   sprite.setPosition(0, 0);
 
   window.draw(sprite);
-  window.draw(player);
   for (auto& enemy : enemies) {
     window.draw(enemy);
   }
+  window.draw(player);
 }
 
 void Level::handleEvent(sf::Event event) {
@@ -116,16 +129,15 @@ bool Level::checkCollision(int x, int y) {
 }
 
 void Level::reset() {
-  std::cout << "Resetting level..." << std::endl;
   player = Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2);
   for (auto& enemy : enemies) {
     enemy.reset();
   }
+  Game::getInstance()->getWindow()->setView(Game::getInstance()->getWindow()->getDefaultView());
 }
 
 void Level::endLevel(bool win) {
   if (win) {
-    std::cout << "You win!" << std::endl;
     // TODO: go to next level
     reset();
   } else {
