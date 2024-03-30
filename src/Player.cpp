@@ -29,6 +29,7 @@ void Player::loadSprites() {
     vector<sf::Texture> tempVec;
     textures.push_back(tempVec);
   }
+  //TODO: replace sprites with 50x50 sprites
   // load standing sprites
   for (int i = 0; i < numSprites[STAND]; i++) {
     sf::Texture temp;
@@ -71,7 +72,7 @@ bool Player::isGrounded() {
 
   bool grounded = false;
   for (int i = 0; i < size.x; i++) {
-    if (level->checkCollision(pos.x + i, pos.y + size.y + 1)) {
+    if (level->checkCollision(pos.x + i, pos.y + size.y + 2)) {
       float newY = pos.y + size.y;
       while (level->checkCollision(pos.x + i, newY + 1)) {
         newY -= 1;

@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "Level.h"
-#include "Game.h"
 
 Level::Level() : player(Player(50, 50)) {}
 
@@ -62,10 +61,20 @@ void Level::draw(sf::RenderWindow& window) {
   sprite.setPosition(0, 0);
 
   window.draw(sprite);
-  window.draw(player.getShape());
+  window.draw(player);
 }
 
-void Level::handleEvent(sf::Event event) {}
+void Level::handleEvent(sf::Event event) {
+  if (event.type == sf::Event::KeyPressed) {
+    switch (event.key.code) {
+    case sf::Keyboard::Q:
+      player.die();
+      break;
+    default:
+      break;
+    }
+  }
+}
 
 bool Level::checkCollision(int x, int y) {
   sf::Vector2u size = collisionMap.getSize();
@@ -76,6 +85,7 @@ bool Level::checkCollision(int x, int y) {
 
 void Level::reset() {
   std::cout << "Resetting level..." << std::endl;
+  player = Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2);
 }
 
 void Level::endLevel(bool win) {
