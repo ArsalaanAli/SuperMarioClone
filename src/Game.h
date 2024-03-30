@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+#include "Level.h"
+
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 
@@ -38,12 +40,6 @@ public:
   void run();
 
   /**
-   * @brief Start the level.
-   * Called when the player starts a new game from the main menu.
-   */
-  void setScene();
-
-  /**
    * @brief Draw the main menu.
    *
    * @param window The window to draw the main menu to.
@@ -68,6 +64,13 @@ public:
   void drawHud(sf::RenderWindow& window, int time, int coinsCollected, int lives, int score);
 
   /**
+   * @brief Get the Input Axis object
+   *
+   * @return The input axis as a 2D vector.
+   */
+  sf::Vector2<int> getInputAxis();
+
+  /**
    * @brief Set the current scene.
    * @param target The scene to set.
    */
@@ -77,6 +80,21 @@ private:
    * @brief the internal clock of whole game
    */
   sf::Clock clock;
+
+  /**
+   * @brief the internal clock of game loop. Used to calculate deltaTime.
+   */
+  sf::Clock dt_clock;
+
+  /**
+   * @brief The current time since the last frame.
+   */
+  float deltaTime;
+
+  /**
+   * @brief The input axis as a 2D vector.
+   */
+  sf::Vector2<int> input;
 
   /**
    * @brief The game's window.
@@ -112,6 +130,18 @@ private:
    * @brief The current menu item selected on pause.
    */
   int selectedMenuItem;
+
+  /**
+   * @brief Update the input axis based on the current input.
+   *
+   * @return The updated input axis as a 2D vector.
+   */
+  sf::Vector2<int> calculateInputAxis();
+
+  /**
+   * @brief The current level.
+   */
+  Level level;
 };
 
 #endif // GAME_H

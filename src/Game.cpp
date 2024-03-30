@@ -44,6 +44,43 @@ Game::~Game() {
   delete instance;
 }
 
+sf::Vector2<int> Game::getInputAxis() { return input; }
+
+sf::Vector2<int> Game::calculateInputAxis() {
+  int dir_x = 0, dir_y = 0;
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+    dir_x += 1;
+  }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+    dir_x += -1;
+  }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+    dir_y += 1;
+  }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+    dir_y += -1;
+  }
+
+  return sf::Vector2<int>(dir_x, dir_y);
+}
+
+void Game::setScene(Scene target) {
+  switch (scene) {
+  case Scene::MainMenu:
+    if (target == Scene::Running) {
+      // Start the game
+      std::cout << "Starting game..." << std::endl;
+      level = Level("assets/map1.png", "assets/newcolourmap1.png");
+    }
+    break;
+  default:
+    break;
+  }
+
+  scene = target;
+}
+
 bool isMouseOverText(sf::RenderWindow& window, sf::Text& text) {
   sf::FloatRect bounds = text.getGlobalBounds();
   sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -141,7 +178,7 @@ void Game::drawMainMenu(sf::RenderWindow& window) {
 }
 
 void Game::drawPauseMenu(sf::RenderWindow& window) {
-  const std::string menuLabels[] = { "Resume", "Restart", "Quit" };
+  const std::string menuLabels[3] = { "Resume", "Restart", "Quit" };
   const int fontSize = 30;
 
   // Get the center of the window
@@ -169,7 +206,7 @@ void Game::drawPauseMenu(sf::RenderWindow& window) {
   float textOffsetY = 20;
   int actionItem = -1;
 
-  for (int i = 0; i < menuLabels->length(); i++) {
+  for (int i = 0; i < 3; i++) {
     sf::Text text(menuLabels[i], secondaryFont, fontSize);
     int x = windowCenter.x - text.getLocalBounds().width / 2;
     int y = windowCenter.y - boxHeight / 2 + i * 60 + textOffsetY;
@@ -196,8 +233,8 @@ void Game::drawPauseMenu(sf::RenderWindow& window) {
     break;
   case 1:
     // Restart the game
-    std::cout << "Restarting game..." << std::endl;
-    setScene(Scene::MainMenu);
+    level.reset();
+    setScene(Scene::Running);
     break;
   case 2:
     setScene(Scene::MainMenu);
@@ -228,7 +265,15 @@ void Game::run() {
           break;
         }
       }
+
+      // Propagate events to the level
+      if (scene == Scene::Running) {
+        level.handleEvent(event);
+      }
     }
+
+    deltaTime = dt_clock.restart().asSeconds();
+    input = calculateInputAxis();
 
     window->clear(sf::Color::Black);
 
@@ -239,7 +284,8 @@ void Game::run() {
       break;
     case Scene::Running:
       // drawHud(*window, 100, 0, 3, 0);
-      window->draw(backgroundSprite);
+      level.update();
+      level.draw(*window);
       break;
     case Scene::Paused:
       // drawPausePopup(*window);
@@ -250,8 +296,4 @@ void Game::run() {
 
     window->display();
   }
-}
-
-void Game::setScene(Scene target) {
-  scene = target;
 }
