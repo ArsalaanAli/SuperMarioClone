@@ -8,6 +8,10 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
+#define CELL_SIZE 50.0f
+#define VIEW_SCROLL_MARGIN 200
+#define VIEW_SCROLL_MARGIN_FROM_CENTER \
+  ((WINDOW_WIDTH / 2.0f) - VIEW_SCROLL_MARGIN)
 
 enum Scene {
   MainMenu,
@@ -83,6 +87,13 @@ public:
    * @return The current level.
    */
   Level* getLevel();
+
+  /**
+   * @brief Get the Window object
+   *
+   * @return sf::RenderWindow* The game's window.
+   */
+  sf::RenderWindow* getWindow();
 
   /**
    * @brief Set the current scene.

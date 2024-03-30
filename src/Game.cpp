@@ -73,6 +73,10 @@ Level* Game::getLevel() {
   return &level;
 }
 
+sf::RenderWindow* Game::getWindow() {
+  return window;
+}
+
 void Game::setScene(Scene target) {
   switch (scene) {
   case Scene::MainMenu:

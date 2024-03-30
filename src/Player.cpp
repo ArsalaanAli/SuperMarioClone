@@ -4,8 +4,6 @@
 #include "Player.h"
 #include "Game.h"
 
-#define CELL_SIZE 50.0f
-
 /**
  * @brief Round a float away from zero.
  *

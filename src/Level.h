@@ -27,6 +27,11 @@ private:
   sf::Texture texture;
   sf::Image collisionMap;
 
+  /**
+   * @brief The marked end of the currently loaded level.
+   */
+  float levelEnd;
+
   // void updateViewScroll()
 };
 

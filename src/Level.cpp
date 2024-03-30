@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Level.h"
+#include "Game.h"
 
 Level::Level() : player(Player(50, 50)) {}
 
@@ -9,6 +10,7 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
     std::cerr << "Failed to load background texture!" << std::endl;
     exit(1);
   }
+  levelEnd = texture.getSize().x;
 
   if (!collisionMap.loadFromFile(collisionMapPath)) {
     std::cerr << "Failed to load collision map file!" << std::endl;
@@ -18,13 +20,48 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
 
 Level::~Level() {}
 
+/**
+ * @brief Update the view to scroll with the player.
+ *
+ * @param view The current view.
+ * @param LEVEL_END The end of the level.
+ * @param player The player object.
+ * @return The updated view.
+ */
+sf::View updateLevelScroll(const sf::View& view, const float& LEVEL_END,
+  Player& player) {
+  float x = player.getShape().getPosition().x + (CELL_SIZE / 2);
+  float viewX = view.getCenter().x;
+
+  // calculate excess from either end as a positive value
+  float excess = ((x > viewX) - (x < viewX)) * (x - viewX) -
+    VIEW_SCROLL_MARGIN_FROM_CENTER;
+
+  sf::View newView = view;
+  // cover excess based on the end excess is on
+  if (excess > 0 && x > VIEW_SCROLL_MARGIN &&
+    x < LEVEL_END - VIEW_SCROLL_MARGIN) {
+    newView.move(((x > viewX) - (x < viewX)) * excess, 0);
+  }
+
+  return newView;
+}
+
+
 void Level::update() {
+  sf::RenderWindow* window = Game::getInstance()->getWindow();
+
   player.update();
+  window->setView(updateLevelScroll(
+    window->getView(), levelEnd, player));
 }
 
 void Level::draw(sf::RenderWindow& window) {
   // TODO: can't make this a class var for some reason
-  window.draw(sf::Sprite(texture));
+  sf::Sprite sprite = sf::Sprite(texture);
+  sprite.setPosition(0, 0);
+
+  window.draw(sprite);
   window.draw(player.getShape());
 }
 
