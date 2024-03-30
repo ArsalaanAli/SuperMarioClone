@@ -33,14 +33,18 @@ private:
   std::vector<Enemy> enemies;
 
   sf::Texture texture;
+  sf::Texture coinTexture;
   sf::Image collisionMap;
+  std::vector<sf::Sprite> coins;
 
   /**
    * @brief The marked end of the currently loaded level.
    */
   float levelEnd;
 
-  // void updateViewScroll()
+  int coinsCollected;
+
+  void makeCoins();
 };
 
 #endif // LEVEL_H

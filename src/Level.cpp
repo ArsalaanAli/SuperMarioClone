@@ -3,9 +3,9 @@
 #include "Level.h"
 #include "Game.h"
 
-Level::Level() : player(Player(50, 50)) {}
+Level::Level() : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {}
 
-Level::Level(std::string texturePath, std::string collisionMapPath) : player(Player(50, 50)) {
+Level::Level(std::string texturePath, std::string collisionMapPath) : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {
   if (!texture.loadFromFile("assets/map1.png")) {
     std::cerr << "Failed to load background texture!" << std::endl;
     exit(1);
@@ -14,6 +14,11 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
 
   if (!collisionMap.loadFromFile(collisionMapPath)) {
     std::cerr << "Failed to load collision map file!" << std::endl;
+    exit(1);
+  }
+
+  if (!coinTexture.loadFromFile("assets/coin.png")) {
+    std::cerr << "Failed to load coin texture!" << std::endl;
     exit(1);
   }
 
@@ -36,6 +41,8 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
   for (auto& spawnPoint : eSpawnPoints) {
     enemies.emplace_back(spawnPoint, 600);
   }
+
+  makeCoins();
 }
 
 Level::~Level() {}
@@ -90,6 +97,16 @@ void Level::update() {
     }
   }
 
+  for (auto& coin : coins) {
+    sf::Vector2f pos = player.getShape().getPosition();
+    sf::Vector2f cpos = coin.getPosition();
+
+    if (coin.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
+      coin.move(0, -WINDOW_HEIGHT);
+      coinsCollected++;
+    }
+  }
+
   window->setView(updateLevelScroll(
     window->getView(), levelEnd, player));
 }
@@ -100,6 +117,9 @@ void Level::draw(sf::RenderWindow& window) {
   sprite.setPosition(0, 0);
 
   window.draw(sprite);
+  for (auto& coin : coins) {
+    window.draw(coin);
+  }
   for (auto& enemy : enemies) {
     window.draw(enemy);
   }
@@ -113,7 +133,7 @@ void Level::handleEvent(sf::Event event) {
       player.die();
       break;
     case sf::Keyboard::Period:
-    std:cout << "Player position: " << player.getShape().getPosition().x << std::endl;
+    std:cout << "Player position: " << player.getShape().getPosition().x << ", " << player.getShape().getPosition().y << std::endl;
       break;
     default:
       break;
@@ -129,11 +149,16 @@ bool Level::checkCollision(int x, int y) {
 }
 
 void Level::reset() {
+  Game::getInstance()->getWindow()->setView(Game::getInstance()->getWindow()->getDefaultView());
   player = Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2);
   for (auto& enemy : enemies) {
     enemy.reset();
   }
-  Game::getInstance()->getWindow()->setView(Game::getInstance()->getWindow()->getDefaultView());
+  for (auto& coin : coins) {
+    if (coin.getPosition().y < 0)
+      coin.move(0, WINDOW_HEIGHT);
+  }
+  coinsCollected = 0;
 }
 
 void Level::endLevel(bool win) {
@@ -142,5 +167,30 @@ void Level::endLevel(bool win) {
     reset();
   } else {
     reset();
+  }
+}
+
+void Level::makeCoins() {
+  coinsCollected = 0;
+  coins.clear();
+  for (int i = 500; i < levelEnd; i += 1000) {
+    // 75% chance of spawning a coin
+    if (rand() % 100 > 75) {
+      continue;
+    }
+
+    // TODO: can't render sprite texture
+    sf::Sprite coin(coinTexture);
+
+    // random y position
+    int _y[] = { 250, 300, 555 };
+    int y = _y[rand() % 3];
+
+    // random x position within 25 pixels of i
+    int x = i + (rand() % 50 - 25);
+
+    coin.setPosition(x, y);
+
+    coins.push_back(coin);
   }
 }
