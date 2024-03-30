@@ -4,7 +4,7 @@
 CC := g++
 
 # Compiler flags
-CFLAGS := -std=c++11 -Wall
+CFLAGS := -std=c++20 -Wall
 
 # SFML libraries
 LIBS := -lsfml-graphics -lsfml-window -lsfml-system
