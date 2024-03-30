@@ -13,6 +13,7 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
     exit(1);
   }
   levelEnd = texture.getSize().x;
+  levelFinish = 9480;
 
   if (!collisionMap.loadFromFile(collisionMapPath)) {
     std::cerr << "Failed to load collision map file!" << std::endl;
@@ -84,6 +85,7 @@ void Level::update() {
   sf::RenderWindow* window = Game::getInstance()->getWindow();
 
   player.update();
+
   for (auto& enemy : enemies) {
     enemy.update();
 
@@ -114,6 +116,10 @@ void Level::update() {
 
   window->setView(updateLevelScroll(
     window->getView(), levelEnd, player));
+
+  if (player.getShape().getPosition().x > levelFinish) {
+    endLevel(true);
+  }
 }
 
 void Level::draw(sf::RenderWindow& window) {
@@ -177,7 +183,7 @@ void Level::reset() {
 void Level::endLevel(bool win) {
   if (win) {
     // TODO: go to next level
-    reset();
+    Game::getInstance()->setScene(Scene::MainMenu);
   } else {
     if (lives > 0) {
       reset();

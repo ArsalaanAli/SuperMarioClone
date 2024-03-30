@@ -48,6 +48,11 @@ private:
   float levelEnd;
 
   /**
+   * @brief The finish line of the level.
+   */
+  int levelFinish;
+
+  /**
    * @brief The number of kills the player has in the current run.
    */
   int kills;
