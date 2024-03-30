@@ -64,11 +64,25 @@ public:
   void drawHud(sf::RenderWindow& window, int time, int coinsCollected, int lives, int score);
 
   /**
+   * @brief Get the Delta Time object
+   *
+   * @return The time since the last frame.
+   */
+  float getDeltaTime();
+
+  /**
    * @brief Get the Input Axis object
    *
    * @return The input axis as a 2D vector.
    */
   sf::Vector2<int> getInputAxis();
+
+  /**
+   * @brief Get the Level object
+   *
+   * @return The current level.
+   */
+  Level* getLevel();
 
   /**
    * @brief Set the current scene.

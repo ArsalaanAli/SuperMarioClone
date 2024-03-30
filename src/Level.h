@@ -1,6 +1,11 @@
+#ifndef LEVEL_H
+#define LEVEL_H
+
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
+
+#include "Player.h"
 
 class Level {
 public:
@@ -16,7 +21,7 @@ public:
   void reset();
   void endLevel(bool win);
 private:
-  // Player player;
+  Player player;
   // std::vector<Enemy> enemies;
 
   sf::Texture texture;
@@ -24,3 +29,5 @@ private:
 
   // void updateViewScroll()
 };
+
+#endif // LEVEL_H

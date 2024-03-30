@@ -1,9 +1,10 @@
 #include <iostream>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Keyboard.hpp>
 
 #include "Player.h"
+#include "Game.h"
+
+#define CELL_SIZE 50.0f
 
 /**
  * @brief Round a float away from zero.
@@ -32,7 +33,6 @@ void Player::loadSprites() {
   for (int i = 0; i < numSprites[STAND]; i++) {
     sf::Texture temp;
     if (!temp.loadFromFile("assets/MarioSprites/stand" + to_string(i) + ".png")) {
-      cout << "error getting png" << endl;
       return;
     }
     textures[STAND].push_back(temp);
@@ -41,7 +41,6 @@ void Player::loadSprites() {
   for (int i = 0; i < numSprites[RUN]; i++) {
     sf::Texture temp;
     if (!temp.loadFromFile("assets/MarioSprites/run" + to_string(i) + ".png")) {
-      cout << "error getting png" << endl;
       return;
     }
     textures[RUN].push_back(temp);
@@ -63,16 +62,17 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 
-bool Player::isGrounded(GameState& state) {
+bool Player::isGrounded() {
   sf::Vector2<float> pos = sprite.getPosition();
   sf::Vector2<float> size;
   size.x = sprite.getGlobalBounds().width;
   size.y = sprite.getGlobalBounds().height;
+  Level* level = Game::getInstance()->getLevel();
 
   for (int i = 0; i < size.x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + size.y + 1)) {
+    if (level->checkCollision(pos.x + i, pos.y + size.y + 1)) {
       float newY = pos.y + size.y;
-      while (state.checkCollision(pos.x + i, newY)) {
+      while (level->checkCollision(pos.x + i, newY)) {
         newY -= 1;
       }
       sprite.setPosition(pos.x, newY - CELL_SIZE);
@@ -135,17 +135,18 @@ void Player::die() {
 }
 
 // Update called once per gameloop
-void Player::update(GameState& state) {
-  float dt = state.getDeltaTime();
-  sf::Vector2<int> input = state.getInputAxis();
-  bool grounded = isGrounded(state);
+void Player::update() {
+  sf::Clock clock;
+  float dt = Game::getInstance()->getDeltaTime();
+  sf::Vector2<int> input = Game::getInstance()->getInputAxis();
+  bool grounded = isGrounded();
 
   if (shouldDie() || isDying) {
     die();
 
     // once going down from jump, trigger reset level
     if (vy <= 0) {
-      state.endLevel(false);
+      Game::getInstance()->getLevel()->endLevel(false);
     }
   } else {
     processInput(input, grounded, dt);
@@ -162,8 +163,8 @@ void Player::update(GameState& state) {
   }
 
   // move player based on velocity
-  MovePlayer(vx * dt, -vy * dt, state);
-  AnimatePlayer(state.getDeltaTime());
+  MovePlayer(vx * dt, -vy * dt);
+  AnimatePlayer(Game::getInstance()->getDeltaTime());
 }
 
 void Player::AnimatePlayer(float deltaTime) {
@@ -175,18 +176,19 @@ void Player::AnimatePlayer(float deltaTime) {
   }
 }
 
-void Player::MovePlayer(float xoffset, float yoffset, GameState& state) {
+void Player::MovePlayer(float xoffset, float yoffset) {
   sf::Vector2<float> pos = sprite.getPosition();
   sf::Vector2<float> size;
   size.x = sprite.getGlobalBounds().width;
   size.y = sprite.getGlobalBounds().height;
+  Level* level = Game::getInstance()->getLevel();
 
   int newX = roundAwayFromZero(xoffset);
 
   // check for collision on left and right sides
   for (int i = 0; i <= size.y - 3; i++) {
-    if (state.checkCollision(pos.x + newX, pos.y + i) ||
-      state.checkCollision(pos.x + size.x + newX, pos.y + i)) {
+    if (level->checkCollision(pos.x + newX, pos.y + i) ||
+      level->checkCollision(pos.x + size.x + newX, pos.y + i)) {
       // if collision, ignore x movement
       xoffset = 0;
       break;
@@ -197,7 +199,7 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState& state) {
 
   // check for collision on top and bottom sides
   for (int i = 0; i <= size.x; i++) {
-    if (state.checkCollision(pos.x + i, pos.y + newY)) {
+    if (level->checkCollision(pos.x + i, pos.y + newY)) {
       // if collision, invert y movement
       yoffset = abs(yoffset);
       vy = -yoffset;
@@ -205,6 +207,5 @@ void Player::MovePlayer(float xoffset, float yoffset, GameState& state) {
     }
   }
 
-  // cout << pos.x + xoffset << " " <<pos.y <<" " << yoffset << endl;
   sprite.setPosition(pos.x + xoffset, pos.y + yoffset);
 }

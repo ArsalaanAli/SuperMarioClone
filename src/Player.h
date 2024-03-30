@@ -3,10 +3,10 @@
 
 #include <cmath>
 #include <iostream>
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 
-#include "GameState.h"
+using namespace std;
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f
@@ -15,13 +15,7 @@
 #define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
 #define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
 
-using namespace std;
-
-/**
- * @brief The Player class is responsible for handling player input and interations.
- */
-class Player : public sf::Drawable
-{
+class Player : public sf::Drawable {
 public:
   /**
    * @brief Construct a new Player object
@@ -51,7 +45,13 @@ public:
    *
    * @param state The current game state.
    */
-  void update(GameState &state);
+  void update();
+
+  /**
+   * @brief Get the Shape object
+   *
+   * @return The player's shape.
+   */
   sf::Sprite getShape();
 
 private:
@@ -71,7 +71,7 @@ private:
    * @param target The window to draw the player on.
    * @param states The render states to apply to the player.
    */
-  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   // Underlying SFML object
   // Velocities
@@ -82,17 +82,59 @@ private:
    */
   bool isDying;
 
+  /**
+   * @brief The player's sprite.
+   */
   sf::Sprite sprite;
+
+  /**
+   * @brief The player's textures.
+   */
   vector<vector<sf::Texture>> textures;
 
-  vector<int> numSprites = {1, 3};
+  /**
+   * @brief The player's animations.
+   */
+  vector<int> numSprites = { 1, 3 };
+
+  /**
+   * @brief The current frame of the animation.
+   */
   int curFrame;
+
+  /**
+   * @brief The current animation.
+   */
   int curAnim;
+
+  /**
+   * @brief The player's animation interval.
+   */
   float animationInterval = 0.15f;
+
+  /**
+   * @brief The player's animation time.
+   */
   float animationTime;
 
+  /**
+   * @brief Animate the player.
+   *
+   * @param deltaTime The time since the last frame.
+   */
   void AnimatePlayer(float deltaTime);
+
+  /**
+   * @brief Load the player's sprites.
+   */
   void loadSprites();
+
+  /**
+   * @brief Set the player's position.
+   *
+   * @param cx The x position.
+   * @param cy The y position.
+   */
   void setPosition(int cx, int cy);
 
   /**
@@ -110,7 +152,7 @@ private:
    * @param state The current game state.
    * @return Whether the player is grounded.
    */
-  bool isGrounded(GameState &state);
+  bool isGrounded();
 
   /**
    * @brief Move the player.
@@ -119,7 +161,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MovePlayer(float xoffset, float yoffset, GameState &state);
+  void MovePlayer(float xoffset, float yoffset);
 
   /**
    * @brief Check if the player should die.

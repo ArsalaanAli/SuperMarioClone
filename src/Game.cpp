@@ -44,6 +44,10 @@ Game::~Game() {
   delete instance;
 }
 
+float Game::getDeltaTime() {
+  return deltaTime;
+}
+
 sf::Vector2<int> Game::getInputAxis() { return input; }
 
 sf::Vector2<int> Game::calculateInputAxis() {
@@ -63,6 +67,10 @@ sf::Vector2<int> Game::calculateInputAxis() {
   }
 
   return sf::Vector2<int>(dir_x, dir_y);
+}
+
+Level* Game::getLevel() {
+  return &level;
 }
 
 void Game::setScene(Scene target) {

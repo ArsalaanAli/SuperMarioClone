@@ -2,9 +2,9 @@
 
 #include "Level.h"
 
-Level::Level() {}
+Level::Level() : player(Player(50, 50)) {}
 
-Level::Level(std::string texturePath, std::string collisionMapPath) {
+Level::Level(std::string texturePath, std::string collisionMapPath) : player(Player(50, 50)) {
   if (!texture.loadFromFile("assets/map1.png")) {
     std::cerr << "Failed to load background texture!" << std::endl;
     exit(1);
@@ -18,11 +18,14 @@ Level::Level(std::string texturePath, std::string collisionMapPath) {
 
 Level::~Level() {}
 
-void Level::update() {}
+void Level::update() {
+  player.update();
+}
 
 void Level::draw(sf::RenderWindow& window) {
   // TODO: can't make this a class var for some reason
   window.draw(sf::Sprite(texture));
+  window.draw(player.getShape());
 }
 
 void Level::handleEvent(sf::Event event) {}
