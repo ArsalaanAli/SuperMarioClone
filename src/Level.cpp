@@ -105,9 +105,6 @@ void Level::update() {
   }
 
   for (auto& coin : coins) {
-    sf::Vector2f pos = player.getShape().getPosition();
-    sf::Vector2f cpos = coin.getPosition();
-
     if (coin.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
       coin.move(0, -WINDOW_HEIGHT);
       coinsCollected++;
@@ -149,7 +146,7 @@ void Level::handleEvent(sf::Event event) {
       player.die();
       break;
     case sf::Keyboard::Period:
-    std:cout << "Player position: " << player.getShape().getPosition().x << ", " << player.getShape().getPosition().y << std::endl;
+      cout << "Player position: " << player.getShape().getPosition().x << ", " << player.getShape().getPosition().y << std::endl;
       break;
     default:
       break;
