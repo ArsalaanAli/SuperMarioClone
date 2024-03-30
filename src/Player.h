@@ -60,11 +60,6 @@ private:
   static const int RUN = 1;
 
   /**
-   * @brief The player's position.
-   */
-  float x, y;
-
-  /**
    * @brief API for drawing the player from a window.
    *
    * @example window.draw(player);

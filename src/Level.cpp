@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Level.h"
+#include "Game.h"
 
 Level::Level() : player(Player(50, 50)) {}
 
