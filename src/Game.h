@@ -89,6 +89,20 @@ public:
   Level* getLevel();
 
   /**
+   * @brief Get the Font
+   *
+   * @return sf::Font* The game's font.
+   */
+  sf::Font* getFont();
+
+  /**
+   * @brief Get the Secondary Font
+   *
+   * @return sf::Font* The game's secondary font.
+   */
+  sf::Font* getSecondaryFont();
+
+  /**
    * @brief Get the Window object
    *
    * @return sf::RenderWindow* The game's window.
@@ -101,11 +115,6 @@ public:
    */
   void setScene(Scene target);
 private:
-  /**
-   * @brief the internal clock of whole game
-   */
-  sf::Clock clock;
-
   /**
    * @brief the internal clock of game loop. Used to calculate deltaTime.
    */

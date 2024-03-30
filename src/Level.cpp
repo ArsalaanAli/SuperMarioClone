@@ -6,6 +6,8 @@
 Level::Level() : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {}
 
 Level::Level(std::string texturePath, std::string collisionMapPath) : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {
+  Game::getInstance()->getWindow()->setView(Game::getInstance()->getWindow()->getDefaultView());
+
   if (!texture.loadFromFile("assets/map1.png")) {
     std::cerr << "Failed to load background texture!" << std::endl;
     exit(1);
@@ -43,6 +45,9 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
   }
 
   makeCoins();
+
+  lives = 3;
+  kills = 0;
 }
 
 Level::~Level() {}
@@ -124,6 +129,11 @@ void Level::draw(sf::RenderWindow& window) {
     window.draw(enemy);
   }
   window.draw(player);
+
+  int time = clock.getElapsedTime().asMilliseconds();
+  int distance = player.getShape().getPosition().x;
+  int score = coinsCollected * 500 + distance / 2 + kills * 1000;
+  drawHUD(window, time, coinsCollected, lives, score);
 }
 
 void Level::handleEvent(sf::Event event) {
@@ -150,15 +160,18 @@ bool Level::checkCollision(int x, int y) {
 
 void Level::reset() {
   Game::getInstance()->getWindow()->setView(Game::getInstance()->getWindow()->getDefaultView());
+  clock.restart();
   player = Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2);
   for (auto& enemy : enemies) {
     enemy.reset();
   }
+  kills = 0;
   for (auto& coin : coins) {
     if (coin.getPosition().y < 0)
       coin.move(0, WINDOW_HEIGHT);
   }
   coinsCollected = 0;
+  lives--;
 }
 
 void Level::endLevel(bool win) {
@@ -166,7 +179,11 @@ void Level::endLevel(bool win) {
     // TODO: go to next level
     reset();
   } else {
-    reset();
+    if (lives > 0) {
+      reset();
+    } else {
+      Game::getInstance()->setScene(Scene::MainMenu);
+    }
   }
 }
 
@@ -193,4 +210,34 @@ void Level::makeCoins() {
 
     coins.push_back(coin);
   }
+}
+
+void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected, int lives, int score) {
+  sf::Vector2f windowCenter = window.getView().getCenter();
+  sf::Font font = *Game::getInstance()->getFont();
+  sf::Font secondaryFont = *Game::getInstance()->getSecondaryFont();
+
+  std::string Time = "TIME " + std::to_string(time);
+  sf::Text timeText(Time, secondaryFont, 30);
+  timeText.setPosition(windowCenter.x - 400, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
+  timeText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(timeText);
+
+  std::string coins = "COINS " + std::to_string(coinsCollected);
+  sf::Text coinsText(coins, secondaryFont, 30);
+  coinsText.setPosition(windowCenter.x - 400, 75);
+  coinsText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(coinsText);
+
+  std::string Lives = "LIVES " + std::to_string(lives);
+  sf::Text livesText(Lives, secondaryFont, 30);
+  livesText.setPosition(windowCenter.x + 100, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
+  livesText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(livesText);
+
+  std::string Score = "SCORE " + std::to_string(score);
+  sf::Text scoreText(Score, secondaryFont, 30);
+  scoreText.setPosition(windowCenter.x + 100, 75);
+  scoreText.setFillColor(sf::Color(255, 255, 0));
+  window.draw(scoreText);
 }

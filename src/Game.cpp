@@ -73,6 +73,14 @@ Level* Game::getLevel() {
   return &level;
 }
 
+sf::Font* Game::getFont() {
+  return &font;
+}
+
+sf::Font* Game::getSecondaryFont() {
+  return &secondaryFont;
+}
+
 sf::RenderWindow* Game::getWindow() {
   return window;
 }
