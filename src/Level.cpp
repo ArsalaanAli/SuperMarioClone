@@ -16,6 +16,26 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
     std::cerr << "Failed to load collision map file!" << std::endl;
     exit(1);
   }
+
+  const int eSpawnPoints[] = {
+    1500,
+    2000,
+    2300,
+    2500,
+    3500,
+    3800,
+    4500,
+    5000,
+    5300,
+    6300,
+    8000,
+    8300,
+    9200,
+  };
+
+  for (auto& spawnPoint : eSpawnPoints) {
+    enemies.emplace_back(spawnPoint, 600);
+  }
 }
 
 Level::~Level() {}
@@ -52,6 +72,11 @@ void Level::update() {
   sf::RenderWindow* window = Game::getInstance()->getWindow();
 
   player.update();
+  for (auto& enemy : enemies) {
+    enemy.update();
+    std::cout << "Enemy position: " << enemy.getShape().getPosition().x << std::endl;
+  }
+
   window->setView(updateLevelScroll(
     window->getView(), levelEnd, player));
 }
@@ -63,6 +88,9 @@ void Level::draw(sf::RenderWindow& window) {
 
   window.draw(sprite);
   window.draw(player);
+  for (auto& enemy : enemies) {
+    window.draw(enemy);
+  }
 }
 
 void Level::handleEvent(sf::Event event) {
@@ -70,6 +98,9 @@ void Level::handleEvent(sf::Event event) {
     switch (event.key.code) {
     case sf::Keyboard::Q:
       player.die();
+      break;
+    case sf::Keyboard::Period:
+    std:cout << "Player position: " << player.getShape().getPosition().x << std::endl;
       break;
     default:
       break;
@@ -87,6 +118,9 @@ bool Level::checkCollision(int x, int y) {
 void Level::reset() {
   std::cout << "Resetting level..." << std::endl;
   player = Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2);
+  for (auto& enemy : enemies) {
+    enemy.reset();
+  }
 }
 
 void Level::endLevel(bool win) {

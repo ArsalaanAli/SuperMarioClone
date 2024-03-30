@@ -1,11 +1,8 @@
-#define ENEMY_H
 #ifndef ENEMY_H
 #define ENEMY_H
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
-
-#include "GameState.h"
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f
@@ -37,7 +34,7 @@ public:
    *
    * @param state The current game state.
    */
-  void update(GameState& state);
+  void update();
 
   /**
    * @brief Check if the player has collided with the enemy.
@@ -102,7 +99,7 @@ private:
    * @param state The current game state.
    * @return Whether the enemy is grounded.
    */
-  bool isGrounded(GameState& state);
+  bool isGrounded();
 
   /**
    * @brief Move the enemy.
@@ -111,7 +108,7 @@ private:
    * @param yoffset The y offset.
    * @param state The current game state.
    */
-  void MoveEnemy(float xoffset, float yoffset, GameState& state);
+  void MoveEnemy(float xoffset, float yoffset);
 
   /**
    * @brief Round a float away from zero.

@@ -192,7 +192,7 @@ void Player::MovePlayer(float xoffset, float yoffset) {
   // check for collision on left and right sides
   for (int i = 0; i <= size.y - 3; i++) {
     if (level->checkCollision(pos.x + newX, pos.y + i) ||
-      level->checkCollision(pos.x + size.x + newX, pos.y + i)) {
+      level->checkCollision(pos.x + size.x + newX, pos.y + i) || pos.x + newX < 0 || pos.x + size.x + newX > level->getLevelEnd()) {
       // if collision, ignore x movement
       xoffset = 0;
       break;
