@@ -10,8 +10,22 @@
 
 class Level {
 public:
+  /**
+   * @brief Construct a new Level object
+   */
   Level();
+
+  /**
+   * @brief Construct a new Level object
+   *
+   * @param texturePath The path to the texture of the level.
+   * @param collisionMapPath The path to the collision map of the level.
+   */
   Level(std::string texturePath, std::string collisionMapPath);
+
+  /**
+   * @brief Destroy the Level object
+   */
   ~Level();
 
   /**
@@ -21,26 +35,80 @@ public:
    */
   float getLevelEnd() { return levelEnd; }
 
+  /**
+   * @brief The update loop of the level. Called every frame.
+   */
   void update();
+
+  /**
+   * @brief Draw the level to the window.
+   *
+   * @param window The window to draw the level to.
+   */
   void draw(sf::RenderWindow& window);
+
+  /**
+   * @brief Handle events in the level.
+   *
+   * @param event The event to handle.
+   */
   void handleEvent(sf::Event event);
+
+  /**
+   * @brief Check for collisions with the level at a given point.
+   *
+   * @param x The x coordinate to check.
+   * @param y The y coordinate to check.
+   * @return if there is a collision at the given point.
+   */
   bool checkCollision(int x, int y);
 
+  /**
+   * @brief Reset the level.
+   */
   void reset();
+
+  /**
+   * @brief End the level.
+   *
+   * @param win If the player won the level. If false, resets the level.
+   */
   void endLevel(bool win);
 private:
-  Player player;
-  std::vector<Enemy> enemies;
-
-  sf::Texture texture;
-  sf::Texture coinTexture;
-  sf::Image collisionMap;
-  std::vector<sf::Sprite> coins;
-
   /**
    * @brief the internal clock of the level.
    */
   sf::Clock clock;
+
+  /**
+   * @brief The player object.
+   */
+  Player player;
+  /**
+   * @brief The collection of enemies in the level.
+   */
+  std::vector<Enemy> enemies;
+
+  /**
+   * @brief The texture of the level.
+   */
+  sf::Texture texture;
+
+  /**
+   * @brief The collision map of the level.
+   */
+  sf::Image collisionMap;
+
+  /**
+   * @brief The texture of the coins.
+   *
+   */
+  sf::Texture coinTexture;
+
+  /**
+   * @brief The collection of coins in the level.
+   */
+  std::vector<sf::Sprite> coins;
 
   /**
    * @brief The marked end of the currently loaded level.
