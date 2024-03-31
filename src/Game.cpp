@@ -10,6 +10,7 @@ Game* Game::getInstance() {
 }
 
 Game::Game() {
+
   if (!font.loadFromFile("assets/SuperMario256.ttf")) {
     std::cerr << "Failed to load font file!" << std::endl;
     exit(1);
@@ -38,6 +39,7 @@ Game::Game() {
   selector.setPoint(2, sf::Vector2f(0, 20));
   selector.setFillColor(sf::Color::Transparent);
 }
+
 
 Game::~Game() {
   delete window;
@@ -97,9 +99,10 @@ void Game::setScene(Scene target) {
   default:
     break;
   }
-
   scene = target;
 }
+
+
 
 bool isMouseOverText(sf::RenderWindow& window, sf::Text& text) {
   sf::FloatRect bounds = text.getGlobalBounds();
@@ -262,6 +265,60 @@ void Game::drawPauseMenu(sf::RenderWindow& window) {
   }
 }
 
+void Game::drawEndingScreen(sf::RenderWindow& window) {
+  window.clear(sf::Color::Black); // Clears the screen to black or any other appropriate background
+  sf::Vector2f windowCenter = window.getView().getCenter();
+
+  // Draw "Thank You" text
+  sf::Text thankYouText("Thank you Mario!", *getFont(), 50);
+  thankYouText.setFillColor(sf::Color::White);
+  sf::FloatRect thankYouTextBounds = thankYouText.getLocalBounds();
+  thankYouText.setPosition((WINDOW_WIDTH - thankYouTextBounds.width) / 2, WINDOW_HEIGHT / 3 - thankYouTextBounds.height / 2);
+  window.draw(thankYouText);
+
+  // Draw "Your quest is over." text
+  sf::Text questOverText("Your quest is over.", *getFont(), 50);
+  questOverText.setFillColor(sf::Color::White);
+  sf::FloatRect questOverTextBounds = questOverText.getLocalBounds();
+  questOverText.setPosition((WINDOW_WIDTH - questOverTextBounds.width) / 2, WINDOW_HEIGHT / 2 - questOverTextBounds.height / 2);
+  window.draw(questOverText);
+
+  // Draw "Thanks for playing!" text
+  sf::Text thanksForPlayingText("Thanks for playing!", *getFont(), 50);
+  thanksForPlayingText.setFillColor(sf::Color::White);
+  sf::FloatRect thanksForPlayingTextBounds = thanksForPlayingText.getLocalBounds();
+  thanksForPlayingText.setPosition((WINDOW_WIDTH - thanksForPlayingTextBounds.width) / 2, 2 * WINDOW_HEIGHT / 3 - thanksForPlayingTextBounds.height / 2);
+  window.draw(thanksForPlayingText);
+
+  sf::RectangleShape mainMenuButton(sf::Vector2f(300, 60));
+  mainMenuButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 200);
+  mainMenuButton.setFillColor(sf::Color(0, 150, 136));
+  mainMenuButton.setOutlineThickness(2);
+  mainMenuButton.setOutlineColor(sf::Color(0, 188, 212));
+
+  // Check mouse interaction with "Main Menu" button
+  sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+  if (mainMenuButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
+    mainMenuButton.setFillColor(sf::Color(76, 175, 80));
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      setScene(Scene::MainMenu);
+    }
+  } else {
+    mainMenuButton.setFillColor(sf::Color(0, 150, 136));
+  }
+
+  window.draw(mainMenuButton);
+
+  // Draw "Main Menu" text
+  sf::Text mainMenuText("Main Menu", secondaryFont, 35);
+  sf::FloatRect textBounds = mainMenuText.getLocalBounds();
+  mainMenuText.setPosition(windowCenter.x - textBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 190);
+  mainMenuText.setFillColor(sf::Color::White);
+  window.draw(mainMenuText);
+
+}
+
+
 void Game::run() {
   sf::Sprite backgroundSprite = sf::Sprite(backgroundTexture);
 
@@ -283,6 +340,8 @@ void Game::run() {
           break;
         default:
           break;
+        case sf::Keyboard::V: // Handle 'V' key press
+          setScene(Scene::Ending);
         }
       }
 
@@ -312,6 +371,10 @@ void Game::run() {
       window->draw(backgroundSprite);
       drawPauseMenu(*window);
       break;
+
+    case Scene::Ending:
+      window->draw(backgroundSprite);
+      drawEndingScreen(*window);
     }
 
     window->display();

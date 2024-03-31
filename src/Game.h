@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -16,7 +17,8 @@
 enum Scene {
   MainMenu,
   Running,
-  Paused
+  Paused,
+  Ending
 };
 
 class Game {
@@ -56,6 +58,13 @@ public:
    * @param window The window to draw the pause menu to.
    */
   void drawPauseMenu(sf::RenderWindow& window);
+
+  /**
+   * @brief Draw the ending screen.
+   *
+   * @param window The window to draw the ending screen to.
+   */
+  void drawEndingScreen(sf::RenderWindow& window);
 
   /**
    * @brief Draw the HUD.
