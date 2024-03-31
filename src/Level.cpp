@@ -1,14 +1,16 @@
-#include <iostream>
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <iostream>
 
-#include "Level.h"
 #include "Game.h"
+#include "Level.h"
 
 Level::Level() : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {}
 
-Level::Level(std::string texturePath, std::string collisionMapPath) : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {
-  Game::getInstance()->getWindow()->setView(Game::getInstance()->getWindow()->getDefaultView());
+Level::Level(std::string texturePath, std::string collisionMapPath)
+  : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {
+  Game::getInstance()->getWindow()->setView(
+    Game::getInstance()->getWindow()->getDefaultView());
 
   if (!texture.loadFromFile("assets/map1.png")) {
     std::cerr << "Failed to load background texture!" << std::endl;
@@ -22,7 +24,6 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
     exit(1);
   }
 
-
   if (!img.loadFromFile("assets/map1.png")) {
     std::cerr << "Failed to load img file!" << std::endl;
     exit(1);
@@ -34,19 +35,8 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
   }
 
   const int eSpawnPoints[] = {
-    1500,
-    2000,
-    2300,
-    2500,
-    3500,
-    3800,
-    4500,
-    5000,
-    5300,
-    6300,
-    8000,
-    8300,
-    9200,
+      1500, 2000, 2300, 2500, 3500, 3800, 4500,
+      5000, 5300, 6300, 8000, 8300, 9200,
   };
 
   for (auto& spawnPoint : eSpawnPoints) {
@@ -88,7 +78,6 @@ sf::View updateLevelScroll(const sf::View& view, const float& LEVEL_END,
   return newView;
 }
 
-
 void Level::update() {
   sf::RenderWindow* window = Game::getInstance()->getWindow();
 
@@ -113,21 +102,30 @@ void Level::update() {
   }
 
   for (auto& coin : coins) {
-    if (coin.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
+    if (coin.getGlobalBounds().intersects(
+      player.getShape().getGlobalBounds())) {
       coin.move(0, -WINDOW_HEIGHT);
       coinsCollected++;
+
+      switch (coinsCollected) {
+      case 5:
+      case 10:
+      case 15:
+        lives++;
+        break;
+      }
     }
   }
 
   for (auto& powerUp : powerUps) {
-    if (powerUp.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
+    if (powerUp.getGlobalBounds().intersects(
+      player.getShape().getGlobalBounds())) {
       powerUp.move(0, -WINDOW_HEIGHT);
       player.activatePowerup();
     }
   }
 
-  window->setView(updateLevelScroll(
-    window->getView(), levelEnd, player));
+  window->setView(updateLevelScroll(window->getView(), levelEnd, player));
 
   if (player.getShape().getPosition().x > levelFinish) {
     endLevel(true);
@@ -164,7 +162,8 @@ void Level::handleEvent(sf::Event event) {
       player.die();
       break;
     case sf::Keyboard::Period:
-      cout << "Player position: " << player.getShape().getPosition().x << ", " << player.getShape().getPosition().y << std::endl;
+      cout << "Player position: " << player.getShape().getPosition().x << ", "
+        << player.getShape().getPosition().y << std::endl;
       break;
     default:
       break;
@@ -174,13 +173,15 @@ void Level::handleEvent(sf::Event event) {
 
 bool Level::checkCollision(int x, int y) {
   sf::Vector2u size = collisionMap.getSize();
-  if (x > 0 && x < static_cast<int>(size.x) && y > 0 && y < static_cast<int>(size.y))
+  if (x > 0 && x < static_cast<int>(size.x) && y > 0 &&
+    y < static_cast<int>(size.y))
     return collisionMap.getPixel(x, y) == sf::Color::Red;
   return false;
 }
 
 void Level::reset() {
-  Game::getInstance()->getWindow()->setView(Game::getInstance()->getWindow()->getDefaultView());
+  Game::getInstance()->getWindow()->setView(
+    Game::getInstance()->getWindow()->getDefaultView());
   clock.restart();
   player = Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2);
   for (auto& enemy : enemies) {
@@ -219,7 +220,8 @@ void Level::checkPowerUp() {
   sf::Vector2f pos = player.getShape().getPosition();
 
   for (int i = 0; i < CELL_SIZE; i++) {
-    if (img.getPixel(pos.x + (player.getShape().getGlobalBounds().width / 2), pos.y - i) == powerUp) {
+    if (img.getPixel(pos.x + (player.getShape().getGlobalBounds().width / 2),
+      pos.y - i) == powerUp) {
       // hit [?] Block
       sf::Sprite powerup;
       powerup.setTexture(coinTexture);
@@ -233,7 +235,6 @@ void Level::checkPowerUp() {
       return;
     }
   }
-
 }
 
 void Level::makeCoins() {
@@ -263,14 +264,16 @@ void Level::makeCoins() {
   }
 }
 
-void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected, int lives, int score) {
+void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected,
+  int lives, int score) {
   sf::Vector2f windowCenter = window.getView().getCenter();
   sf::Font font = *Game::getInstance()->getFont();
   sf::Font secondaryFont = *Game::getInstance()->getSecondaryFont();
 
   std::string Time = "TIME " + std::to_string(time);
   sf::Text timeText(Time, secondaryFont, 30);
-  timeText.setPosition(windowCenter.x - 400, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
+  timeText.setPosition(windowCenter.x - 400,
+    windowCenter.y - WINDOW_HEIGHT / 2 + 10);
   timeText.setFillColor(sf::Color(255, 255, 0));
   window.draw(timeText);
 
@@ -282,7 +285,8 @@ void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected, int 
 
   std::string Lives = "LIVES " + std::to_string(lives);
   sf::Text livesText(Lives, secondaryFont, 30);
-  livesText.setPosition(windowCenter.x + 100, windowCenter.y - WINDOW_HEIGHT / 2 + 10);
+  livesText.setPosition(windowCenter.x + 100,
+    windowCenter.y - WINDOW_HEIGHT / 2 + 10);
   livesText.setFillColor(sf::Color(255, 255, 0));
   window.draw(livesText);
 
