@@ -1,4 +1,6 @@
 #include <iostream>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 #include "Level.h"
 #include "Game.h"
@@ -17,6 +19,12 @@ Level::Level(std::string texturePath, std::string collisionMapPath) : player(Pla
 
   if (!collisionMap.loadFromFile(collisionMapPath)) {
     std::cerr << "Failed to load collision map file!" << std::endl;
+    exit(1);
+  }
+
+
+  if (!img.loadFromFile("assets/map1.png")) {
+    std::cerr << "Failed to load img file!" << std::endl;
     exit(1);
   }
 
@@ -111,6 +119,13 @@ void Level::update() {
     }
   }
 
+  for (auto& powerUp : powerUps) {
+    if (powerUp.getGlobalBounds().intersects(player.getShape().getGlobalBounds())) {
+      powerUp.move(0, -WINDOW_HEIGHT);
+      player.activatePowerup();
+    }
+  }
+
   window->setView(updateLevelScroll(
     window->getView(), levelEnd, player));
 
@@ -127,6 +142,9 @@ void Level::draw(sf::RenderWindow& window) {
   window.draw(sprite);
   for (auto& coin : coins) {
     window.draw(coin);
+  }
+  for (auto& pup : powerUps) {
+    window.draw(pup);
   }
   for (auto& enemy : enemies) {
     window.draw(enemy);
@@ -168,6 +186,7 @@ void Level::reset() {
   for (auto& enemy : enemies) {
     enemy.reset();
   }
+  powerUps.clear();
   kills = 0;
   for (auto& coin : coins) {
     if (coin.getPosition().y < 0)
@@ -190,6 +209,33 @@ void Level::endLevel(bool win) {
   }
 }
 
+void Level::checkPowerUp() {
+  // 20% chance of spawning a powerup
+  if (rand() % 100 > 20) {
+    return;
+  }
+
+  sf::Color powerUp = sf::Color(4237834495);
+  sf::Vector2f pos = player.getShape().getPosition();
+
+  for (int i = 0; i < CELL_SIZE; i++) {
+    if (img.getPixel(pos.x + (player.getShape().getGlobalBounds().width / 2), pos.y - i) == powerUp) {
+      // hit [?] Block
+      sf::Sprite powerup;
+      powerup.setTexture(coinTexture);
+      powerup.setColor(sf::Color::Green);
+      powerup.scale(0.8, 0.8);
+
+      powerup.setPosition(pos.x, pos.y - CELL_SIZE * 2);
+
+      powerUps.push_back(powerup);
+      cout << "Powerup spawned" << endl;
+      return;
+    }
+  }
+
+}
+
 void Level::makeCoins() {
   coinsCollected = 0;
   coins.clear();
@@ -200,7 +246,9 @@ void Level::makeCoins() {
     }
 
     // TODO: can't render sprite texture
-    sf::Sprite coin(coinTexture);
+    sf::Sprite coin;
+    coin.setTexture(coinTexture);
+    coin.setColor(sf::Color::White);
 
     // random y position
     int _y[] = { 250, 300, 555 };

@@ -74,6 +74,11 @@ public:
    * @param win If the player won the level. If false, resets the level.
    */
   void endLevel(bool win);
+
+  /**
+   * @brief Check if a powerup should be spawned.
+   */
+  void checkPowerUp();
 private:
   /**
    * @brief the internal clock of the level.
@@ -95,6 +100,11 @@ private:
   sf::Texture texture;
 
   /**
+   * @brief The image of the level.
+   */
+  sf::Image img;
+
+  /**
    * @brief The collision map of the level.
    */
   sf::Image collisionMap;
@@ -109,6 +119,16 @@ private:
    * @brief The collection of coins in the level.
    */
   std::vector<sf::Sprite> coins;
+
+  /**
+   * @brief The texture of the powerups.
+   */
+  sf::Texture powerUpTexture;
+
+  /**
+   * @brief The collection of powerups in the level.
+   */
+  std::vector<sf::Sprite> powerUps;
 
   /**
    * @brief The marked end of the currently loaded level.
