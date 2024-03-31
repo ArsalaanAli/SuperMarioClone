@@ -14,6 +14,8 @@ using namespace std;
 #define JUMP_FORCE 1150.0f
 #define AIR_DECEL_RATE (DECEL_RATE * 1.0f)
 #define MAX_AIR_SPEED (MAX_SPEED * 5.0f)
+#define POWERUP_SPEED_FACTOR 2.0f
+#define POWERUP_TIME 5.0f
 
 class Player : public sf::Drawable {
 public:
@@ -48,6 +50,11 @@ public:
   void update();
 
   /**
+   * @brief Activate the player's powerup.
+   */
+  void activatePowerup();
+
+  /**
    * @brief Get the Shape object
    *
    * @return The player's shape.
@@ -76,6 +83,11 @@ private:
    * @brief Flag for whether the player is dying.
    */
   bool isDying;
+
+  /**
+   * @brief The player's powerup time remaining. Recorded in seconds.
+   */
+  float powerUpTime;
 
   /**
    * @brief The player's shape.
@@ -116,6 +128,11 @@ private:
    * @brief The player's animation time.
    */
   float animationTime;
+
+  /**
+   * @brief Flag for whether the player is powered up.
+   */
+  bool powerUpActive;
 
   /**
    * @brief Animate the player.

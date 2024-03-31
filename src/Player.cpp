@@ -19,6 +19,7 @@ Player::Player(int cx, int cy) {
   isDying = false;
   vx = 0;
   vy = 0;
+  powerUpTime = 0;
   animationTime = 0;
   curFrame = 0;
   curAnim = 0;
@@ -107,14 +108,14 @@ void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
       sprite.scale(-1, 1);
     }
     // accelerate
-    vx += input.x * ACCEL_RATE * dt;
-    vx = std::min(vx, MAX_SPEED);
-    vx = std::max(vx, -MAX_SPEED);
+    vx += input.x * ACCEL_RATE * (powerUpActive ? POWERUP_SPEED_FACTOR : 1) * dt;
+    vx = std::min(vx, MAX_SPEED * (powerUpActive ? POWERUP_SPEED_FACTOR : 1));
+    vx = std::max(vx, -MAX_SPEED * (powerUpActive ? POWERUP_SPEED_FACTOR : 1));
   } else {
     curAnim = STAND;
     // decelerate
-    if (abs(vx) > DECEL_RATE * dt)
-      vx -= DECEL_RATE * ((vx > 0) - (vx < 0)) * dt;
+    if (abs(vx) > DECEL_RATE * (powerUpActive ? POWERUP_SPEED_FACTOR : 1) * dt)
+      vx -= DECEL_RATE * (powerUpActive ? POWERUP_SPEED_FACTOR : 1) * ((vx > 0) - (vx < 0)) * dt;
     else
       vx = 0;
   }
@@ -140,7 +141,6 @@ void Player::die() {
 
 // Update called once per gameloop
 void Player::update() {
-  sf::Clock clock;
   float dt = Game::getInstance()->getDeltaTime();
   sf::Vector2<int> input = Game::getInstance()->getInputAxis();
   bool grounded = isGrounded();
@@ -154,6 +154,15 @@ void Player::update() {
       isDying = false;
     }
   } else {
+    if (powerUpActive) {
+      if (powerUpTime > 0) {
+        powerUpTime -= dt;
+      } else {
+        powerUpActive = false;
+        powerUpTime = 0;
+      }
+    }
+
     processInput(input, grounded, dt);
   }
 
@@ -168,6 +177,11 @@ void Player::update() {
   // move player based on velocity
   MovePlayer(vx * dt, -vy * dt);
   AnimatePlayer(Game::getInstance()->getDeltaTime());
+}
+
+void Player::activatePowerup() {
+  powerUpActive = true;
+  powerUpTime = POWERUP_TIME;
 }
 
 void Player::AnimatePlayer(float deltaTime) {
@@ -207,6 +221,7 @@ void Player::MovePlayer(float xoffset, float yoffset) {
       // if collision, invert y movement
       yoffset = abs(yoffset);
       vy = -yoffset;
+      level->checkPowerUp();
       break;
     }
   }
