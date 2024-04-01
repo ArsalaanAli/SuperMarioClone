@@ -277,9 +277,6 @@ void Level::checkPowerUp() {
   }
 }
 
-void Level::makeCoins() {
-  
-}
 
 void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected,
   int lives, int score) {

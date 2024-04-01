@@ -158,8 +158,6 @@ private:
   /**
    * @brief Helper function to create coins.
    */
-  void makeCoins();
-
   void initCoins();
 
   void drawCoins(sf::RenderWindow &window);
