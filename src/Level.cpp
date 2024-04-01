@@ -236,7 +236,7 @@ void Level::reset() {
 void Level::endLevel(bool win) {
   if (win) {
     // TODO: go to next level
-    Game::getInstance()->setScene(Scene::MainMenu);
+    Game::getInstance()->setScene(Scene::Ending);
   } else {
     if (lives > 0) {
       reset();
