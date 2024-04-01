@@ -1,8 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics.hpp>
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f
@@ -87,6 +86,16 @@ private:
    * @brief The underlying shape of the enemy.
    */
   sf::RectangleShape shape;
+
+  /**
+   * @brief The enemy's texture and sprite.
+   */
+  sf::Texture texture;
+
+  /**
+   * @brief The enemy's sprite.
+   */
+  sf::Sprite sprite;
 
   /**
    * @brief Flag for whether the enemy is dying.
