@@ -26,10 +26,16 @@ Game::Game() {
     exit(1);
   }
 
+  if (!bgmBuffer.loadFromFile("assets/bgm.wav")) {
+    std::cerr << "Failed to load background music!" << std::endl;
+    exit(1); 
+  } 
+
   window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
     "Super Mario Clone");
 
   scene = Scene::MainMenu;
+
 
   // Setup the selection indicator
   selectedMenuItem = 0;
@@ -38,12 +44,28 @@ Game::Game() {
   selector.setPoint(1, sf::Vector2f(20, 10));
   selector.setPoint(2, sf::Vector2f(0, 20));
   selector.setFillColor(sf::Color::Transparent);
+  bgm.setBuffer(bgmBuffer);
+  bgm.setLoop(true);
+  bgm.play();
 }
 
-
 Game::~Game() {
+  bgm.setLoop(false);
+  bgm.stop();
   delete window;
   delete instance;
+}
+
+void Game::cleanup() {
+    if (instance != nullptr) {
+        if (instance->bgm.getStatus() == sf::Sound::Playing) {
+            instance->bgm.stop();
+        }
+        delete instance->window;
+        instance->window = nullptr;
+        delete instance;
+        instance = nullptr;
+    }
 }
 
 float Game::getDeltaTime() {

@@ -40,6 +40,8 @@ public:
 
   static Game* getInstance();
 
+  static void cleanup();
+
   /**
    * @brief Run the game loop.
    */
@@ -128,6 +130,12 @@ private:
    * @brief the internal clock of game loop. Used to calculate deltaTime.
    */
   sf::Clock dt_clock;
+
+  /**
+   * @brief Background music player.
+   */
+  sf::Sound bgm;
+  sf::SoundBuffer bgmBuffer;
 
   /**
    * @brief The current time since the last frame.
