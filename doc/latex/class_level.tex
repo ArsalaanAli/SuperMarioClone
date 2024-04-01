@@ -1,0 +1,139 @@
+\doxysection{Level Class Reference}
+\hypertarget{class_level}{}\label{class_level}\index{Level@{Level}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_level_a7a696c928ca5d5354db6e50e46d0f67d}\label{class_level_a7a696c928ca5d5354db6e50e46d0f67d} 
+{\bfseries Level} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_level}{Level} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_level_a53ae126fbf73ee3ee393dc56e7ae498a}{Level}} (std\+::string texture\+Path, std\+::string collision\+Map\+Path, int difficulty)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_level}{Level} object. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a249eac1e8f19ff44134efa5e986feaca}\label{class_level_a249eac1e8f19ff44134efa5e986feaca} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Level} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \doxylink{class_level}{Level} object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_level_a5a32b21e2eb81885a491677250983c73}{get\+Level\+End}} ()
+\begin{DoxyCompactList}\small\item\em Get the \doxylink{class_level}{Level} End. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a62e412eaad753d2baa2f94239cb80e41}\label{class_level_a62e412eaad753d2baa2f94239cb80e41} 
+void {\bfseries update} ()
+\begin{DoxyCompactList}\small\item\em The update loop of the level. Called every frame. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_level_a20d356fa84aac7c21b39c631882642a6}{draw}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em Draw the level to the window. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_level_af0587a91be73c08432e4f05fbb6ab7cc}{handle\+Event}} (sf\+::\+Event event)
+\begin{DoxyCompactList}\small\item\em Handle events in the level. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_level_a48582cad129c0bd5b5d1fb458bc67906}{check\+Collision}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Check for collisions with the level at a given point. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_aca6522d3c16432468659428c2be31af2}\label{class_level_aca6522d3c16432468659428c2be31af2} 
+void {\bfseries reset} ()
+\begin{DoxyCompactList}\small\item\em Reset the level. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_level_a40a251c0dd77cb557dc35de82d5c7b80}{end\+Level}} (bool win)
+\begin{DoxyCompactList}\small\item\em End the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a066d23a18cacb9b8203e76e7f0999630}\label{class_level_a066d23a18cacb9b8203e76e7f0999630} 
+void {\bfseries check\+Power\+Up} ()
+\begin{DoxyCompactList}\small\item\em Check if a powerup should be spawned. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_level_a53ae126fbf73ee3ee393dc56e7ae498a}\label{class_level_a53ae126fbf73ee3ee393dc56e7ae498a} 
+\index{Level@{Level}!Level@{Level}}
+\index{Level@{Level}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{Level()}{Level()}}
+{\footnotesize\ttfamily Level\+::\+Level (\begin{DoxyParamCaption}\item[{std\+::string}]{texture\+Path,  }\item[{std\+::string}]{collision\+Map\+Path,  }\item[{int}]{difficulty }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{class_level}{Level} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture\+Path} & The path to the texture of the level. \\
+\hline
+{\em collision\+Map\+Path} & The path to the collision map of the level. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_level_a48582cad129c0bd5b5d1fb458bc67906}\label{class_level_a48582cad129c0bd5b5d1fb458bc67906} 
+\index{Level@{Level}!checkCollision@{checkCollision}}
+\index{checkCollision@{checkCollision}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{checkCollision()}{checkCollision()}}
+{\footnotesize\ttfamily bool Level\+::check\+Collision (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Check for collisions with the level at a given point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x coordinate to check. \\
+\hline
+{\em y} & The y coordinate to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if there is a collision at the given point. 
+\end{DoxyReturn}
+\Hypertarget{class_level_a20d356fa84aac7c21b39c631882642a6}\label{class_level_a20d356fa84aac7c21b39c631882642a6} 
+\index{Level@{Level}!draw@{draw}}
+\index{draw@{draw}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily void Level\+::draw (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Draw the level to the window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The window to draw the level to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_level_a40a251c0dd77cb557dc35de82d5c7b80}\label{class_level_a40a251c0dd77cb557dc35de82d5c7b80} 
+\index{Level@{Level}!endLevel@{endLevel}}
+\index{endLevel@{endLevel}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{endLevel()}{endLevel()}}
+{\footnotesize\ttfamily void Level\+::end\+Level (\begin{DoxyParamCaption}\item[{bool}]{win }\end{DoxyParamCaption})}
+
+
+
+End the level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em win} & If the player won the level. If false, resets the level. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_level_a5a32b21e2eb81885a491677250983c73}\label{class_level_a5a32b21e2eb81885a491677250983c73} 
+\index{Level@{Level}!getLevelEnd@{getLevelEnd}}
+\index{getLevelEnd@{getLevelEnd}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{getLevelEnd()}{getLevelEnd()}}
+{\footnotesize\ttfamily float Level\+::get\+Level\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the \doxylink{class_level}{Level} End. 
+
+\begin{DoxyReturn}{Returns}
+float The marked end of the currently loaded level. 
+\end{DoxyReturn}
+\Hypertarget{class_level_af0587a91be73c08432e4f05fbb6ab7cc}\label{class_level_af0587a91be73c08432e4f05fbb6ab7cc} 
+\index{Level@{Level}!handleEvent@{handleEvent}}
+\index{handleEvent@{handleEvent}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{handleEvent()}{handleEvent()}}
+{\footnotesize\ttfamily void Level\+::handle\+Event (\begin{DoxyParamCaption}\item[{sf\+::\+Event}]{event }\end{DoxyParamCaption})}
+
+
+
+Handle events in the level. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & The event to handle. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Level.\+h\item 
+src/Level.\+cpp\end{DoxyCompactItemize}
