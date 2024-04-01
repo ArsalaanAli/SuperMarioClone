@@ -20,7 +20,8 @@ enum Scene {
   MainMenu,
   DifficultySelect,
   Running,
-  Paused
+  Paused,
+  EndScreen
 };
 
 /**
@@ -62,6 +63,12 @@ public:
    * @param window
    */
   void drawDifficultySelect(sf::RenderWindow& window);
+
+    /**
+   * @brief Draw the end game screen.
+   * @param window
+   */
+  void drawEndScreen(sf::RenderWindow& window);
 
   /**
    * @brief Draw the pause menu.
