@@ -8,8 +8,7 @@
 Level::Level() : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {}
 
 Level::Level(std::string texturePath, std::string collisionMapPath, int difficultyInput)
-    : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2))
-{
+  : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {
 
   Game::getInstance()->getWindow()->setView(
     Game::getInstance()->getWindow()->getDefaultView());
@@ -33,13 +32,13 @@ Level::Level(std::string texturePath, std::string collisionMapPath, int difficul
     exit(1);
   }
 
-  for (auto& spawnPoint : eSpawnPoints[difficulty-1]) {
+  for (auto& spawnPoint : eSpawnPoints[difficulty - 1]) {
     enemies.emplace_back(spawnPoint, 600);
   }
 
   initCoins();
 
-  lives = difficultyLives[difficulty-1];
+  lives = difficultyLives[difficulty - 1];
   kills = 0;
 }
 
@@ -135,12 +134,14 @@ void Level::initCoins() {
 
   coinsCollected = 0;
   coins.clear();
-  for (int i = 500; i < levelEnd; i += 1000) {
-    sf::Sprite coin;
+  for (int i = 450; i < levelEnd; i += 1000) {
     // 75% chance of spawning a coin
     if (rand() % 100 > 75) {
       continue;
     }
+
+    sf::Sprite coin;
+    coin.setTexture(coinTexture);
 
     // random y position
     int _y[] = { 250, 300, 555 };
@@ -148,9 +149,15 @@ void Level::initCoins() {
 
     // random x position within 25 pixels of i
     int x = i + (rand() % 50 - 25);
-
-    coin.setTexture(coinTexture);
     coin.setPosition(x, y);
+
+    sf::Vector2 size = coin.getTexture()->getSize();
+
+    if (checkCollision(x, y) || checkCollision(x + size.x, y) ||
+      checkCollision(x, y + size.y) || checkCollision(x + size.x, y + size.y)) {
+      continue;
+    }
+
     coins.push_back(coin);
   }
 }
