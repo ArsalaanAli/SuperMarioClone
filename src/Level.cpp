@@ -9,6 +9,7 @@ Level::Level() : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {}
 
 Level::Level(std::string texturePath, std::string collisionMapPath)
   : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {
+
   Game::getInstance()->getWindow()->setView(
     Game::getInstance()->getWindow()->getDefaultView());
 
@@ -29,10 +30,13 @@ Level::Level(std::string texturePath, std::string collisionMapPath)
     exit(1);
   }
 
-  if (!coinTexture.loadFromFile("assets/coin.png")) {
+  if (!coinTexture.loadFromFile("assets/coin.png"))
+  {
     std::cerr << "Failed to load coin texture!" << std::endl;
     exit(1);
   }
+
+
 
   const int eSpawnPoints[] = {
       1500, 2000, 2300, 2500, 3500, 3800, 4500,
@@ -43,7 +47,7 @@ Level::Level(std::string texturePath, std::string collisionMapPath)
     enemies.emplace_back(spawnPoint, 600);
   }
 
-  makeCoins();
+  initCoins();
 
   lives = 3;
   kills = 0;
@@ -100,19 +104,20 @@ void Level::update() {
       }
     }
   }
+  if(coins.size() > 0){
+    for (auto& coin : coins) {
+      if (coin.getGlobalBounds().intersects(
+        player.getShape().getGlobalBounds())) {
+        coin.move(0, -WINDOW_HEIGHT);
+        coinsCollected++;
 
-  for (auto& coin : coins) {
-    if (coin.getGlobalBounds().intersects(
-      player.getShape().getGlobalBounds())) {
-      coin.move(0, -WINDOW_HEIGHT);
-      coinsCollected++;
-
-      switch (coinsCollected) {
-      case 5:
-      case 10:
-      case 15:
-        lives++;
-        break;
+        switch (coinsCollected) {
+        case 5:
+        case 10:
+        case 15:
+          lives++;
+          break;
+        }
       }
     }
   }
@@ -132,16 +137,51 @@ void Level::update() {
   }
 }
 
+void Level::initCoins(){
+  
+  coinsCollected = 0;
+  coins.clear();
+  for (int i = 500; i < levelEnd; i += 1000) {
+    sf::Sprite coin;
+    // 75% chance of spawning a coin
+    if (rand() % 100 > 75) {
+      continue;
+    }
+
+    // random y position
+    int _y[] = { 250, 300, 555 };
+    int y = _y[rand() % 3];
+
+    // random x position within 25 pixels of i
+    int x = i + (rand() % 50 - 25);
+
+    coin.setTexture(coinTexture);
+    coin.setPosition(x, y);
+    coins.push_back(coin);
+  }
+}
+
+void Level::drawCoins(sf::RenderWindow& window){
+  if(coins.size() < 1){
+    return;
+  }
+  if (coins[0].getTexture()->getSize().x > 100)
+  {
+    initCoins();
+  }
+  for (auto &coin : coins){
+    window.draw(coin);
+  }
+}
+
 void Level::draw(sf::RenderWindow& window) {
   // TODO: can't make this a class var for some reason
   sf::Sprite sprite = sf::Sprite(texture);
-  sprite.setPosition(0, 0);
-
   window.draw(sprite);
-  for (auto& coin : coins) {
-    window.draw(coin);
-  }
-  for (auto& pup : powerUps) {
+
+  drawCoins(window);
+  for (auto &pup : powerUps)
+  {
     window.draw(pup);
   }
   for (auto& enemy : enemies) {
@@ -238,30 +278,7 @@ void Level::checkPowerUp() {
 }
 
 void Level::makeCoins() {
-  coinsCollected = 0;
-  coins.clear();
-  for (int i = 500; i < levelEnd; i += 1000) {
-    // 75% chance of spawning a coin
-    if (rand() % 100 > 75) {
-      continue;
-    }
-
-    // TODO: can't render sprite texture
-    sf::Sprite coin;
-    coin.setTexture(coinTexture);
-    coin.setColor(sf::Color::White);
-
-    // random y position
-    int _y[] = { 250, 300, 555 };
-    int y = _y[rand() % 3];
-
-    // random x position within 25 pixels of i
-    int x = i + (rand() % 50 - 25);
-
-    coin.setPosition(x, y);
-
-    coins.push_back(coin);
-  }
+  
 }
 
 void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected,

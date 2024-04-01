@@ -79,6 +79,7 @@ public:
    * @brief Check if a powerup should be spawned.
    */
   void checkPowerUp();
+
 private:
   /**
    * @brief the internal clock of the level.
@@ -114,7 +115,6 @@ private:
    *
    */
   sf::Texture coinTexture;
-
   /**
    * @brief The collection of coins in the level.
    */
@@ -159,6 +159,10 @@ private:
    * @brief Helper function to create coins.
    */
   void makeCoins();
+
+  void initCoins();
+
+  void drawCoins(sf::RenderWindow &window);
 
   /**
    * @brief Helper function to draw the HUD.
