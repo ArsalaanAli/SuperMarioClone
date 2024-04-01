@@ -10,7 +10,6 @@ Game* Game::getInstance() {
 }
 
 Game::Game() {
-
   if (!font.loadFromFile("assets/SuperMario256.ttf")) {
     std::cerr << "Failed to load font file!" << std::endl;
     exit(1);
@@ -201,7 +200,7 @@ void Game::drawMainMenu(sf::RenderWindow& window) {
   diffSelectText.setPosition(windowCenter.x - diffSelectBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 170);
   diffSelectText.setFillColor(sf::Color::White);
   window.draw(diffSelectText);
-  
+
 
   // Draw "Quit Game" button
   sf::RectangleShape quitButton(sf::Vector2f(300, 60));
@@ -229,8 +228,8 @@ void Game::drawMainMenu(sf::RenderWindow& window) {
   window.draw(quitGameText);
 }
 
-void Game::drawDifficultySelect(sf::RenderWindow& window){
-    sf::Vector2f windowCenter = window.getView().getCenter();
+void Game::drawDifficultySelect(sf::RenderWindow& window) {
+  sf::Vector2f windowCenter = window.getView().getCenter();
 
   // Draw the overlay
   sf::RectangleShape overlay(sf::Vector2f(windowCenter.x + WINDOW_WIDTH / 2, windowCenter.y + WINDOW_HEIGHT / 2));
@@ -291,7 +290,7 @@ void Game::drawDifficultySelect(sf::RenderWindow& window){
   mediumText.setPosition(windowCenter.x - mediumBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 470);
   mediumText.setFillColor(sf::Color::White);
   window.draw(mediumText);
-  
+
 
   // Draw "Hard" button
   sf::RectangleShape hardButton(sf::Vector2f(300, 60));
@@ -391,21 +390,21 @@ void Game::drawEndingScreen(sf::RenderWindow& window) {
   sf::Vector2f windowCenter = window.getView().getCenter();
 
   // Draw "Thank You" text
-  sf::Text thankYouText("Thank you Mario!", *getFont(), 50);
+  sf::Text thankYouText("Thank you Mario!", font, 50);
   thankYouText.setFillColor(sf::Color::White);
   sf::FloatRect thankYouTextBounds = thankYouText.getLocalBounds();
   thankYouText.setPosition((WINDOW_WIDTH - thankYouTextBounds.width) / 2, WINDOW_HEIGHT / 3 - thankYouTextBounds.height / 2);
   window.draw(thankYouText);
 
   // Draw "Your quest is over." text
-  sf::Text questOverText("Your quest is over.", *getFont(), 50);
+  sf::Text questOverText("Your quest is over.", font, 50);
   questOverText.setFillColor(sf::Color::White);
   sf::FloatRect questOverTextBounds = questOverText.getLocalBounds();
   questOverText.setPosition((WINDOW_WIDTH - questOverTextBounds.width) / 2, WINDOW_HEIGHT / 2 - questOverTextBounds.height / 2);
   window.draw(questOverText);
 
   // Draw "Thanks for playing!" text
-  sf::Text thanksForPlayingText("Thanks for playing!", *getFont(), 50);
+  sf::Text thanksForPlayingText("Thanks for playing!", font, 50);
   thanksForPlayingText.setFillColor(sf::Color::White);
   sf::FloatRect thanksForPlayingTextBounds = thanksForPlayingText.getLocalBounds();
   thanksForPlayingText.setPosition((WINDOW_WIDTH - thanksForPlayingTextBounds.width) / 2, 2 * WINDOW_HEIGHT / 3 - thanksForPlayingTextBounds.height / 2);
@@ -416,7 +415,6 @@ void Game::drawEndingScreen(sf::RenderWindow& window) {
   window.draw(backToStartText);
 
   // Check mouse interaction with "Main Menu" button
-  sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
   if (isMouseOverText(window, backToStartText)) {
     backToStartText.setFillColor(sf::Color(76, 175, 80));
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -481,17 +479,14 @@ void Game::run() {
       drawDifficultySelect(*window);
       break;
     case Scene::Running:
-      // drawHud(*window, 100, 0, 3, 0);
       level.update();
       level.draw(*window);
       break;
     case Scene::Paused:
-      // drawPausePopup(*window);
       window->draw(backgroundSprite);
       drawPauseMenu(*window);
       break;
     case Scene::Ending:
-      window->draw(backgroundSprite);
       drawEndingScreen(*window);
     }
 
