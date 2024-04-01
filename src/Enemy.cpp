@@ -16,7 +16,7 @@ Enemy::Enemy(int cx, int cy) {
   spawn_x = cx;
   spawn_y = cy;
 
-  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+  shape = sf::RectangleShape(sf::Vector2f(texture.getSize().x, texture.getSize().y));
   shape.setFillColor(sf::Color::Red);
   shape.setPosition(cx, cy);
 
@@ -36,9 +36,12 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 }
 
 void Enemy::reset() {
-  shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
+  shape = sf::RectangleShape(sf::Vector2f(texture.getSize().x, texture.getSize().y));
   shape.setFillColor(sf::Color::Red);
   shape.setPosition(spawn_x, spawn_y);
+
+  sprite.setScale(1, 1);
+  sprite.setPosition(spawn_x, spawn_y);
 
   vx = MAX_SPEED;
   vy = MAX_AIR_SPEED;
@@ -88,7 +91,7 @@ void Enemy::die() {
   if (!isDying) {
     // on first invocation, change color
     sprite.setScale(1, 0.75);
-    sprite.move(0, CELL_SIZE / 4);
+    sprite.move(0, texture.getSize().y / 4);
     isDying = true;
   }
 
