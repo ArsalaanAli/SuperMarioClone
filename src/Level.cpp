@@ -30,12 +30,6 @@ Level::Level(std::string texturePath, std::string collisionMapPath)
     exit(1);
   }
 
-  if (!coinTexture.loadFromFile("assets/coin.png"))
-  {
-    std::cerr << "Failed to load coin texture!" << std::endl;
-    exit(1);
-  }
-
 
 
   const int eSpawnPoints[] = {
@@ -138,6 +132,11 @@ void Level::update() {
 }
 
 void Level::initCoins(){
+    if (!coinTexture.loadFromFile("assets/coin.png"))
+  {
+    std::cerr << "Failed to load coin texture!" << std::endl;
+    exit(1);
+  }
   
   coinsCollected = 0;
   coins.clear();
