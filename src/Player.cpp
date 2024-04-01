@@ -27,14 +27,14 @@ Player::Player(int cx, int cy) {
 
 void Player::loadSprites() {
   for (int i = 0; i < numSprites.size(); i++) {
-    vector<sf::Texture> tempVec;
+    std::vector<sf::Texture> tempVec;
     textures.push_back(tempVec);
   }
   //TODO: replace sprites with 50x50 sprites
   // load standing sprites
   for (int i = 0; i < numSprites[STAND]; i++) {
     sf::Texture temp;
-    if (!temp.loadFromFile("assets/MarioSprites/stand" + to_string(i) + ".png")) {
+    if (!temp.loadFromFile("assets/MarioSprites/stand" + std::to_string(i) + ".png")) {
       return;
     }
     textures[STAND].push_back(temp);
@@ -42,7 +42,7 @@ void Player::loadSprites() {
   //load running sprites
   for (int i = 0; i < numSprites[RUN]; i++) {
     sf::Texture temp;
-    if (!temp.loadFromFile("assets/MarioSprites/run" + to_string(i) + ".png")) {
+    if (!temp.loadFromFile("assets/MarioSprites/run" + std::to_string(i) + ".png")) {
       return;
     }
     textures[RUN].push_back(temp);

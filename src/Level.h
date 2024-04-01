@@ -107,7 +107,7 @@ private:
   /**
    * @brief The spawn points for enemies at each difficulty.
    */
-  vector<vector<int>> eSpawnPoints = {
+  std::vector<std::vector<int>> eSpawnPoints = {
     //Easy Enemy Spawn
     {
         1500, 2300, 3500,

@@ -199,8 +199,7 @@ void Level::handleEvent(sf::Event event) {
       player.die();
       break;
     case sf::Keyboard::Period:
-      cout << "Player position: " << player.getShape().getPosition().x << ", "
-        << player.getShape().getPosition().y << std::endl;
+      std::cout << "Player position: " << player.getShape().getPosition().x << std::endl;
       break;
     default:
       break;
@@ -268,7 +267,6 @@ void Level::checkPowerUp() {
       powerup.setPosition(pos.x, pos.y - CELL_SIZE * 2);
 
       powerUps.push_back(powerup);
-      cout << "Powerup spawned" << endl;
       return;
     }
   }

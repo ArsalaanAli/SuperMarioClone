@@ -3,10 +3,9 @@
 
 #include <cmath>
 #include <iostream>
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
-
-using namespace std;
 
 #define MAX_SPEED 400.0f
 #define DECEL_RATE 3000.0f
@@ -102,12 +101,12 @@ private:
   /**
    * @brief The player's textures.
    */
-  vector<vector<sf::Texture>> textures;
+  std::vector<std::vector<sf::Texture>> textures;
 
   /**
    * @brief The player's animations.
    */
-  vector<int> numSprites = { 1, 3 };
+  std::vector<int> numSprites = { 1, 3 };
 
   /**
    * @brief The current frame of the animation.
