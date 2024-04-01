@@ -1,0 +1,212 @@
+\doxysection{Game Class Reference}
+\hypertarget{class_game}{}\label{class_game}\index{Game@{Game}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_a8dfae1252078e9f3bdaa8c4402e7982f}\label{class_game_a8dfae1252078e9f3bdaa8c4402e7982f} 
+{\bfseries Game} (const \mbox{\hyperlink{class_game}{Game}} \&obj)=delete
+\item 
+\Hypertarget{class_game_ae3d112ca6e0e55150d2fdbc704474530}\label{class_game_ae3d112ca6e0e55150d2fdbc704474530} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Game} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \doxylink{class_game}{Game} object. \end{DoxyCompactList}\item 
+\Hypertarget{class_game_a1ab78f5ed0d5ea879157357cf2fb2afa}\label{class_game_a1ab78f5ed0d5ea879157357cf2fb2afa} 
+void {\bfseries run} ()
+\begin{DoxyCompactList}\small\item\em Run the game loop. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_a60d2050595286b752903c28f15ecf29f}{draw\+Main\+Menu}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em Draw the main menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_ad03f44883a9ec036541a0eca3c6f560c}{draw\+Difficulty\+Select}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em Draw the difficulty select screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_a049bd6a5d6f0989ac7dfb78e9dba9f88}{draw\+Pause\+Menu}} (sf\+::\+Render\+Window \&window)
+\begin{DoxyCompactList}\small\item\em Draw the pause menu. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_aca213905b4ee88742b1886738b544005}{draw\+Hud}} (sf\+::\+Render\+Window \&window, int time, int coins\+Collected, int lives, int score)
+\begin{DoxyCompactList}\small\item\em Draw the HUD. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_game_a9138e18ef8bdc8489a26fbbd6107f330}{get\+Delta\+Time}} ()
+\begin{DoxyCompactList}\small\item\em Get the Delta Time object. \end{DoxyCompactList}\item 
+sf\+::\+Vector2$<$ int $>$ \mbox{\hyperlink{class_game_a56c6135927e13bedb1a4762258911ffa}{get\+Input\+Axis}} ()
+\begin{DoxyCompactList}\small\item\em Get the Input Axis object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_level}{Level}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_a249228191543e48c1785343c97ddcf2e}{get\+Level}} ()
+\begin{DoxyCompactList}\small\item\em Get the \doxylink{class_level}{Level} object. \end{DoxyCompactList}\item 
+sf\+::\+Font \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_a2ec5350845c8a8d6ce07a44e4e527f10}{get\+Font}} ()
+\begin{DoxyCompactList}\small\item\em Get the Font. \end{DoxyCompactList}\item 
+sf\+::\+Font \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_afe5069386385f1255e4c63597bad866b}{get\+Secondary\+Font}} ()
+\begin{DoxyCompactList}\small\item\em Get the Secondary Font. \end{DoxyCompactList}\item 
+sf\+::\+Render\+Window \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_game_a2af384524579bf3cd51c83b803146055}{get\+Window}} ()
+\begin{DoxyCompactList}\small\item\em Get the Window object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_game_afb26e9f6a1ac7a52b39b1d9d1143ea87}{set\+Scene}} (Scene target)
+\begin{DoxyCompactList}\small\item\em Set the current scene. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_game_a19798a4f4c50037e1c5cd8c5d491fef9}\label{class_game_a19798a4f4c50037e1c5cd8c5d491fef9} 
+static \mbox{\hyperlink{class_game}{Game}} \texorpdfstring{$\ast$}{*} {\bfseries get\+Instance} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_game_ad03f44883a9ec036541a0eca3c6f560c}\label{class_game_ad03f44883a9ec036541a0eca3c6f560c} 
+\index{Game@{Game}!drawDifficultySelect@{drawDifficultySelect}}
+\index{drawDifficultySelect@{drawDifficultySelect}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{drawDifficultySelect()}{drawDifficultySelect()}}
+{\footnotesize\ttfamily void Game\+::draw\+Difficulty\+Select (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Draw the difficulty select screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_game_aca213905b4ee88742b1886738b544005}\label{class_game_aca213905b4ee88742b1886738b544005} 
+\index{Game@{Game}!drawHud@{drawHud}}
+\index{drawHud@{drawHud}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{drawHud()}{drawHud()}}
+{\footnotesize\ttfamily void Game\+::draw\+Hud (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{int}]{time,  }\item[{int}]{coins\+Collected,  }\item[{int}]{lives,  }\item[{int}]{score }\end{DoxyParamCaption})}
+
+
+
+Draw the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The window to draw the HUD to. \\
+\hline
+{\em time} & The time elapsed in the level. \\
+\hline
+{\em coins\+Collected} & The number of coins collected. \\
+\hline
+{\em lives} & The number of lives remaining. \\
+\hline
+{\em score} & The player\textquotesingle{}s score. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_game_a60d2050595286b752903c28f15ecf29f}\label{class_game_a60d2050595286b752903c28f15ecf29f} 
+\index{Game@{Game}!drawMainMenu@{drawMainMenu}}
+\index{drawMainMenu@{drawMainMenu}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{drawMainMenu()}{drawMainMenu()}}
+{\footnotesize\ttfamily void Game\+::draw\+Main\+Menu (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Draw the main menu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The window to draw the main menu to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_game_a049bd6a5d6f0989ac7dfb78e9dba9f88}\label{class_game_a049bd6a5d6f0989ac7dfb78e9dba9f88} 
+\index{Game@{Game}!drawPauseMenu@{drawPauseMenu}}
+\index{drawPauseMenu@{drawPauseMenu}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{drawPauseMenu()}{drawPauseMenu()}}
+{\footnotesize\ttfamily void Game\+::draw\+Pause\+Menu (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window }\end{DoxyParamCaption})}
+
+
+
+Draw the pause menu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The window to draw the pause menu to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_game_a9138e18ef8bdc8489a26fbbd6107f330}\label{class_game_a9138e18ef8bdc8489a26fbbd6107f330} 
+\index{Game@{Game}!getDeltaTime@{getDeltaTime}}
+\index{getDeltaTime@{getDeltaTime}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getDeltaTime()}{getDeltaTime()}}
+{\footnotesize\ttfamily float Game\+::get\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Delta Time object. 
+
+\begin{DoxyReturn}{Returns}
+The time since the last frame. 
+\end{DoxyReturn}
+\Hypertarget{class_game_a2ec5350845c8a8d6ce07a44e4e527f10}\label{class_game_a2ec5350845c8a8d6ce07a44e4e527f10} 
+\index{Game@{Game}!getFont@{getFont}}
+\index{getFont@{getFont}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getFont()}{getFont()}}
+{\footnotesize\ttfamily sf\+::\+Font \texorpdfstring{$\ast$}{*} Game\+::get\+Font (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Font. 
+
+\begin{DoxyReturn}{Returns}
+sf\+::\+Font\texorpdfstring{$\ast$}{*} The game\textquotesingle{}s font. 
+\end{DoxyReturn}
+\Hypertarget{class_game_a56c6135927e13bedb1a4762258911ffa}\label{class_game_a56c6135927e13bedb1a4762258911ffa} 
+\index{Game@{Game}!getInputAxis@{getInputAxis}}
+\index{getInputAxis@{getInputAxis}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getInputAxis()}{getInputAxis()}}
+{\footnotesize\ttfamily sf\+::\+Vector2$<$ int $>$ Game\+::get\+Input\+Axis (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Input Axis object. 
+
+\begin{DoxyReturn}{Returns}
+The input axis as a 2D vector. 
+\end{DoxyReturn}
+\Hypertarget{class_game_a249228191543e48c1785343c97ddcf2e}\label{class_game_a249228191543e48c1785343c97ddcf2e} 
+\index{Game@{Game}!getLevel@{getLevel}}
+\index{getLevel@{getLevel}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getLevel()}{getLevel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_level}{Level}} \texorpdfstring{$\ast$}{*} Game\+::get\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \doxylink{class_level}{Level} object. 
+
+\begin{DoxyReturn}{Returns}
+The current level. 
+\end{DoxyReturn}
+\Hypertarget{class_game_afe5069386385f1255e4c63597bad866b}\label{class_game_afe5069386385f1255e4c63597bad866b} 
+\index{Game@{Game}!getSecondaryFont@{getSecondaryFont}}
+\index{getSecondaryFont@{getSecondaryFont}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getSecondaryFont()}{getSecondaryFont()}}
+{\footnotesize\ttfamily sf\+::\+Font \texorpdfstring{$\ast$}{*} Game\+::get\+Secondary\+Font (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Secondary Font. 
+
+\begin{DoxyReturn}{Returns}
+sf\+::\+Font\texorpdfstring{$\ast$}{*} The game\textquotesingle{}s secondary font. 
+\end{DoxyReturn}
+\Hypertarget{class_game_a2af384524579bf3cd51c83b803146055}\label{class_game_a2af384524579bf3cd51c83b803146055} 
+\index{Game@{Game}!getWindow@{getWindow}}
+\index{getWindow@{getWindow}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{getWindow()}{getWindow()}}
+{\footnotesize\ttfamily sf\+::\+Render\+Window \texorpdfstring{$\ast$}{*} Game\+::get\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Window object. 
+
+\begin{DoxyReturn}{Returns}
+sf\+::\+Render\+Window\texorpdfstring{$\ast$}{*} The game\textquotesingle{}s window. 
+\end{DoxyReturn}
+\Hypertarget{class_game_afb26e9f6a1ac7a52b39b1d9d1143ea87}\label{class_game_afb26e9f6a1ac7a52b39b1d9d1143ea87} 
+\index{Game@{Game}!setScene@{setScene}}
+\index{setScene@{setScene}!Game@{Game}}
+\doxysubsubsection{\texorpdfstring{setScene()}{setScene()}}
+{\footnotesize\ttfamily void Game\+::set\+Scene (\begin{DoxyParamCaption}\item[{Scene}]{target }\end{DoxyParamCaption})}
+
+
+
+Set the current scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & The scene to set. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Game.\+h\item 
+src/Game.\+cpp\end{DoxyCompactItemize}

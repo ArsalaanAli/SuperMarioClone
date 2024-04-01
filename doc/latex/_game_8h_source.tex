@@ -1,0 +1,96 @@
+\doxysection{Game.\+h}
+\hypertarget{_game_8h_source}{}\label{_game_8h_source}\index{src/Game.h@{src/Game.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GAME\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GAME\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Level.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ WINDOW\_WIDTH\ 1280}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ WINDOW\_HEIGHT\ 720}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ CELL\_SIZE\ 50.0f}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ VIEW\_SCROLL\_MARGIN\ 400}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ VIEW\_SCROLL\_MARGIN\_FROM\_CENTER\ \(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ ((WINDOW\_WIDTH\ /\ 2.0f)\ -\/\ VIEW\_SCROLL\_MARGIN)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ EASY\ 1}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MEDIUM\ 2}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ HARD\ 3}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{enum}\ Scene\ \{}
+\DoxyCodeLine{00020\ \ \ MainMenu,}
+\DoxyCodeLine{00021\ \ \ DifficultySelect,}
+\DoxyCodeLine{00022\ \ \ Running,}
+\DoxyCodeLine{00023\ \ \ Paused}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game}{Game}}\ \{}
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_game}{Game}}*\ instance;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{class_game}{Game}}();}
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ Delete\ copy\ constructor\ for\ singleton}}
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{class_game}{Game}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_game}{Game}}\&\ obj)}
+\DoxyCodeLine{00036\ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{class_game_ae3d112ca6e0e55150d2fdbc704474530}{\string~Game}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_game}{Game}}*\ getInstance();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a1ab78f5ed0d5ea879157357cf2fb2afa}{run}}();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a60d2050595286b752903c28f15ecf29f}{drawMainMenu}}(sf::RenderWindow\&\ window);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_ad03f44883a9ec036541a0eca3c6f560c}{drawDifficultySelect}}(sf::RenderWindow\&\ window);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a049bd6a5d6f0989ac7dfb78e9dba9f88}{drawPauseMenu}}(sf::RenderWindow\&\ window);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_aca213905b4ee88742b1886738b544005}{drawHud}}(sf::RenderWindow\&\ window,\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{int}\ coinsCollected,\ \textcolor{keywordtype}{int}\ lives,\ \textcolor{keywordtype}{int}\ score);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_game_a9138e18ef8bdc8489a26fbbd6107f330}{getDeltaTime}}();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00092\ \ \ sf::Vector2<int>\ \mbox{\hyperlink{class_game_a56c6135927e13bedb1a4762258911ffa}{getInputAxis}}();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{class_level}{Level}}*\ \mbox{\hyperlink{class_game_a249228191543e48c1785343c97ddcf2e}{getLevel}}();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00106\ \ \ sf::Font*\ \mbox{\hyperlink{class_game_a2ec5350845c8a8d6ce07a44e4e527f10}{getFont}}();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00113\ \ \ sf::Font*\ \mbox{\hyperlink{class_game_afe5069386385f1255e4c63597bad866b}{getSecondaryFont}}();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00120\ \ \ sf::RenderWindow*\ \mbox{\hyperlink{class_game_a2af384524579bf3cd51c83b803146055}{getWindow}}();}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_afb26e9f6a1ac7a52b39b1d9d1143ea87}{setScene}}(Scene\ target);}
+\DoxyCodeLine{00127\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{int}\ difficulty;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00133\ \ \ sf::Clock\ dt\_clock;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{float}\ deltaTime;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00143\ \ \ sf::Vector2<int>\ input;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00148\ \ \ sf::RenderWindow*\ window;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \ \ Scene\ scene;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00158\ \ \ sf::Font\ font;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00163\ \ \ sf::Font\ secondaryFont;}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00168\ \ \ sf::Texture\ backgroundTexture;}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00173\ \ \ sf::ConvexShape\ selector;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{int}\ selectedMenuItem;}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00185\ \ \ sf::Vector2<int>\ calculateInputAxis();}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00190\ \ \ \mbox{\hyperlink{class_level}{Level}}\ level;}
+\DoxyCodeLine{00191\ \};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GAME\_H}}
+
+\end{DoxyCode}

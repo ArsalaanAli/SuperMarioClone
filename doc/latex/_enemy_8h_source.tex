@@ -1,0 +1,57 @@
+\doxysection{Enemy.\+h}
+\hypertarget{_enemy_8h_source}{}\label{_enemy_8h_source}\index{src/Enemy.h@{src/Enemy.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ENEMY\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ENEMY\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MAX\_SPEED\ 400.0f}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ DECEL\_RATE\ 3000.0f}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ ACCEL\_RATE\ 3000.0f}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ JUMP\_FORCE\ 1150.0f}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ AIR\_DECEL\_RATE\ (DECEL\_RATE\ *\ 1.0f)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ MAX\_AIR\_SPEED\ (MAX\_SPEED\ *\ 5.0f)}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_enemy}{Enemy}}\ :\ \textcolor{keyword}{public}\ sf::Drawable\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{class_enemy_aceaeebb4b2e4fd3bb44d0dc456383588}{Enemy}}(\textcolor{keywordtype}{int}\ cx,\ \textcolor{keywordtype}{int}\ cy);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{class_enemy_ac0eec4755e28c02688065f9657150ac3}{\string~Enemy}}();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_enemy_ad55ee71b5a8c23fbd00b3c368b90cc64}{update}}();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_enemy_af7979ce41aedaafa861ee0a74947dd29}{checkPlayerCollision}}(\textcolor{keywordtype}{float}\ px,\ \textcolor{keywordtype}{float}\ py);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00053\ \ \ sf::RectangleShape\ \mbox{\hyperlink{class_enemy_a9f2c58f7d089c740b5a3c6fa7cef77dc}{getShape}}();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_enemy_a04c451624958712b36546037fc25c601}{die}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_enemy_a0755a2799e2c7d10a242c13513321e3e}{reset}}();}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{int}\ spawn\_x,\ spawn\_y;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{float}\ vx,\ vy;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ draw(sf::RenderTarget\&\ target,\ sf::RenderStates\ states)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \ \ sf::RectangleShape\ shape;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00093\ \ \ sf::Texture\ texture;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \ \ sf::Sprite\ sprite;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{bool}\ isDying;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{bool}\ isGrounded();}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{void}\ MoveEnemy(\textcolor{keywordtype}{float}\ xoffset,\ \textcolor{keywordtype}{float}\ yoffset);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{int}\ roundAwayFromZero(\textcolor{keywordtype}{float}\ x);}
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENEMY\_H}}
+
+\end{DoxyCode}

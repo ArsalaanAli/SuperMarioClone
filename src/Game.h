@@ -54,6 +54,10 @@ public:
    */
   void drawMainMenu(sf::RenderWindow& window);
 
+  /**
+   * @brief Draw the difficulty select screen.
+   * @param window
+   */
   void drawDifficultySelect(sf::RenderWindow& window);
 
   /**

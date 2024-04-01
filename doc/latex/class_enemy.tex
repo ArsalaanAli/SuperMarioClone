@@ -1,0 +1,117 @@
+\doxysection{Enemy Class Reference}
+\hypertarget{class_enemy}{}\label{class_enemy}\index{Enemy@{Enemy}}
+
+
+The \doxylink{class_enemy}{Enemy} class is responsible for handling enemy movement and interactions.  
+
+
+
+
+{\ttfamily \#include $<$Enemy.\+h$>$}
+
+Inheritance diagram for Enemy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_enemy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_enemy_aceaeebb4b2e4fd3bb44d0dc456383588}{Enemy}} (int cx, int cy)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_enemy}{Enemy} object. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_ac0eec4755e28c02688065f9657150ac3}\label{class_enemy_ac0eec4755e28c02688065f9657150ac3} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Enemy} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \doxylink{class_enemy}{Enemy} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_ad55ee71b5a8c23fbd00b3c368b90cc64}{update}} ()
+\begin{DoxyCompactList}\small\item\em Update loop for the enemy called every frame. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_enemy_af7979ce41aedaafa861ee0a74947dd29}{check\+Player\+Collision}} (float px, float py)
+\begin{DoxyCompactList}\small\item\em Check if the player has collided with the enemy. \end{DoxyCompactList}\item 
+sf\+::\+Rectangle\+Shape \mbox{\hyperlink{class_enemy_a9f2c58f7d089c740b5a3c6fa7cef77dc}{get\+Shape}} ()
+\begin{DoxyCompactList}\small\item\em Get the underlying sf\+::\+Shape object for the enemy. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a04c451624958712b36546037fc25c601}\label{class_enemy_a04c451624958712b36546037fc25c601} 
+void {\bfseries die} ()
+\begin{DoxyCompactList}\small\item\em Kill the enemy. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a0755a2799e2c7d10a242c13513321e3e}\label{class_enemy_a0755a2799e2c7d10a242c13513321e3e} 
+void {\bfseries reset} ()
+\begin{DoxyCompactList}\small\item\em Reset the enemy to its spawnpoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_enemy}{Enemy} class is responsible for handling enemy movement and interactions. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_enemy_aceaeebb4b2e4fd3bb44d0dc456383588}\label{class_enemy_aceaeebb4b2e4fd3bb44d0dc456383588} 
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\index{Enemy@{Enemy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{Enemy()}{Enemy()}}
+{\footnotesize\ttfamily Enemy\+::\+Enemy (\begin{DoxyParamCaption}\item[{int}]{cx,  }\item[{int}]{cy }\end{DoxyParamCaption})}
+
+
+
+Construct a new \doxylink{class_enemy}{Enemy} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cx} & The spawnpoint x \\
+\hline
+{\em cy} & The spawnpoint y \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_enemy_af7979ce41aedaafa861ee0a74947dd29}\label{class_enemy_af7979ce41aedaafa861ee0a74947dd29} 
+\index{Enemy@{Enemy}!checkPlayerCollision@{checkPlayerCollision}}
+\index{checkPlayerCollision@{checkPlayerCollision}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{checkPlayerCollision()}{checkPlayerCollision()}}
+{\footnotesize\ttfamily bool Enemy\+::check\+Player\+Collision (\begin{DoxyParamCaption}\item[{float}]{px,  }\item[{float}]{py }\end{DoxyParamCaption})}
+
+
+
+Check if the player has collided with the enemy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em px} & The player x position \\
+\hline
+{\em py} & The player y position\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the player has collided with the enemy. 
+\end{DoxyReturn}
+\Hypertarget{class_enemy_a9f2c58f7d089c740b5a3c6fa7cef77dc}\label{class_enemy_a9f2c58f7d089c740b5a3c6fa7cef77dc} 
+\index{Enemy@{Enemy}!getShape@{getShape}}
+\index{getShape@{getShape}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{getShape()}{getShape()}}
+{\footnotesize\ttfamily sf\+::\+Rectangle\+Shape Enemy\+::get\+Shape (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the underlying sf\+::\+Shape object for the enemy. 
+
+\begin{DoxyReturn}{Returns}
+The underlying sf\+::\+Shape object. 
+\end{DoxyReturn}
+\Hypertarget{class_enemy_ad55ee71b5a8c23fbd00b3c368b90cc64}\label{class_enemy_ad55ee71b5a8c23fbd00b3c368b90cc64} 
+\index{Enemy@{Enemy}!update@{update}}
+\index{update@{update}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Enemy\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Update loop for the enemy called every frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The current game state. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Enemy.\+h\item 
+src/Enemy.\+cpp\end{DoxyCompactItemize}
