@@ -12,6 +12,7 @@
  */
 int roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
+// to create the player and load the sprites
 Player::Player(int cx, int cy) {
   loadSprites();
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
@@ -25,6 +26,7 @@ Player::Player(int cx, int cy) {
   curAnim = 0;
 }
 
+// helper function to load the texture and size of the sprite
 void Player::loadSprites() {
   for (int i = 0; i < numSprites.size(); i++) {
     std::vector<sf::Texture> tempVec;
@@ -63,7 +65,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   target.draw(sprite); // Draw the sprite member variable
 }
 
-
+// check if the player is on the ground
 bool Player::isGrounded() {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size;
@@ -87,6 +89,7 @@ bool Player::isGrounded() {
   return grounded;
 }
 
+// process the keyboard input
 void Player::processInput(sf::Vector2<int> input, bool grounded, float dt) {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && grounded) {
     jump();
