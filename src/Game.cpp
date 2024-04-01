@@ -411,32 +411,26 @@ void Game::drawEndingScreen(sf::RenderWindow& window) {
   thanksForPlayingText.setPosition((WINDOW_WIDTH - thanksForPlayingTextBounds.width) / 2, 2 * WINDOW_HEIGHT / 3 - thanksForPlayingTextBounds.height / 2);
   window.draw(thanksForPlayingText);
 
-  sf::RectangleShape mainMenuButton(sf::Vector2f(300, 60));
-  mainMenuButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 200);
-  mainMenuButton.setFillColor(sf::Color(0, 150, 136));
-  mainMenuButton.setOutlineThickness(2);
-  mainMenuButton.setOutlineColor(sf::Color(0, 188, 212));
+  sf::Text backToStartText("Back to Main Menu", font, 20);
+  backToStartText.setPosition(windowCenter.x - backToStartText.getLocalBounds().width / 2, windowCenter.y + WINDOW_WIDTH / 4);
+  window.draw(backToStartText);
 
   // Check mouse interaction with "Main Menu" button
   sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-  if (mainMenuButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
-    mainMenuButton.setFillColor(sf::Color(76, 175, 80));
+  if (isMouseOverText(window, backToStartText)) {
+    backToStartText.setFillColor(sf::Color(76, 175, 80));
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       setScene(Scene::MainMenu);
     }
   } else {
-    mainMenuButton.setFillColor(sf::Color(0, 150, 136));
+    backToStartText.setFillColor(sf::Color(0, 150, 136));
   }
 
-  window.draw(mainMenuButton);
+  window.draw(backToStartText);
 
-  // Draw "Main Menu" text
-  sf::Text mainMenuText("Main Menu", secondaryFont, 35);
-  sf::FloatRect textBounds = mainMenuText.getLocalBounds();
-  mainMenuText.setPosition(windowCenter.x - textBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 190);
-  mainMenuText.setFillColor(sf::Color::White);
-  window.draw(mainMenuText);
-
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+    setScene(Scene::MainMenu);
+  }
 }
 
 
@@ -496,7 +490,6 @@ void Game::run() {
       window->draw(backgroundSprite);
       drawPauseMenu(*window);
       break;
-
     case Scene::Ending:
       window->draw(backgroundSprite);
       drawEndingScreen(*window);
