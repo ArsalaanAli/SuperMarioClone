@@ -1,12 +1,21 @@
 \doxysection{Level Class Reference}
 \hypertarget{class_level}{}\label{class_level}\index{Level@{Level}}
+
+
+The level class responsible for managing the game level.  
+
+
+
+
+{\ttfamily \#include $<$Level.\+h$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_level_a7a696c928ca5d5354db6e50e46d0f67d}\label{class_level_a7a696c928ca5d5354db6e50e46d0f67d} 
 {\bfseries Level} ()
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_level}{Level} object. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{class_level_a53ae126fbf73ee3ee393dc56e7ae498a}{Level}} (std\+::string texture\+Path, std\+::string collision\+Map\+Path, int difficulty)
+\mbox{\hyperlink{class_level_a53ae126fbf73ee3ee393dc56e7ae498a}{Level}} (std\+::string texture\+Path, std\+::string collision\+Map\+Path, int \mbox{\hyperlink{class_level_a8a7f4ffd54fb0becda51b525c1ea4035}{difficulty}})
 \begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_level}{Level} object. \end{DoxyCompactList}\item 
 \Hypertarget{class_level_a249eac1e8f19ff44134efa5e986feaca}\label{class_level_a249eac1e8f19ff44134efa5e986feaca} 
 {\bfseries \texorpdfstring{$\sim$}{\string~}\+Level} ()
@@ -30,7 +39,77 @@ void \mbox{\hyperlink{class_level_a40a251c0dd77cb557dc35de82d5c7b80}{end\+Level}
 \Hypertarget{class_level_a066d23a18cacb9b8203e76e7f0999630}\label{class_level_a066d23a18cacb9b8203e76e7f0999630} 
 void {\bfseries check\+Power\+Up} ()
 \begin{DoxyCompactList}\small\item\em Check if a powerup should be spawned. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_level_a75cb87904668ae55a6779a342e32dab6}\label{class_level_a75cb87904668ae55a6779a342e32dab6} 
+void {\bfseries init\+Coins} ()
+\begin{DoxyCompactList}\small\item\em Helper function to create coins. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a8cd4daf9ef0d3fd9e1d22eabfbf4a27e}\label{class_level_a8cd4daf9ef0d3fd9e1d22eabfbf4a27e} 
+void {\bfseries draw\+Coins} (sf\+::\+Render\+Window \&window)
+\item 
+void \mbox{\hyperlink{class_level_ad4e69dd973023ce4d97f928951462a92}{draw\+HUD}} (sf\+::\+Render\+Window \&window, int time, int \mbox{\hyperlink{class_level_a2f6e64e8513a68adec183613ff5c665a}{coins\+Collected}}, int \mbox{\hyperlink{class_level_a1b71c6790fbaeb9642359860d6cc58a5}{lives}}, int score)
+\begin{DoxyCompactList}\small\item\em Helper function to draw the HUD. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_level_a8a7f4ffd54fb0becda51b525c1ea4035}\label{class_level_a8a7f4ffd54fb0becda51b525c1ea4035} 
+int {\bfseries difficulty}
+\begin{DoxyCompactList}\small\item\em The difficulty of the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_ae5ee314522f0e55b35cb26317aa6e870}\label{class_level_ae5ee314522f0e55b35cb26317aa6e870} 
+int {\bfseries difficulty\+Lives} \mbox{[}3\mbox{]} = \{ 3, 2, 1 \}
+\begin{DoxyCompactList}\small\item\em The number of lives the player has at each difficulty. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_ab98ab3277651279d1a8b1f8b16867346}\label{class_level_ab98ab3277651279d1a8b1f8b16867346} 
+sf\+::\+Clock {\bfseries clock}
+\begin{DoxyCompactList}\small\item\em the internal clock of the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_aae2f48ac36bd08832036e4ec37eb5b79}\label{class_level_aae2f48ac36bd08832036e4ec37eb5b79} 
+\mbox{\hyperlink{class_player}{Player}} {\bfseries player}
+\begin{DoxyCompactList}\small\item\em The player object. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a6ec7d6228877b5465f679a0f869dc8f2}\label{class_level_a6ec7d6228877b5465f679a0f869dc8f2} 
+std\+::vector$<$ \mbox{\hyperlink{class_enemy}{Enemy}} $>$ {\bfseries enemies}
+\begin{DoxyCompactList}\small\item\em The collection of enemies in the level. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{class_level_a7942e1bba37d2f46d08bf8228712990c}{e\+Spawn\+Points}}
+\begin{DoxyCompactList}\small\item\em The spawn points for enemies at each difficulty. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_ad854b95257631dee88a8b8ddc2f895ef}\label{class_level_ad854b95257631dee88a8b8ddc2f895ef} 
+sf\+::\+Texture {\bfseries texture}
+\begin{DoxyCompactList}\small\item\em The texture of the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a0c538524176c9df0b31bfb049aa18e6e}\label{class_level_a0c538524176c9df0b31bfb049aa18e6e} 
+sf\+::\+Image {\bfseries img}
+\begin{DoxyCompactList}\small\item\em The image of the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a598031b9adc1e5e817882b6f6490062b}\label{class_level_a598031b9adc1e5e817882b6f6490062b} 
+sf\+::\+Image {\bfseries collision\+Map}
+\begin{DoxyCompactList}\small\item\em The collision map of the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a60a1d7670eeb61e8e2eaa8c48cec1447}\label{class_level_a60a1d7670eeb61e8e2eaa8c48cec1447} 
+sf\+::\+Texture {\bfseries coin\+Texture}
+\begin{DoxyCompactList}\small\item\em The texture of the coins. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a8bf60e8cdad9dbcee16a46c06ec901b7}\label{class_level_a8bf60e8cdad9dbcee16a46c06ec901b7} 
+std\+::vector$<$ sf\+::\+Sprite $>$ {\bfseries coins}
+\begin{DoxyCompactList}\small\item\em The collection of coins in the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a5bcebba167efdd5020b6de89f144753a}\label{class_level_a5bcebba167efdd5020b6de89f144753a} 
+sf\+::\+Texture {\bfseries power\+Up\+Texture}
+\begin{DoxyCompactList}\small\item\em The texture of the powerups. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a1f2e614af9f4da8c0e66c40b58733df8}\label{class_level_a1f2e614af9f4da8c0e66c40b58733df8} 
+std\+::vector$<$ sf\+::\+Sprite $>$ {\bfseries power\+Ups}
+\begin{DoxyCompactList}\small\item\em The collection of powerups in the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a02777a1fabc9819df4d9ef2cb4cd388e}\label{class_level_a02777a1fabc9819df4d9ef2cb4cd388e} 
+float {\bfseries level\+End}
+\begin{DoxyCompactList}\small\item\em The marked end of the currently loaded level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a558cc6900b7166dced9a4b8fd072d925}\label{class_level_a558cc6900b7166dced9a4b8fd072d925} 
+int {\bfseries level\+Finish}
+\begin{DoxyCompactList}\small\item\em The finish line of the level. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a2454db17205d9282dcc906cc696c3d7f}\label{class_level_a2454db17205d9282dcc906cc696c3d7f} 
+int {\bfseries kills}
+\begin{DoxyCompactList}\small\item\em The number of kills the player has in the current run. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a1b71c6790fbaeb9642359860d6cc58a5}\label{class_level_a1b71c6790fbaeb9642359860d6cc58a5} 
+int {\bfseries lives}
+\begin{DoxyCompactList}\small\item\em The number of lives the player has remaining. \end{DoxyCompactList}\item 
+\Hypertarget{class_level_a2f6e64e8513a68adec183613ff5c665a}\label{class_level_a2f6e64e8513a68adec183613ff5c665a} 
+int {\bfseries coins\+Collected}
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s score. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The level class responsible for managing the game level. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{class_level_a53ae126fbf73ee3ee393dc56e7ae498a}\label{class_level_a53ae126fbf73ee3ee393dc56e7ae498a} 
@@ -88,6 +167,29 @@ Draw the level to the window.
 {\em window} & The window to draw the level to. \\
 \hline
 \end{DoxyParams}
+\Hypertarget{class_level_ad4e69dd973023ce4d97f928951462a92}\label{class_level_ad4e69dd973023ce4d97f928951462a92} 
+\index{Level@{Level}!drawHUD@{drawHUD}}
+\index{drawHUD@{drawHUD}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{drawHUD()}{drawHUD()}}
+{\footnotesize\ttfamily void Level\+::draw\+HUD (\begin{DoxyParamCaption}\item[{sf\+::\+Render\+Window \&}]{window,  }\item[{int}]{time,  }\item[{int}]{coins\+Collected,  }\item[{int}]{lives,  }\item[{int}]{score }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Helper function to draw the HUD. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The window to draw the HUD to. \\
+\hline
+{\em time} & The time elapsed in the level. \\
+\hline
+{\em coins\+Collected} & The number of coins collected. \\
+\hline
+{\em lives} & The number of lives remaining. \\
+\hline
+{\em score} & The player\textquotesingle{}s score. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{class_level_a40a251c0dd77cb557dc35de82d5c7b80}\label{class_level_a40a251c0dd77cb557dc35de82d5c7b80} 
 \index{Level@{Level}!endLevel@{endLevel}}
 \index{endLevel@{endLevel}!Level@{Level}}
@@ -131,6 +233,39 @@ Handle events in the level.
 {\em event} & The event to handle. \\
 \hline
 \end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_level_a7942e1bba37d2f46d08bf8228712990c}\label{class_level_a7942e1bba37d2f46d08bf8228712990c} 
+\index{Level@{Level}!eSpawnPoints@{eSpawnPoints}}
+\index{eSpawnPoints@{eSpawnPoints}!Level@{Level}}
+\doxysubsubsection{\texorpdfstring{eSpawnPoints}{eSpawnPoints}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::vector$<$int$>$ $>$ Level\+::e\+Spawn\+Points\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 1500,\ 2300,\ 3500,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 5000,\ 8000,}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 1500,\ 2000,\ 2500,\ 3500,\ 3800,\ 4500,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 5000,\ 6300,\ 8000,\ 9200,}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 1500,\ 2000,\ 2300,\ 2500,\ 3500,\ 3800,\ 4500,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 5000,\ 5300,\ 6300,\ 8000,\ 8300,\ 9200,}
+\DoxyCodeLine{\ \ \ \ \}\ \}}
+
+\end{DoxyCode}
+
+
+The spawn points for enemies at each difficulty. 
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

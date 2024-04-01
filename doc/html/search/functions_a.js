@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['setscene_0',['setScene',['../class_game.html#afb26e9f6a1ac7a52b39b1d9d1143ea87',1,'Game']]]
+  ['player_0',['Player',['../class_player.html#a426f4bf6e5dabe44db99ba60a19def7d',1,'Player']]],
+  ['processinput_1',['processInput',['../class_player.html#abd1beb644942953dfddebb95dc2dcebb',1,'Player']]]
 ];

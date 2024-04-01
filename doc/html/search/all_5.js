@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['handleevent_0',['handleEvent',['../class_level.html#af0587a91be73c08432e4f05fbb6ab7cc',1,'Level']]]
+  ['features_0',['Features',['../md__r_e_a_d_m_e.html#autotoc_md2',1,'']]],
+  ['font_1',['font',['../class_game.html#af729561d89036f0c841bc1a428dc43cf',1,'Game']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['update_0',['update',['../class_enemy.html#ad55ee71b5a8c23fbd00b3c368b90cc64',1,'Enemy::update()'],['../class_level.html#a62e412eaad753d2baa2f94239cb80e41',1,'Level::update()'],['../class_player.html#a82c3476f3e65a4e2ac6bcd040771bdd4',1,'Player::update()']]]
+  ['reset_0',['reset',['../class_enemy.html#a0755a2799e2c7d10a242c13513321e3e',1,'Enemy::reset()'],['../class_level.html#aca6522d3c16432468659428c2be31af2',1,'Level::reset()']]],
+  ['roundawayfromzero_1',['roundAwayFromZero',['../class_enemy.html#aac6c6ede5e0f249937dd0bb4206a977f',1,'Enemy']]],
+  ['run_2',['run',['../class_game.html#a1ab78f5ed0d5ea879157357cf2fb2afa',1,'Game']]]
 ];

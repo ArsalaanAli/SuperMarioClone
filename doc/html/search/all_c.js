@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['_7eenemy_0',['~Enemy',['../class_enemy.html#ac0eec4755e28c02688065f9657150ac3',1,'Enemy']]],
-  ['_7egame_1',['~Game',['../class_game.html#ae3d112ca6e0e55150d2fdbc704474530',1,'Game']]],
-  ['_7elevel_2',['~Level',['../class_level.html#a249eac1e8f19ff44134efa5e986feaca',1,'Level']]],
-  ['_7eplayer_3',['~Player',['../class_player.html#a749d2c00e1fe0f5c2746f7505a58c062',1,'Player']]]
+  ['mario_20clone_0',['Super Mario Clone',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['moveenemy_1',['MoveEnemy',['../class_enemy.html#adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7',1,'Enemy']]],
+  ['moveplayer_2',['MovePlayer',['../class_player.html#a8c59697539dfcfa8823080e1a4b9293c',1,'Player']]]
 ];

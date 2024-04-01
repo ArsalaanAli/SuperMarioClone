@@ -16,6 +16,9 @@
 #define POWERUP_SPEED_FACTOR 2.0f
 #define POWERUP_TIME 5.0f
 
+/**
+ * @brief The player class responsible for managing the player.
+ */
 class Player : public sf::Drawable {
 public:
   /**

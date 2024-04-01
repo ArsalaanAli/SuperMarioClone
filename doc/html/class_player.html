@@ -73,10 +73,18 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_player-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Player Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>The player class responsible for managing the player.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_player_8h_source.html">Player.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Player:</div>
 <div class="dyncontent">
@@ -87,11 +95,11 @@ Inheritance diagram for Player:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a426f4bf6e5dabe44db99ba60a19def7d" id="r_a426f4bf6e5dabe44db99ba60a19def7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a426f4bf6e5dabe44db99ba60a19def7d">Player</a> (int cx, int cy)</td></tr>
-<tr class="memdesc:a426f4bf6e5dabe44db99ba60a19def7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_player.html">Player</a> object.  <br /></td></tr>
+<tr class="memdesc:a426f4bf6e5dabe44db99ba60a19def7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_player.html" title="The player class responsible for managing the player.">Player</a> object.  <br /></td></tr>
 <tr class="separator:a426f4bf6e5dabe44db99ba60a19def7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a749d2c00e1fe0f5c2746f7505a58c062" id="r_a749d2c00e1fe0f5c2746f7505a58c062"><td class="memItemLeft" align="right" valign="top"><a id="a749d2c00e1fe0f5c2746f7505a58c062" name="a749d2c00e1fe0f5c2746f7505a58c062"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>~Player</b> ()</td></tr>
-<tr class="memdesc:a749d2c00e1fe0f5c2746f7505a58c062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="class_player.html">Player</a> object. <br /></td></tr>
+<tr class="memdesc:a749d2c00e1fe0f5c2746f7505a58c062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="class_player.html" title="The player class responsible for managing the player.">Player</a> object. <br /></td></tr>
 <tr class="separator:a749d2c00e1fe0f5c2746f7505a58c062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70e21ca98281b7d72f105f2693113d7e" id="r_a70e21ca98281b7d72f105f2693113d7e"><td class="memItemLeft" align="right" valign="top"><a id="a70e21ca98281b7d72f105f2693113d7e" name="a70e21ca98281b7d72f105f2693113d7e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>jump</b> ()</td></tr>
@@ -111,8 +119,100 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>activatePowerup</b> (
 <tr class="memitem:ac34f57243d264c3c1d3a089e14e87844" id="r_ac34f57243d264c3c1d3a089e14e87844"><td class="memItemLeft" align="right" valign="top">sf::RectangleShape&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac34f57243d264c3c1d3a089e14e87844">getShape</a> ()</td></tr>
 <tr class="memdesc:ac34f57243d264c3c1d3a089e14e87844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Shape object.  <br /></td></tr>
 <tr class="separator:ac34f57243d264c3c1d3a089e14e87844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a6181badd16590914fd18d7b52b4e9caf" id="r_a6181badd16590914fd18d7b52b4e9caf"><td class="memItemLeft" align="right" valign="top"><a id="a6181badd16590914fd18d7b52b4e9caf" name="a6181badd16590914fd18d7b52b4e9caf"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
+<tr class="separator:a6181badd16590914fd18d7b52b4e9caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49785a374e28017a3174a711381bce90" id="r_a49785a374e28017a3174a711381bce90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49785a374e28017a3174a711381bce90">AnimatePlayer</a> (float deltaTime)</td></tr>
+<tr class="memdesc:a49785a374e28017a3174a711381bce90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Animate the player.  <br /></td></tr>
+<tr class="separator:a49785a374e28017a3174a711381bce90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7701a2903435e3b48f49a6111ec50fcf" id="r_a7701a2903435e3b48f49a6111ec50fcf"><td class="memItemLeft" align="right" valign="top"><a id="a7701a2903435e3b48f49a6111ec50fcf" name="a7701a2903435e3b48f49a6111ec50fcf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>loadSprites</b> ()</td></tr>
+<tr class="memdesc:a7701a2903435e3b48f49a6111ec50fcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the player's sprites. <br /></td></tr>
+<tr class="separator:a7701a2903435e3b48f49a6111ec50fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd1beb644942953dfddebb95dc2dcebb" id="r_abd1beb644942953dfddebb95dc2dcebb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd1beb644942953dfddebb95dc2dcebb">processInput</a> (sf::Vector2&lt; int &gt; input, bool grounded, float dt)</td></tr>
+<tr class="memdesc:abd1beb644942953dfddebb95dc2dcebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the input for the player.  <br /></td></tr>
+<tr class="separator:abd1beb644942953dfddebb95dc2dcebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3d64046bdc7cbda61ebde419ea0706d" id="r_af3d64046bdc7cbda61ebde419ea0706d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3d64046bdc7cbda61ebde419ea0706d">isGrounded</a> ()</td></tr>
+<tr class="memdesc:af3d64046bdc7cbda61ebde419ea0706d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the player is grounded.  <br /></td></tr>
+<tr class="separator:af3d64046bdc7cbda61ebde419ea0706d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c59697539dfcfa8823080e1a4b9293c" id="r_a8c59697539dfcfa8823080e1a4b9293c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c59697539dfcfa8823080e1a4b9293c">MovePlayer</a> (float xoffset, float yoffset)</td></tr>
+<tr class="memdesc:a8c59697539dfcfa8823080e1a4b9293c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the player.  <br /></td></tr>
+<tr class="separator:a8c59697539dfcfa8823080e1a4b9293c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c1615b3a432e7b9413860265f3f57aa" id="r_a3c1615b3a432e7b9413860265f3f57aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c1615b3a432e7b9413860265f3f57aa">shouldDie</a> ()</td></tr>
+<tr class="memdesc:a3c1615b3a432e7b9413860265f3f57aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the player should die.  <br /></td></tr>
+<tr class="separator:a3c1615b3a432e7b9413860265f3f57aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a178cf133ba125cbf6baf4a7cc35706af" id="r_a178cf133ba125cbf6baf4a7cc35706af"><td class="memItemLeft" align="right" valign="top"><a id="a178cf133ba125cbf6baf4a7cc35706af" name="a178cf133ba125cbf6baf4a7cc35706af"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>vx</b></td></tr>
+<tr class="separator:a178cf133ba125cbf6baf4a7cc35706af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af995498de723272471eeb9b5d87073b2" id="r_af995498de723272471eeb9b5d87073b2"><td class="memItemLeft" align="right" valign="top"><a id="af995498de723272471eeb9b5d87073b2" name="af995498de723272471eeb9b5d87073b2"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>vy</b></td></tr>
+<tr class="separator:af995498de723272471eeb9b5d87073b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab44a9e7e51923c6a63d0675958200861" id="r_ab44a9e7e51923c6a63d0675958200861"><td class="memItemLeft" align="right" valign="top"><a id="ab44a9e7e51923c6a63d0675958200861" name="ab44a9e7e51923c6a63d0675958200861"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDying</b></td></tr>
+<tr class="memdesc:ab44a9e7e51923c6a63d0675958200861"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for whether the player is dying. <br /></td></tr>
+<tr class="separator:ab44a9e7e51923c6a63d0675958200861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66b850a4b84d9982891807337dbea124" id="r_a66b850a4b84d9982891807337dbea124"><td class="memItemLeft" align="right" valign="top"><a id="a66b850a4b84d9982891807337dbea124" name="a66b850a4b84d9982891807337dbea124"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>powerUpTime</b></td></tr>
+<tr class="memdesc:a66b850a4b84d9982891807337dbea124"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's powerup time remaining. Recorded in seconds. <br /></td></tr>
+<tr class="separator:a66b850a4b84d9982891807337dbea124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5f79934ef0d105137f6c0a87174c92c" id="r_af5f79934ef0d105137f6c0a87174c92c"><td class="memItemLeft" align="right" valign="top"><a id="af5f79934ef0d105137f6c0a87174c92c" name="af5f79934ef0d105137f6c0a87174c92c"></a>
+sf::RectangleShape&#160;</td><td class="memItemRight" valign="bottom"><b>shape</b></td></tr>
+<tr class="memdesc:af5f79934ef0d105137f6c0a87174c92c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's shape. <br /></td></tr>
+<tr class="separator:af5f79934ef0d105137f6c0a87174c92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19bc8731e5e84613a2ae7c4b5134dfab" id="r_a19bc8731e5e84613a2ae7c4b5134dfab"><td class="memItemLeft" align="right" valign="top"><a id="a19bc8731e5e84613a2ae7c4b5134dfab" name="a19bc8731e5e84613a2ae7c4b5134dfab"></a>
+sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><b>sprite</b></td></tr>
+<tr class="memdesc:a19bc8731e5e84613a2ae7c4b5134dfab"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's sprite. <br /></td></tr>
+<tr class="separator:a19bc8731e5e84613a2ae7c4b5134dfab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add8f49362a9677bbf1638975d35dbccc" id="r_add8f49362a9677bbf1638975d35dbccc"><td class="memItemLeft" align="right" valign="top"><a id="add8f49362a9677bbf1638975d35dbccc" name="add8f49362a9677bbf1638975d35dbccc"></a>
+std::vector&lt; std::vector&lt; sf::Texture &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>textures</b></td></tr>
+<tr class="memdesc:add8f49362a9677bbf1638975d35dbccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's textures. <br /></td></tr>
+<tr class="separator:add8f49362a9677bbf1638975d35dbccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84947ff87c4eafb22487d29e8f254d9f" id="r_a84947ff87c4eafb22487d29e8f254d9f"><td class="memItemLeft" align="right" valign="top"><a id="a84947ff87c4eafb22487d29e8f254d9f" name="a84947ff87c4eafb22487d29e8f254d9f"></a>
+std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>numSprites</b> = { 1, 3 }</td></tr>
+<tr class="memdesc:a84947ff87c4eafb22487d29e8f254d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's animations. <br /></td></tr>
+<tr class="separator:a84947ff87c4eafb22487d29e8f254d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa09c85e1bdf45655ca99819c1bb38c42" id="r_aa09c85e1bdf45655ca99819c1bb38c42"><td class="memItemLeft" align="right" valign="top"><a id="aa09c85e1bdf45655ca99819c1bb38c42" name="aa09c85e1bdf45655ca99819c1bb38c42"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>curFrame</b></td></tr>
+<tr class="memdesc:aa09c85e1bdf45655ca99819c1bb38c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current frame of the animation. <br /></td></tr>
+<tr class="separator:aa09c85e1bdf45655ca99819c1bb38c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc6e75856e4819aad0bf46eb03818fe" id="r_a6fc6e75856e4819aad0bf46eb03818fe"><td class="memItemLeft" align="right" valign="top"><a id="a6fc6e75856e4819aad0bf46eb03818fe" name="a6fc6e75856e4819aad0bf46eb03818fe"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>curAnim</b></td></tr>
+<tr class="memdesc:a6fc6e75856e4819aad0bf46eb03818fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current animation. <br /></td></tr>
+<tr class="separator:a6fc6e75856e4819aad0bf46eb03818fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97816830ea4b578ca577b9b77b531d17" id="r_a97816830ea4b578ca577b9b77b531d17"><td class="memItemLeft" align="right" valign="top"><a id="a97816830ea4b578ca577b9b77b531d17" name="a97816830ea4b578ca577b9b77b531d17"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>animationInterval</b> = 0.15f</td></tr>
+<tr class="memdesc:a97816830ea4b578ca577b9b77b531d17"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's animation interval. <br /></td></tr>
+<tr class="separator:a97816830ea4b578ca577b9b77b531d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2acca0d0cd5696138ccfc1a588e784c" id="r_aa2acca0d0cd5696138ccfc1a588e784c"><td class="memItemLeft" align="right" valign="top"><a id="aa2acca0d0cd5696138ccfc1a588e784c" name="aa2acca0d0cd5696138ccfc1a588e784c"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>animationTime</b></td></tr>
+<tr class="memdesc:aa2acca0d0cd5696138ccfc1a588e784c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player's animation time. <br /></td></tr>
+<tr class="separator:aa2acca0d0cd5696138ccfc1a588e784c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e659599640d5ce99088804f3b0252cf" id="r_a1e659599640d5ce99088804f3b0252cf"><td class="memItemLeft" align="right" valign="top"><a id="a1e659599640d5ce99088804f3b0252cf" name="a1e659599640d5ce99088804f3b0252cf"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>powerUpActive</b></td></tr>
+<tr class="memdesc:a1e659599640d5ce99088804f3b0252cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for whether the player is powered up. <br /></td></tr>
+<tr class="separator:a1e659599640d5ce99088804f3b0252cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-static-attribs" name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a59cbd94a27f02d98c8daf069e516daa7" id="r_a59cbd94a27f02d98c8daf069e516daa7"><td class="memItemLeft" align="right" valign="top"><a id="a59cbd94a27f02d98c8daf069e516daa7" name="a59cbd94a27f02d98c8daf069e516daa7"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>SCALE</b> = 2</td></tr>
+<tr class="separator:a59cbd94a27f02d98c8daf069e516daa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9db5e429cf5334bb8881f53dbe0b216b" id="r_a9db5e429cf5334bb8881f53dbe0b216b"><td class="memItemLeft" align="right" valign="top"><a id="a9db5e429cf5334bb8881f53dbe0b216b" name="a9db5e429cf5334bb8881f53dbe0b216b"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>STAND</b> = 0</td></tr>
+<tr class="separator:a9db5e429cf5334bb8881f53dbe0b216b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c06d0eba25b379ea2b244b330e3f640" id="r_a3c06d0eba25b379ea2b244b330e3f640"><td class="memItemLeft" align="right" valign="top"><a id="a3c06d0eba25b379ea2b244b330e3f640" name="a3c06d0eba25b379ea2b244b330e3f640"></a>
+static const int&#160;</td><td class="memItemRight" valign="bottom"><b>RUN</b> = 1</td></tr>
+<tr class="separator:a3c06d0eba25b379ea2b244b330e3f640"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The player class responsible for managing the player. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a426f4bf6e5dabe44db99ba60a19def7d" name="a426f4bf6e5dabe44db99ba60a19def7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a426f4bf6e5dabe44db99ba60a19def7d">&#9670;&#160;</a></span>Player()</h2>
 
@@ -132,7 +232,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>activatePowerup</b> (
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="class_player.html">Player</a> object. </p>
+<p>Construct a new <a class="el" href="class_player.html" title="The player class responsible for managing the player.">Player</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cx</td><td>spawnpoint x </td></tr>
@@ -144,6 +244,39 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>activatePowerup</b> (
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a49785a374e28017a3174a711381bce90" name="a49785a374e28017a3174a711381bce90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49785a374e28017a3174a711381bce90">&#9670;&#160;</a></span>AnimatePlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::AnimatePlayer </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaTime</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Animate the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaTime</td><td>The time since the last frame. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ac34f57243d264c3c1d3a089e14e87844" name="ac34f57243d264c3c1d3a089e14e87844"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac34f57243d264c3c1d3a089e14e87844">&#9670;&#160;</a></span>getShape()</h2>
 
@@ -161,6 +294,151 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>activatePowerup</b> (
 
 <p>Get the Shape object. </p>
 <dl class="section return"><dt>Returns</dt><dd>The player's shape. </dd></dl>
+
+</div>
+</div>
+<a id="af3d64046bdc7cbda61ebde419ea0706d" name="af3d64046bdc7cbda61ebde419ea0706d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3d64046bdc7cbda61ebde419ea0706d">&#9670;&#160;</a></span>isGrounded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::isGrounded </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the player is grounded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>The current game state. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the player is grounded. </dd></dl>
+
+</div>
+</div>
+<a id="a8c59697539dfcfa8823080e1a4b9293c" name="a8c59697539dfcfa8823080e1a4b9293c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c59697539dfcfa8823080e1a4b9293c">&#9670;&#160;</a></span>MovePlayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::MovePlayer </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>xoffset</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>yoffset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Move the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xoffset</td><td>The x offset. </td></tr>
+    <tr><td class="paramname">yoffset</td><td>The y offset. </td></tr>
+    <tr><td class="paramname">state</td><td>The current game state. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abd1beb644942953dfddebb95dc2dcebb" name="abd1beb644942953dfddebb95dc2dcebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd1beb644942953dfddebb95dc2dcebb">&#9670;&#160;</a></span>processInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Player::processInput </td>
+          <td>(</td>
+          <td class="paramtype">sf::Vector2&lt; int &gt;</td>          <td class="paramname"><span class="paramname"><em>input</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>grounded</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>dt</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Process the input for the player. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input axis. </td></tr>
+    <tr><td class="paramname">grounded</td><td>Whether the player is grounded. </td></tr>
+    <tr><td class="paramname">dt</td><td>The time since the last frame. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3c1615b3a432e7b9413860265f3f57aa" name="a3c1615b3a432e7b9413860265f3f57aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c1615b3a432e7b9413860265f3f57aa">&#9670;&#160;</a></span>shouldDie()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Player::shouldDie </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the player should die. </p>
+<dl class="section return"><dt>Returns</dt><dd>Whether the player should die. </dd></dl>
 
 </div>
 </div>

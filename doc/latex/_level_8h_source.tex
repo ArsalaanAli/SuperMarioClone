@@ -12,86 +12,86 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}Player.h"{}}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Enemy.h"{}}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_level}{Level}}\ \{}
-\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00016\ \ \ \mbox{\hyperlink{class_level_a7a696c928ca5d5354db6e50e46d0f67d}{Level}}();}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{class_level_a7a696c928ca5d5354db6e50e46d0f67d}{Level}}(std::string\ texturePath,\ std::string\ collisionMapPath,\ \textcolor{keywordtype}{int}\ difficulty);}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{class_level_a249eac1e8f19ff44134efa5e986feaca}{\string~Level}}();}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_level_a5a32b21e2eb81885a491677250983c73}{getLevelEnd}}()\ \{\ \textcolor{keywordflow}{return}\ levelEnd;\ \}}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a62e412eaad753d2baa2f94239cb80e41}{update}}();}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a20d356fa84aac7c21b39c631882642a6}{draw}}(sf::RenderWindow\&\ window);}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_af0587a91be73c08432e4f05fbb6ab7cc}{handleEvent}}(sf::Event\ event);}
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_level_a48582cad129c0bd5b5d1fb458bc67906}{checkCollision}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_aca6522d3c16432468659428c2be31af2}{reset}}();}
-\DoxyCodeLine{00070\ }
-\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a40a251c0dd77cb557dc35de82d5c7b80}{endLevel}}(\textcolor{keywordtype}{bool}\ win);}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a066d23a18cacb9b8203e76e7f0999630}{checkPowerUp}}();}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{int}\ difficulty;}
-\DoxyCodeLine{00088\ }
-\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{int}\ difficultyLives[3]\ =\ \{\ 3,\ 2,\ 1\ \};}
-\DoxyCodeLine{00096\ \ \ sf::Clock\ clock;}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{class_player}{Player}}\ player;}
-\DoxyCodeLine{00105\ \ \ std::vector<Enemy>\ enemies;}
-\DoxyCodeLine{00106\ }
-\DoxyCodeLine{00110\ \ \ std::vector<std::vector<int>>\ eSpawnPoints\ =\ \{}
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{comment}{//Easy\ Enemy\ Spawn}}
-\DoxyCodeLine{00112\ \ \ \ \ \{}
-\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ 1500,\ 2300,\ 3500,}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ 5000,\ 8000,}
-\DoxyCodeLine{00115\ \ \ \ \ \},}
-\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//Medium\ Enemy\ Spawn}}
-\DoxyCodeLine{00117\ \ \ \ \ \{}
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ 1500,\ 2000,\ 2500,\ 3500,\ 3800,\ 4500,}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ 5000,\ 6300,\ 8000,\ 9200,}
-\DoxyCodeLine{00120\ \ \ \ \ \},}
-\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//Hard\ Enemy\ Spawn}}
-\DoxyCodeLine{00122\ \ \ \ \ \{}
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ 1500,\ 2000,\ 2300,\ 2500,\ 3500,\ 3800,\ 4500,}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ 5000,\ 5300,\ 6300,\ 8000,\ 8300,\ 9200,}
-\DoxyCodeLine{00125\ \ \ \ \ \}\ \};}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00130\ \ \ sf::Texture\ texture;}
-\DoxyCodeLine{00131\ }
-\DoxyCodeLine{00135\ \ \ sf::Image\ img;}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00140\ \ \ sf::Image\ collisionMap;}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00146\ \ \ sf::Texture\ coinTexture;}
-\DoxyCodeLine{00150\ \ \ std::vector<sf::Sprite>\ coins;}
-\DoxyCodeLine{00151\ }
-\DoxyCodeLine{00155\ \ \ sf::Texture\ powerUpTexture;}
-\DoxyCodeLine{00156\ }
-\DoxyCodeLine{00160\ \ \ std::vector<sf::Sprite>\ powerUps;}
-\DoxyCodeLine{00161\ }
-\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{float}\ levelEnd;}
-\DoxyCodeLine{00166\ }
-\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{int}\ levelFinish;}
-\DoxyCodeLine{00171\ }
-\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{int}\ kills;}
-\DoxyCodeLine{00176\ }
-\DoxyCodeLine{00180\ \ \ \textcolor{keywordtype}{int}\ lives;}
-\DoxyCodeLine{00181\ }
-\DoxyCodeLine{00185\ \ \ \textcolor{keywordtype}{int}\ coinsCollected;}
-\DoxyCodeLine{00186\ }
-\DoxyCodeLine{00190\ \ \ \textcolor{keywordtype}{void}\ initCoins();}
-\DoxyCodeLine{00191\ }
-\DoxyCodeLine{00192\ \ \ \textcolor{keywordtype}{void}\ drawCoins(sf::RenderWindow\&\ window);}
-\DoxyCodeLine{00193\ }
-\DoxyCodeLine{00203\ \ \ \textcolor{keywordtype}{void}\ drawHUD(sf::RenderWindow\&\ window,\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{int}\ coinsCollected,\ \textcolor{keywordtype}{int}\ lives,\ \textcolor{keywordtype}{int}\ score);}
-\DoxyCodeLine{00204\ \};}
-\DoxyCodeLine{00205\ }
-\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LEVEL\_H}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_level}{Level}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \mbox{\hyperlink{class_level_a7a696c928ca5d5354db6e50e46d0f67d}{Level}}();}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00027\ \ \ \mbox{\hyperlink{class_level_a7a696c928ca5d5354db6e50e46d0f67d}{Level}}(std::string\ texturePath,\ std::string\ collisionMapPath,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a8a7f4ffd54fb0becda51b525c1ea4035}{difficulty}});}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \ \ \mbox{\hyperlink{class_level_a249eac1e8f19ff44134efa5e986feaca}{\string~Level}}();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_level_a5a32b21e2eb81885a491677250983c73}{getLevelEnd}}()\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_level_a02777a1fabc9819df4d9ef2cb4cd388e}{levelEnd}};\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a62e412eaad753d2baa2f94239cb80e41}{update}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a20d356fa84aac7c21b39c631882642a6}{draw}}(sf::RenderWindow\&\ window);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_af0587a91be73c08432e4f05fbb6ab7cc}{handleEvent}}(sf::Event\ event);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_level_a48582cad129c0bd5b5d1fb458bc67906}{checkCollision}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_aca6522d3c16432468659428c2be31af2}{reset}}();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a40a251c0dd77cb557dc35de82d5c7b80}{endLevel}}(\textcolor{keywordtype}{bool}\ win);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a066d23a18cacb9b8203e76e7f0999630}{checkPowerUp}}();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a8a7f4ffd54fb0becda51b525c1ea4035}{difficulty}};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_ae5ee314522f0e55b35cb26317aa6e870}{difficultyLives}}[3]\ =\ \{\ 3,\ 2,\ 1\ \};}
+\DoxyCodeLine{00099\ \ \ sf::Clock\ \mbox{\hyperlink{class_level_ab98ab3277651279d1a8b1f8b16867346}{clock}};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{class_player}{Player}}\ \mbox{\hyperlink{class_level_aae2f48ac36bd08832036e4ec37eb5b79}{player}};}
+\DoxyCodeLine{00108\ \ \ std::vector<Enemy>\ \mbox{\hyperlink{class_level_a6ec7d6228877b5465f679a0f869dc8f2}{enemies}};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ std::vector<std::vector<int>>\ \mbox{\hyperlink{class_level_a7942e1bba37d2f46d08bf8228712990c}{eSpawnPoints}}\ =\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//Easy\ Enemy\ Spawn}}
+\DoxyCodeLine{00115\ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ 1500,\ 2300,\ 3500,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ 5000,\ 8000,}
+\DoxyCodeLine{00118\ \ \ \ \ \},}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//Medium\ Enemy\ Spawn}}
+\DoxyCodeLine{00120\ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ 1500,\ 2000,\ 2500,\ 3500,\ 3800,\ 4500,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ 5000,\ 6300,\ 8000,\ 9200,}
+\DoxyCodeLine{00123\ \ \ \ \ \},}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//Hard\ Enemy\ Spawn}}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ 1500,\ 2000,\ 2300,\ 2500,\ 3500,\ 3800,\ 4500,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ 5000,\ 5300,\ 6300,\ 8000,\ 8300,\ 9200,}
+\DoxyCodeLine{00128\ \ \ \ \ \}\ \};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00133\ \ \ sf::Texture\ \mbox{\hyperlink{class_level_ad854b95257631dee88a8b8ddc2f895ef}{texture}};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ sf::Image\ \mbox{\hyperlink{class_level_a0c538524176c9df0b31bfb049aa18e6e}{img}};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00143\ \ \ sf::Image\ \mbox{\hyperlink{class_level_a598031b9adc1e5e817882b6f6490062b}{collisionMap}};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00149\ \ \ sf::Texture\ \mbox{\hyperlink{class_level_a60a1d7670eeb61e8e2eaa8c48cec1447}{coinTexture}};}
+\DoxyCodeLine{00153\ \ \ std::vector<sf::Sprite>\ \mbox{\hyperlink{class_level_a8bf60e8cdad9dbcee16a46c06ec901b7}{coins}};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00158\ \ \ sf::Texture\ \mbox{\hyperlink{class_level_a5bcebba167efdd5020b6de89f144753a}{powerUpTexture}};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00163\ \ \ std::vector<sf::Sprite>\ \mbox{\hyperlink{class_level_a1f2e614af9f4da8c0e66c40b58733df8}{powerUps}};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_level_a02777a1fabc9819df4d9ef2cb4cd388e}{levelEnd}};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00173\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a558cc6900b7166dced9a4b8fd072d925}{levelFinish}};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a2454db17205d9282dcc906cc696c3d7f}{kills}};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a1b71c6790fbaeb9642359860d6cc58a5}{lives}};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a2f6e64e8513a68adec183613ff5c665a}{coinsCollected}};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_a75cb87904668ae55a6779a342e32dab6}{initCoins}}();}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \textcolor{keywordtype}{void}\ drawCoins(sf::RenderWindow\&\ window);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_level_ad4e69dd973023ce4d97f928951462a92}{drawHUD}}(sf::RenderWindow\&\ window,\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a2f6e64e8513a68adec183613ff5c665a}{coinsCollected}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_level_a1b71c6790fbaeb9642359860d6cc58a5}{lives}},\ \textcolor{keywordtype}{int}\ score);}
+\DoxyCodeLine{00207\ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LEVEL\_H}}
 
 \end{DoxyCode}

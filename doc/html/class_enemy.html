@@ -73,6 +73,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_enemy-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Enemy Class Reference</div></div>
 </div><!--header-->
@@ -115,6 +117,54 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>die</b> ()</td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr>
 <tr class="memdesc:a0755a2799e2c7d10a242c13513321e3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the enemy to its spawnpoint. <br /></td></tr>
 <tr class="separator:a0755a2799e2c7d10a242c13513321e3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a6432f3ba4e67ab3bd7f8a40112ac29c9" id="r_a6432f3ba4e67ab3bd7f8a40112ac29c9"><td class="memItemLeft" align="right" valign="top"><a id="a6432f3ba4e67ab3bd7f8a40112ac29c9" name="a6432f3ba4e67ab3bd7f8a40112ac29c9"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>draw</b> (sf::RenderTarget &amp;target, sf::RenderStates states) const</td></tr>
+<tr class="separator:a6432f3ba4e67ab3bd7f8a40112ac29c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bc6728d31b8e93acaf70af4e317dc86" id="r_a2bc6728d31b8e93acaf70af4e317dc86"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2bc6728d31b8e93acaf70af4e317dc86">isGrounded</a> ()</td></tr>
+<tr class="memdesc:a2bc6728d31b8e93acaf70af4e317dc86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the enemy is grounded.  <br /></td></tr>
+<tr class="separator:a2bc6728d31b8e93acaf70af4e317dc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7" id="r_adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7">MoveEnemy</a> (float xoffset, float yoffset)</td></tr>
+<tr class="memdesc:adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the enemy.  <br /></td></tr>
+<tr class="separator:adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac6c6ede5e0f249937dd0bb4206a977f" id="r_aac6c6ede5e0f249937dd0bb4206a977f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac6c6ede5e0f249937dd0bb4206a977f">roundAwayFromZero</a> (float x)</td></tr>
+<tr class="memdesc:aac6c6ede5e0f249937dd0bb4206a977f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Round a float away from zero.  <br /></td></tr>
+<tr class="separator:aac6c6ede5e0f249937dd0bb4206a977f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a1c372b4359a1e20521d6f4ffa99bc9d3" id="r_a1c372b4359a1e20521d6f4ffa99bc9d3"><td class="memItemLeft" align="right" valign="top"><a id="a1c372b4359a1e20521d6f4ffa99bc9d3" name="a1c372b4359a1e20521d6f4ffa99bc9d3"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>spawn_x</b></td></tr>
+<tr class="memdesc:a1c372b4359a1e20521d6f4ffa99bc9d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The enemy's spawnpoint. <br /></td></tr>
+<tr class="separator:a1c372b4359a1e20521d6f4ffa99bc9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28d621964577e39d2cc51f172d091cd8" id="r_a28d621964577e39d2cc51f172d091cd8"><td class="memItemLeft" align="right" valign="top"><a id="a28d621964577e39d2cc51f172d091cd8" name="a28d621964577e39d2cc51f172d091cd8"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>spawn_y</b></td></tr>
+<tr class="separator:a28d621964577e39d2cc51f172d091cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08440057bc75fff8344e339f3cb55c13" id="r_a08440057bc75fff8344e339f3cb55c13"><td class="memItemLeft" align="right" valign="top"><a id="a08440057bc75fff8344e339f3cb55c13" name="a08440057bc75fff8344e339f3cb55c13"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>vx</b></td></tr>
+<tr class="memdesc:a08440057bc75fff8344e339f3cb55c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">The enemy's velocity. <br /></td></tr>
+<tr class="separator:a08440057bc75fff8344e339f3cb55c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af445c3c624f05fc40650a7f420dcc33f" id="r_af445c3c624f05fc40650a7f420dcc33f"><td class="memItemLeft" align="right" valign="top"><a id="af445c3c624f05fc40650a7f420dcc33f" name="af445c3c624f05fc40650a7f420dcc33f"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>vy</b></td></tr>
+<tr class="separator:af445c3c624f05fc40650a7f420dcc33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a111c95222c4a083ff3be9e2eea4e6ca3" id="r_a111c95222c4a083ff3be9e2eea4e6ca3"><td class="memItemLeft" align="right" valign="top"><a id="a111c95222c4a083ff3be9e2eea4e6ca3" name="a111c95222c4a083ff3be9e2eea4e6ca3"></a>
+sf::RectangleShape&#160;</td><td class="memItemRight" valign="bottom"><b>shape</b></td></tr>
+<tr class="memdesc:a111c95222c4a083ff3be9e2eea4e6ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The underlying shape of the enemy. <br /></td></tr>
+<tr class="separator:a111c95222c4a083ff3be9e2eea4e6ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbeca7c5375f4b8dd4f7d040e3887068" id="r_abbeca7c5375f4b8dd4f7d040e3887068"><td class="memItemLeft" align="right" valign="top"><a id="abbeca7c5375f4b8dd4f7d040e3887068" name="abbeca7c5375f4b8dd4f7d040e3887068"></a>
+sf::Texture&#160;</td><td class="memItemRight" valign="bottom"><b>texture</b></td></tr>
+<tr class="memdesc:abbeca7c5375f4b8dd4f7d040e3887068"><td class="mdescLeft">&#160;</td><td class="mdescRight">The enemy's texture and sprite. <br /></td></tr>
+<tr class="separator:abbeca7c5375f4b8dd4f7d040e3887068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f0472dce634e0e04d42c3ffe3dda6f" id="r_a58f0472dce634e0e04d42c3ffe3dda6f"><td class="memItemLeft" align="right" valign="top"><a id="a58f0472dce634e0e04d42c3ffe3dda6f" name="a58f0472dce634e0e04d42c3ffe3dda6f"></a>
+sf::Sprite&#160;</td><td class="memItemRight" valign="bottom"><b>sprite</b></td></tr>
+<tr class="memdesc:a58f0472dce634e0e04d42c3ffe3dda6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The enemy's sprite. <br /></td></tr>
+<tr class="separator:a58f0472dce634e0e04d42c3ffe3dda6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6808fc8b68f76b2a3d995f53566b2cd" id="r_ac6808fc8b68f76b2a3d995f53566b2cd"><td class="memItemLeft" align="right" valign="top"><a id="ac6808fc8b68f76b2a3d995f53566b2cd" name="ac6808fc8b68f76b2a3d995f53566b2cd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isDying</b></td></tr>
+<tr class="memdesc:ac6808fc8b68f76b2a3d995f53566b2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag for whether the enemy is dying. <br /></td></tr>
+<tr class="separator:ac6808fc8b68f76b2a3d995f53566b2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_enemy.html" title="The Enemy class is responsible for handling enemy movement and interactions.">Enemy</a> class is responsible for handling enemy movement and interactions. </p>
@@ -198,6 +248,113 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr
 
 <p>Get the underlying sf::Shape object for the enemy. </p>
 <dl class="section return"><dt>Returns</dt><dd>The underlying sf::Shape object. </dd></dl>
+
+</div>
+</div>
+<a id="a2bc6728d31b8e93acaf70af4e317dc86" name="a2bc6728d31b8e93acaf70af4e317dc86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bc6728d31b8e93acaf70af4e317dc86">&#9670;&#160;</a></span>isGrounded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Enemy::isGrounded </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check if the enemy is grounded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>The current game state. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the enemy is grounded. </dd></dl>
+
+</div>
+</div>
+<a id="adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7" name="adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7">&#9670;&#160;</a></span>MoveEnemy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Enemy::MoveEnemy </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>xoffset</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>yoffset</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Move the enemy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xoffset</td><td>The x offset. </td></tr>
+    <tr><td class="paramname">yoffset</td><td>The y offset. </td></tr>
+    <tr><td class="paramname">state</td><td>The current game state. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aac6c6ede5e0f249937dd0bb4206a977f" name="aac6c6ede5e0f249937dd0bb4206a977f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac6c6ede5e0f249937dd0bb4206a977f">&#9670;&#160;</a></span>roundAwayFromZero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Enemy::roundAwayFromZero </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>x</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Round a float away from zero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The float to round. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the rounded float. </dd></dl>
 
 </div>
 </div>

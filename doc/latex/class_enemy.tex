@@ -35,6 +35,45 @@ void {\bfseries die} ()
 \Hypertarget{class_enemy_a0755a2799e2c7d10a242c13513321e3e}\label{class_enemy_a0755a2799e2c7d10a242c13513321e3e} 
 void {\bfseries reset} ()
 \begin{DoxyCompactList}\small\item\em Reset the enemy to its spawnpoint. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_enemy_a6432f3ba4e67ab3bd7f8a40112ac29c9}\label{class_enemy_a6432f3ba4e67ab3bd7f8a40112ac29c9} 
+virtual void {\bfseries draw} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\item 
+bool \mbox{\hyperlink{class_enemy_a2bc6728d31b8e93acaf70af4e317dc86}{is\+Grounded}} ()
+\begin{DoxyCompactList}\small\item\em Check if the enemy is grounded. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_enemy_adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7}{Move\+Enemy}} (float xoffset, float yoffset)
+\begin{DoxyCompactList}\small\item\em Move the enemy. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_enemy_aac6c6ede5e0f249937dd0bb4206a977f}{round\+Away\+From\+Zero}} (float x)
+\begin{DoxyCompactList}\small\item\em Round a float away from zero. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_enemy_a1c372b4359a1e20521d6f4ffa99bc9d3}\label{class_enemy_a1c372b4359a1e20521d6f4ffa99bc9d3} 
+int {\bfseries spawn\+\_\+x}
+\begin{DoxyCompactList}\small\item\em The enemy\textquotesingle{}s spawnpoint. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a28d621964577e39d2cc51f172d091cd8}\label{class_enemy_a28d621964577e39d2cc51f172d091cd8} 
+int {\bfseries spawn\+\_\+y}
+\item 
+\Hypertarget{class_enemy_a08440057bc75fff8344e339f3cb55c13}\label{class_enemy_a08440057bc75fff8344e339f3cb55c13} 
+float {\bfseries vx}
+\begin{DoxyCompactList}\small\item\em The enemy\textquotesingle{}s velocity. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_af445c3c624f05fc40650a7f420dcc33f}\label{class_enemy_af445c3c624f05fc40650a7f420dcc33f} 
+float {\bfseries vy}
+\item 
+\Hypertarget{class_enemy_a111c95222c4a083ff3be9e2eea4e6ca3}\label{class_enemy_a111c95222c4a083ff3be9e2eea4e6ca3} 
+sf\+::\+Rectangle\+Shape {\bfseries shape}
+\begin{DoxyCompactList}\small\item\em The underlying shape of the enemy. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_abbeca7c5375f4b8dd4f7d040e3887068}\label{class_enemy_abbeca7c5375f4b8dd4f7d040e3887068} 
+sf\+::\+Texture {\bfseries texture}
+\begin{DoxyCompactList}\small\item\em The enemy\textquotesingle{}s texture and sprite. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_a58f0472dce634e0e04d42c3ffe3dda6f}\label{class_enemy_a58f0472dce634e0e04d42c3ffe3dda6f} 
+sf\+::\+Sprite {\bfseries sprite}
+\begin{DoxyCompactList}\small\item\em The enemy\textquotesingle{}s sprite. \end{DoxyCompactList}\item 
+\Hypertarget{class_enemy_ac6808fc8b68f76b2a3d995f53566b2cd}\label{class_enemy_ac6808fc8b68f76b2a3d995f53566b2cd} 
+bool {\bfseries is\+Dying}
+\begin{DoxyCompactList}\small\item\em Flag for whether the enemy is dying. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -93,6 +132,61 @@ Get the underlying sf\+::\+Shape object for the enemy.
 
 \begin{DoxyReturn}{Returns}
 The underlying sf\+::\+Shape object. 
+\end{DoxyReturn}
+\Hypertarget{class_enemy_a2bc6728d31b8e93acaf70af4e317dc86}\label{class_enemy_a2bc6728d31b8e93acaf70af4e317dc86} 
+\index{Enemy@{Enemy}!isGrounded@{isGrounded}}
+\index{isGrounded@{isGrounded}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{isGrounded()}{isGrounded()}}
+{\footnotesize\ttfamily bool Enemy\+::is\+Grounded (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Check if the enemy is grounded. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The current game state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the enemy is grounded. 
+\end{DoxyReturn}
+\Hypertarget{class_enemy_adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7}\label{class_enemy_adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7} 
+\index{Enemy@{Enemy}!MoveEnemy@{MoveEnemy}}
+\index{MoveEnemy@{MoveEnemy}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{MoveEnemy()}{MoveEnemy()}}
+{\footnotesize\ttfamily void Enemy\+::\+Move\+Enemy (\begin{DoxyParamCaption}\item[{float}]{xoffset,  }\item[{float}]{yoffset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Move the enemy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xoffset} & The x offset. \\
+\hline
+{\em yoffset} & The y offset. \\
+\hline
+{\em state} & The current game state. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_enemy_aac6c6ede5e0f249937dd0bb4206a977f}\label{class_enemy_aac6c6ede5e0f249937dd0bb4206a977f} 
+\index{Enemy@{Enemy}!roundAwayFromZero@{roundAwayFromZero}}
+\index{roundAwayFromZero@{roundAwayFromZero}!Enemy@{Enemy}}
+\doxysubsubsection{\texorpdfstring{roundAwayFromZero()}{roundAwayFromZero()}}
+{\footnotesize\ttfamily int Enemy\+::round\+Away\+From\+Zero (\begin{DoxyParamCaption}\item[{float}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Round a float away from zero. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The float to round. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the rounded float. 
 \end{DoxyReturn}
 \Hypertarget{class_enemy_ad55ee71b5a8c23fbd00b3c368b90cc64}\label{class_enemy_ad55ee71b5a8c23fbd00b3c368b90cc64} 
 \index{Enemy@{Enemy}!update@{update}}

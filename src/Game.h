@@ -23,6 +23,9 @@ enum Scene {
   Paused
 };
 
+/**
+ * @brief The main game class responsible for managing the game and rendering.
+ */
 class Game {
   static Game* instance;
 

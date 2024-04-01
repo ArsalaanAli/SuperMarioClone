@@ -8,6 +8,9 @@
 #include "Player.h"
 #include "Enemy.h"
 
+/**
+ * @brief The level class responsible for managing the game level.
+ */
 class Level {
 public:
   /**

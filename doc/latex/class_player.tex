@@ -1,5 +1,14 @@
 \doxysection{Player Class Reference}
 \hypertarget{class_player}{}\label{class_player}\index{Player@{Player}}
+
+
+The player class responsible for managing the player.  
+
+
+
+
+{\ttfamily \#include $<$Player.\+h$>$}
+
 Inheritance diagram for Player\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -27,7 +36,83 @@ void {\bfseries activate\+Powerup} ()
 \begin{DoxyCompactList}\small\item\em Activate the player\textquotesingle{}s powerup. \end{DoxyCompactList}\item 
 sf\+::\+Rectangle\+Shape \mbox{\hyperlink{class_player_ac34f57243d264c3c1d3a089e14e87844}{get\+Shape}} ()
 \begin{DoxyCompactList}\small\item\em Get the Shape object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_a6181badd16590914fd18d7b52b4e9caf}\label{class_player_a6181badd16590914fd18d7b52b4e9caf} 
+virtual void {\bfseries draw} (sf\+::\+Render\+Target \&target, sf\+::\+Render\+States states) const
+\item 
+void \mbox{\hyperlink{class_player_a49785a374e28017a3174a711381bce90}{Animate\+Player}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Animate the player. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a7701a2903435e3b48f49a6111ec50fcf}\label{class_player_a7701a2903435e3b48f49a6111ec50fcf} 
+void {\bfseries load\+Sprites} ()
+\begin{DoxyCompactList}\small\item\em Load the player\textquotesingle{}s sprites. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_abd1beb644942953dfddebb95dc2dcebb}{process\+Input}} (sf\+::\+Vector2$<$ int $>$ input, bool grounded, float dt)
+\begin{DoxyCompactList}\small\item\em Process the input for the player. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_player_af3d64046bdc7cbda61ebde419ea0706d}{is\+Grounded}} ()
+\begin{DoxyCompactList}\small\item\em Check if the player is grounded. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_player_a8c59697539dfcfa8823080e1a4b9293c}{Move\+Player}} (float xoffset, float yoffset)
+\begin{DoxyCompactList}\small\item\em Move the player. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_player_a3c1615b3a432e7b9413860265f3f57aa}{should\+Die}} ()
+\begin{DoxyCompactList}\small\item\em Check if the player should die. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_a178cf133ba125cbf6baf4a7cc35706af}\label{class_player_a178cf133ba125cbf6baf4a7cc35706af} 
+float {\bfseries vx}
+\item 
+\Hypertarget{class_player_af995498de723272471eeb9b5d87073b2}\label{class_player_af995498de723272471eeb9b5d87073b2} 
+float {\bfseries vy}
+\item 
+\Hypertarget{class_player_ab44a9e7e51923c6a63d0675958200861}\label{class_player_ab44a9e7e51923c6a63d0675958200861} 
+bool {\bfseries is\+Dying}
+\begin{DoxyCompactList}\small\item\em Flag for whether the player is dying. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a66b850a4b84d9982891807337dbea124}\label{class_player_a66b850a4b84d9982891807337dbea124} 
+float {\bfseries power\+Up\+Time}
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s powerup time remaining. Recorded in seconds. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_af5f79934ef0d105137f6c0a87174c92c}\label{class_player_af5f79934ef0d105137f6c0a87174c92c} 
+sf\+::\+Rectangle\+Shape {\bfseries shape}
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s shape. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a19bc8731e5e84613a2ae7c4b5134dfab}\label{class_player_a19bc8731e5e84613a2ae7c4b5134dfab} 
+sf\+::\+Sprite {\bfseries sprite}
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s sprite. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_add8f49362a9677bbf1638975d35dbccc}\label{class_player_add8f49362a9677bbf1638975d35dbccc} 
+std\+::vector$<$ std\+::vector$<$ sf\+::\+Texture $>$ $>$ {\bfseries textures}
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s textures. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a84947ff87c4eafb22487d29e8f254d9f}\label{class_player_a84947ff87c4eafb22487d29e8f254d9f} 
+std\+::vector$<$ int $>$ {\bfseries num\+Sprites} = \{ 1, 3 \}
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s animations. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_aa09c85e1bdf45655ca99819c1bb38c42}\label{class_player_aa09c85e1bdf45655ca99819c1bb38c42} 
+int {\bfseries cur\+Frame}
+\begin{DoxyCompactList}\small\item\em The current frame of the animation. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a6fc6e75856e4819aad0bf46eb03818fe}\label{class_player_a6fc6e75856e4819aad0bf46eb03818fe} 
+int {\bfseries cur\+Anim}
+\begin{DoxyCompactList}\small\item\em The current animation. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a97816830ea4b578ca577b9b77b531d17}\label{class_player_a97816830ea4b578ca577b9b77b531d17} 
+float {\bfseries animation\+Interval} = 0.\+15f
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s animation interval. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_aa2acca0d0cd5696138ccfc1a588e784c}\label{class_player_aa2acca0d0cd5696138ccfc1a588e784c} 
+float {\bfseries animation\+Time}
+\begin{DoxyCompactList}\small\item\em The player\textquotesingle{}s animation time. \end{DoxyCompactList}\item 
+\Hypertarget{class_player_a1e659599640d5ce99088804f3b0252cf}\label{class_player_a1e659599640d5ce99088804f3b0252cf} 
+bool {\bfseries power\+Up\+Active}
+\begin{DoxyCompactList}\small\item\em Flag for whether the player is powered up. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_player_a59cbd94a27f02d98c8daf069e516daa7}\label{class_player_a59cbd94a27f02d98c8daf069e516daa7} 
+static const int {\bfseries SCALE} = 2
+\item 
+\Hypertarget{class_player_a9db5e429cf5334bb8881f53dbe0b216b}\label{class_player_a9db5e429cf5334bb8881f53dbe0b216b} 
+static const int {\bfseries STAND} = 0
+\item 
+\Hypertarget{class_player_a3c06d0eba25b379ea2b244b330e3f640}\label{class_player_a3c06d0eba25b379ea2b244b330e3f640} 
+static const int {\bfseries RUN} = 1
+\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The player class responsible for managing the player. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
 \Hypertarget{class_player_a426f4bf6e5dabe44db99ba60a19def7d}\label{class_player_a426f4bf6e5dabe44db99ba60a19def7d} 
@@ -50,6 +135,21 @@ Construct a new \doxylink{class_player}{Player} object.
 
 
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_player_a49785a374e28017a3174a711381bce90}\label{class_player_a49785a374e28017a3174a711381bce90} 
+\index{Player@{Player}!AnimatePlayer@{AnimatePlayer}}
+\index{AnimatePlayer@{AnimatePlayer}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{AnimatePlayer()}{AnimatePlayer()}}
+{\footnotesize\ttfamily void Player\+::\+Animate\+Player (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Animate the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & The time since the last frame. \\
+\hline
+\end{DoxyParams}
 \Hypertarget{class_player_ac34f57243d264c3c1d3a089e14e87844}\label{class_player_ac34f57243d264c3c1d3a089e14e87844} 
 \index{Player@{Player}!getShape@{getShape}}
 \index{getShape@{getShape}!Player@{Player}}
@@ -62,6 +162,75 @@ Get the Shape object.
 
 \begin{DoxyReturn}{Returns}
 The player\textquotesingle{}s shape. 
+\end{DoxyReturn}
+\Hypertarget{class_player_af3d64046bdc7cbda61ebde419ea0706d}\label{class_player_af3d64046bdc7cbda61ebde419ea0706d} 
+\index{Player@{Player}!isGrounded@{isGrounded}}
+\index{isGrounded@{isGrounded}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{isGrounded()}{isGrounded()}}
+{\footnotesize\ttfamily bool Player\+::is\+Grounded (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Check if the player is grounded. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & The current game state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether the player is grounded. 
+\end{DoxyReturn}
+\Hypertarget{class_player_a8c59697539dfcfa8823080e1a4b9293c}\label{class_player_a8c59697539dfcfa8823080e1a4b9293c} 
+\index{Player@{Player}!MovePlayer@{MovePlayer}}
+\index{MovePlayer@{MovePlayer}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{MovePlayer()}{MovePlayer()}}
+{\footnotesize\ttfamily void Player\+::\+Move\+Player (\begin{DoxyParamCaption}\item[{float}]{xoffset,  }\item[{float}]{yoffset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Move the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xoffset} & The x offset. \\
+\hline
+{\em yoffset} & The y offset. \\
+\hline
+{\em state} & The current game state. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_abd1beb644942953dfddebb95dc2dcebb}\label{class_player_abd1beb644942953dfddebb95dc2dcebb} 
+\index{Player@{Player}!processInput@{processInput}}
+\index{processInput@{processInput}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{processInput()}{processInput()}}
+{\footnotesize\ttfamily void Player\+::process\+Input (\begin{DoxyParamCaption}\item[{sf\+::\+Vector2$<$ int $>$}]{input,  }\item[{bool}]{grounded,  }\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Process the input for the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & The input axis. \\
+\hline
+{\em grounded} & Whether the player is grounded. \\
+\hline
+{\em dt} & The time since the last frame. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_player_a3c1615b3a432e7b9413860265f3f57aa}\label{class_player_a3c1615b3a432e7b9413860265f3f57aa} 
+\index{Player@{Player}!shouldDie@{shouldDie}}
+\index{shouldDie@{shouldDie}!Player@{Player}}
+\doxysubsubsection{\texorpdfstring{shouldDie()}{shouldDie()}}
+{\footnotesize\ttfamily bool Player\+::should\+Die (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Check if the player should die. 
+
+\begin{DoxyReturn}{Returns}
+Whether the player should die. 
 \end{DoxyReturn}
 \Hypertarget{class_player_a82c3476f3e65a4e2ac6bcd040771bdd4}\label{class_player_a82c3476f3e65a4e2ac6bcd040771bdd4} 
 \index{Player@{Player}!update@{update}}
