@@ -129,6 +129,7 @@ public:
    * @param target The scene to set.
    */
   void setScene(Scene target);
+
 private:
   int difficulty;
 
@@ -194,5 +195,4 @@ private:
    */
   Level level;
 };
-
 #endif // GAME_H
