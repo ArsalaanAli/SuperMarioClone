@@ -7,11 +7,14 @@
 
 Level::Level() : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {}
 
-Level::Level(std::string texturePath, std::string collisionMapPath)
-  : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2)) {
+Level::Level(std::string texturePath, std::string collisionMapPath, int difficultyInput)
+    : player(Player(WINDOW_HEIGHT / 4, -CELL_SIZE * 2))
+{
 
   Game::getInstance()->getWindow()->setView(
     Game::getInstance()->getWindow()->getDefaultView());
+
+  difficulty = difficultyInput;
 
   if (!texture.loadFromFile("assets/map1.png")) {
     std::cerr << "Failed to load background texture!" << std::endl;
@@ -30,20 +33,13 @@ Level::Level(std::string texturePath, std::string collisionMapPath)
     exit(1);
   }
 
-
-
-  const int eSpawnPoints[] = {
-      1500, 2000, 2300, 2500, 3500, 3800, 4500,
-      5000, 5300, 6300, 8000, 8300, 9200,
-  };
-
-  for (auto& spawnPoint : eSpawnPoints) {
+  for (auto& spawnPoint : eSpawnPoints[difficulty-1]) {
     enemies.emplace_back(spawnPoint, 600);
   }
 
   initCoins();
 
-  lives = 3;
+  lives = difficultyLives[difficulty-1];
   kills = 0;
 }
 

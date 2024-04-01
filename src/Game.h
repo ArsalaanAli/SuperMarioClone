@@ -12,9 +12,13 @@
 #define VIEW_SCROLL_MARGIN 400
 #define VIEW_SCROLL_MARGIN_FROM_CENTER \
   ((WINDOW_WIDTH / 2.0f) - VIEW_SCROLL_MARGIN)
+#define EASY 1
+#define MEDIUM 2
+#define HARD 3
 
 enum Scene {
   MainMenu,
+  DifficultySelect,
   Running,
   Paused
 };
@@ -49,6 +53,8 @@ public:
    * @param window The window to draw the main menu to.
    */
   void drawMainMenu(sf::RenderWindow& window);
+
+  void drawDifficultySelect(sf::RenderWindow& window);
 
   /**
    * @brief Draw the pause menu.
@@ -115,6 +121,8 @@ public:
    */
   void setScene(Scene target);
 private:
+  int difficulty;
+
   /**
    * @brief the internal clock of game loop. Used to calculate deltaTime.
    */

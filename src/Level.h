@@ -21,7 +21,7 @@ public:
    * @param texturePath The path to the texture of the level.
    * @param collisionMapPath The path to the collision map of the level.
    */
-  Level(std::string texturePath, std::string collisionMapPath);
+  Level(std::string texturePath, std::string collisionMapPath, int difficulty);
 
   /**
    * @brief Destroy the Level object
@@ -82,6 +82,15 @@ public:
 
 private:
   /**
+   * @brief The difficulty of the level.
+   */
+  int difficulty;
+
+  /**
+   * @brief The number of lives the player has at each difficulty.
+   */
+  int difficultyLives[3] = { 3, 2, 1 };
+  /**
    * @brief the internal clock of the level.
    */
   sf::Clock clock;
@@ -94,6 +103,26 @@ private:
    * @brief The collection of enemies in the level.
    */
   std::vector<Enemy> enemies;
+
+  /**
+   * @brief The spawn points for enemies at each difficulty.
+   */
+  vector<vector<int>> eSpawnPoints = {
+    //Easy Enemy Spawn
+    {
+        1500, 2300, 3500,
+        5000, 8000,
+    },
+    //Medium Enemy Spawn
+    {
+        1500, 2000, 2500, 3500, 3800, 4500,
+        5000, 6300, 8000, 9200,
+    },
+    //Hard Enemy Spawn
+    {
+        1500, 2000, 2300, 2500, 3500, 3800, 4500,
+        5000, 5300, 6300, 8000, 8300, 9200,
+    } };
 
   /**
    * @brief The texture of the level.
@@ -160,7 +189,7 @@ private:
    */
   void initCoins();
 
-  void drawCoins(sf::RenderWindow &window);
+  void drawCoins(sf::RenderWindow& window);
 
   /**
    * @brief Helper function to draw the HUD.
