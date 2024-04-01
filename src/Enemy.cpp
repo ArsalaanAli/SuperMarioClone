@@ -8,12 +8,20 @@
 int Enemy::roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
 Enemy::Enemy(int cx, int cy) {
+  if (!texture.loadFromFile("assets/enemy.png")) {
+    std::cerr << "Failed to load enemy texture!" << std::endl;
+    exit(1);
+  }
+
   spawn_x = cx;
   spawn_y = cy;
 
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Red);
   shape.setPosition(cx, cy);
+
+  sprite.setTexture(texture);
+  sprite.setPosition(cx, cy);
 
   vx = MAX_SPEED;
   vy = MAX_AIR_SPEED;
@@ -24,7 +32,7 @@ Enemy::Enemy(int cx, int cy) {
 Enemy::~Enemy() {}
 
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-  target.draw(shape, states);
+  target.draw(sprite, states);
 }
 
 void Enemy::reset() {
@@ -79,7 +87,8 @@ sf::RectangleShape Enemy::getShape() { return shape; }
 void Enemy::die() {
   if (!isDying) {
     // on first invocation, change color
-    shape.setFillColor(sf::Color::Yellow); // replace with change to dead texture
+    sprite.setScale(1, 0.75);
+    sprite.move(0, CELL_SIZE / 4);
     isDying = true;
   }
 
@@ -91,7 +100,11 @@ void Enemy::update() {
   float dt = Game::getInstance()->getDeltaTime();
   isGrounded();
 
+  sprite.setTexture(texture);
+
   // move the enemy based on its velocity
+  if (isDying) return;
+
   MoveEnemy(vx * dt, vy * dt);
 }
 
@@ -113,8 +126,6 @@ void Enemy::MoveEnemy(float xoffset, float yoffset) {
   for (int i = 0; i <= size.y - 3; i++) {
     if (level->checkCollision(pos.x + newX, pos.y + i) ||
       level->checkCollision(pos.x + size.x + newX, pos.y + i) ||
-      // !level->checkCollision(pos.x - 1, pos.y - 1) ||
-      // !level->checkCollision(pos.x + size.x + 1, pos.y - 1) ||
       pos.x + newX < 0 || pos.x + size.x + newX > level->getLevelEnd()) {
       // if collision, invert x movement
       collisionX = true;
@@ -129,4 +140,5 @@ void Enemy::MoveEnemy(float xoffset, float yoffset) {
 
   // move player
   shape.setPosition(pos.x + xoffset, pos.y + yoffset);
+  sprite.setPosition(shape.getPosition());
 }
