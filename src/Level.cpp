@@ -71,11 +71,14 @@ sf::View updateLevelScroll(const sf::View& view, const float& LEVEL_END,
   return newView;
 }
 
+// function to update the level
 void Level::update() {
   sf::RenderWindow* window = Game::getInstance()->getWindow();
 
+  // for the player
   player.update();
 
+  // for the enemy
   for (auto& enemy : enemies) {
     enemy.update();
 
@@ -93,6 +96,7 @@ void Level::update() {
       }
     }
   }
+  // check the coins
   if (coins.size() > 0) {
     for (auto& coin : coins) {
       if (coin.getGlobalBounds().intersects(
@@ -103,6 +107,7 @@ void Level::update() {
         switch (coinsCollected) {
         case 5:
         case 10:
+          // added lives after 15 coins collected
         case 15:
           lives++;
           break;
@@ -111,6 +116,7 @@ void Level::update() {
     }
   }
 
+  // checking the powerup
   for (auto& powerUp : powerUps) {
     if (powerUp.getGlobalBounds().intersects(
       player.getShape().getGlobalBounds())) {
@@ -118,14 +124,16 @@ void Level::update() {
       player.activatePowerup();
     }
   }
-
+ 
   window->setView(updateLevelScroll(window->getView(), levelEnd, player));
-
+  
+  // if the player is at the end of the level, set the level end graphic
   if (player.getShape().getPosition().x > levelFinish) {
     endLevel(true);
   }
 }
 
+// to initialize the coins of  the level
 void Level::initCoins() {
   if (!coinTexture.loadFromFile("assets/coin.png")) {
     std::cerr << "Failed to load coin texture!" << std::endl;
@@ -162,6 +170,7 @@ void Level::initCoins() {
   }
 }
 
+// function to draw the coin texture
 void Level::drawCoins(sf::RenderWindow& window) {
   if (coins.size() < 1) {
     return;
@@ -172,6 +181,7 @@ void Level::drawCoins(sf::RenderWindow& window) {
   }
 }
 
+// function to draw the window
 void Level::draw(sf::RenderWindow& window) {
   // TODO: can't make this a class var for some reason
   sf::Sprite sprite = sf::Sprite(texture);
@@ -186,12 +196,14 @@ void Level::draw(sf::RenderWindow& window) {
   }
   window.draw(player);
 
+  // to generate the HUD with stats
   int time = clock.getElapsedTime().asMilliseconds();
   int distance = player.getShape().getPosition().x;
   int score = coinsCollected * 500 + distance / 2 + kills * 1000;
   drawHUD(window, time, coinsCollected, lives, score);
 }
 
+// function to handle the inputs from the keyboard
 void Level::handleEvent(sf::Event event) {
   if (event.type == sf::Event::KeyPressed) {
     switch (event.key.code) {
@@ -207,6 +219,7 @@ void Level::handleEvent(sf::Event event) {
   }
 }
 
+// function to check the collision of the player with the collision map
 bool Level::checkCollision(int x, int y) {
   sf::Vector2u size = collisionMap.getSize();
   if (x > 0 && x < static_cast<int>(size.x) && y > 0 &&
@@ -215,6 +228,7 @@ bool Level::checkCollision(int x, int y) {
   return false;
 }
 
+// function to reset the level, return to main menu
 void Level::reset() {
   Game::getInstance()->getWindow()->setView(
     Game::getInstance()->getWindow()->getDefaultView());
@@ -233,6 +247,7 @@ void Level::reset() {
   lives--;
 }
 
+// function to trigger the end of a level
 void Level::endLevel(bool win) {
   if (win) {
     // TODO: go to next level
@@ -246,6 +261,7 @@ void Level::endLevel(bool win) {
   }
 }
 
+// check if a powerup was collected
 void Level::checkPowerUp() {
   // 20% chance of spawning a powerup
   if (rand() % 100 > 20) {
@@ -272,13 +288,14 @@ void Level::checkPowerUp() {
   }
 }
 
-
+// draw the HUD with stats for the level
 void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected,
   int lives, int score) {
   sf::Vector2f windowCenter = window.getView().getCenter();
   sf::Font font = *Game::getInstance()->getFont();
   sf::Font secondaryFont = *Game::getInstance()->getSecondaryFont();
 
+  // update the time
   std::string Time = "TIME " + std::to_string(time);
   sf::Text timeText(Time, secondaryFont, 30);
   timeText.setPosition(windowCenter.x - 400,
@@ -286,12 +303,14 @@ void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected,
   timeText.setFillColor(sf::Color(255, 255, 0));
   window.draw(timeText);
 
+  // update the coin count
   std::string coins = "COINS " + std::to_string(coinsCollected);
   sf::Text coinsText(coins, secondaryFont, 30);
   coinsText.setPosition(windowCenter.x - 400, 75);
   coinsText.setFillColor(sf::Color(255, 255, 0));
   window.draw(coinsText);
 
+  // update the lives count
   std::string Lives = "LIVES " + std::to_string(lives);
   sf::Text livesText(Lives, secondaryFont, 30);
   livesText.setPosition(windowCenter.x + 100,
@@ -299,6 +318,7 @@ void Level::drawHUD(sf::RenderWindow& window, int time, int coinsCollected,
   livesText.setFillColor(sf::Color(255, 255, 0));
   window.draw(livesText);
 
+  // update the score
   std::string Score = "SCORE " + std::to_string(score);
   sf::Text scoreText(Score, secondaryFont, 30);
   scoreText.setPosition(windowCenter.x + 100, 75);
