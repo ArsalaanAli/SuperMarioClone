@@ -24,73 +24,76 @@
 \DoxyCodeLine{00020\ \ \ MainMenu,}
 \DoxyCodeLine{00021\ \ \ DifficultySelect,}
 \DoxyCodeLine{00022\ \ \ Running,}
-\DoxyCodeLine{00023\ \ \ Paused}
-\DoxyCodeLine{00024\ \};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game}{Game}}\ \{}
-\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_game}{Game}}*\ instance;}
-\DoxyCodeLine{00031\ }
-\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{class_game_ad59df6562a58a614fda24622d3715b65}{Game}}();}
-\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00037\ \ \ \textcolor{comment}{//\ Delete\ copy\ constructor\ for\ singleton}}
-\DoxyCodeLine{00038\ \ \ \mbox{\hyperlink{class_game_ad59df6562a58a614fda24622d3715b65}{Game}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_game}{Game}}\&\ obj)}
-\DoxyCodeLine{00039\ \ \ \ \ =\ \textcolor{keyword}{delete};}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{class_game_ae3d112ca6e0e55150d2fdbc704474530}{\string~Game}}();}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_game}{Game}}*\ getInstance();}
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a1ab78f5ed0d5ea879157357cf2fb2afa}{run}}();}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a60d2050595286b752903c28f15ecf29f}{drawMainMenu}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}});}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_ad03f44883a9ec036541a0eca3c6f560c}{drawDifficultySelect}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}});}
-\DoxyCodeLine{00065\ }
-\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a049bd6a5d6f0989ac7dfb78e9dba9f88}{drawPauseMenu}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}});}
+\DoxyCodeLine{00023\ \ \ Paused,}
+\DoxyCodeLine{00024\ \ \ EndScreen}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_game}{Game}}\ \{}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_game}{Game}}*\ instance;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{class_game_ad59df6562a58a614fda24622d3715b65}{Game}}();}
+\DoxyCodeLine{00037\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{//\ Delete\ copy\ constructor\ for\ singleton}}
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{class_game_ad59df6562a58a614fda24622d3715b65}{Game}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_game}{Game}}\&\ obj)}
+\DoxyCodeLine{00040\ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{class_game_ae3d112ca6e0e55150d2fdbc704474530}{\string~Game}}();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_game}{Game}}*\ getInstance();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a1ab78f5ed0d5ea879157357cf2fb2afa}{run}}();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a60d2050595286b752903c28f15ecf29f}{drawMainMenu}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}});}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_ad03f44883a9ec036541a0eca3c6f560c}{drawDifficultySelect}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}});}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a551f1dea1cdbb57114cbcfa92244a86e}{drawEndScreen}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}});}
 \DoxyCodeLine{00072\ }
-\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_aca213905b4ee88742b1886738b544005}{drawHud}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}},\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{int}\ coinsCollected,\ \textcolor{keywordtype}{int}\ lives,\ \textcolor{keywordtype}{int}\ score);}
-\DoxyCodeLine{00082\ }
-\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_game_a9138e18ef8bdc8489a26fbbd6107f330}{getDeltaTime}}();}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_a049bd6a5d6f0989ac7dfb78e9dba9f88}{drawPauseMenu}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}});}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_aca213905b4ee88742b1886738b544005}{drawHud}}(sf::RenderWindow\&\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}},\ \textcolor{keywordtype}{int}\ time,\ \textcolor{keywordtype}{int}\ coinsCollected,\ \textcolor{keywordtype}{int}\ lives,\ \textcolor{keywordtype}{int}\ score);}
 \DoxyCodeLine{00089\ }
-\DoxyCodeLine{00095\ \ \ sf::Vector2<int>\ \mbox{\hyperlink{class_game_a56c6135927e13bedb1a4762258911ffa}{getInputAxis}}();}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_game_a9138e18ef8bdc8489a26fbbd6107f330}{getDeltaTime}}();}
 \DoxyCodeLine{00096\ }
-\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{class_level}{Level}}*\ \mbox{\hyperlink{class_game_a249228191543e48c1785343c97ddcf2e}{getLevel}}();}
+\DoxyCodeLine{00102\ \ \ sf::Vector2<int>\ \mbox{\hyperlink{class_game_a56c6135927e13bedb1a4762258911ffa}{getInputAxis}}();}
 \DoxyCodeLine{00103\ }
-\DoxyCodeLine{00109\ \ \ sf::Font*\ \mbox{\hyperlink{class_game_a2ec5350845c8a8d6ce07a44e4e527f10}{getFont}}();}
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{class_level}{Level}}*\ \mbox{\hyperlink{class_game_a249228191543e48c1785343c97ddcf2e}{getLevel}}();}
 \DoxyCodeLine{00110\ }
-\DoxyCodeLine{00116\ \ \ sf::Font*\ \mbox{\hyperlink{class_game_afe5069386385f1255e4c63597bad866b}{getSecondaryFont}}();}
+\DoxyCodeLine{00116\ \ \ sf::Font*\ \mbox{\hyperlink{class_game_a2ec5350845c8a8d6ce07a44e4e527f10}{getFont}}();}
 \DoxyCodeLine{00117\ }
-\DoxyCodeLine{00123\ \ \ sf::RenderWindow*\ \mbox{\hyperlink{class_game_a2af384524579bf3cd51c83b803146055}{getWindow}}();}
+\DoxyCodeLine{00123\ \ \ sf::Font*\ \mbox{\hyperlink{class_game_afe5069386385f1255e4c63597bad866b}{getSecondaryFont}}();}
 \DoxyCodeLine{00124\ }
-\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_afb26e9f6a1ac7a52b39b1d9d1143ea87}{setScene}}(Scene\ target);}
-\DoxyCodeLine{00130\ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{int}\ difficulty;}
-\DoxyCodeLine{00132\ }
-\DoxyCodeLine{00136\ \ \ sf::Clock\ \mbox{\hyperlink{class_game_a8c624577977673b813cca5f6d59e07fc}{dt\_clock}};}
-\DoxyCodeLine{00137\ }
-\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_game_ad918e31c1644966465f822d912585f16}{deltaTime}};}
-\DoxyCodeLine{00142\ }
-\DoxyCodeLine{00146\ \ \ sf::Vector2<int>\ \mbox{\hyperlink{class_game_add7ad77d57ecf8d8bc2d7f74f515a836}{input}};}
-\DoxyCodeLine{00147\ }
-\DoxyCodeLine{00151\ \ \ sf::RenderWindow*\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}};}
-\DoxyCodeLine{00152\ }
-\DoxyCodeLine{00156\ \ \ Scene\ \mbox{\hyperlink{class_game_af888183ad143e5196462e6c49bd0e27b}{scene}};}
-\DoxyCodeLine{00157\ }
-\DoxyCodeLine{00161\ \ \ sf::Font\ \mbox{\hyperlink{class_game_af729561d89036f0c841bc1a428dc43cf}{font}};}
-\DoxyCodeLine{00162\ }
-\DoxyCodeLine{00166\ \ \ sf::Font\ \mbox{\hyperlink{class_game_ac97406f00007c55673bed6aa44324cb3}{secondaryFont}};}
-\DoxyCodeLine{00167\ }
-\DoxyCodeLine{00171\ \ \ sf::Texture\ \mbox{\hyperlink{class_game_a64b2ead3be2e18f34814ecf72e923bd8}{backgroundTexture}};}
-\DoxyCodeLine{00172\ }
-\DoxyCodeLine{00176\ \ \ sf::ConvexShape\ \mbox{\hyperlink{class_game_a17b553a354f00bd18b5ebafb744c25bc}{selector}};}
-\DoxyCodeLine{00177\ }
-\DoxyCodeLine{00181\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_game_a676b573a0061e45db0099123d572ce4a}{selectedMenuItem}};}
-\DoxyCodeLine{00182\ }
-\DoxyCodeLine{00188\ \ \ sf::Vector2<int>\ \mbox{\hyperlink{class_game_ad0ecff358e6227a9a7c81f23954db6c3}{calculateInputAxis}}();}
+\DoxyCodeLine{00130\ \ \ sf::RenderWindow*\ \mbox{\hyperlink{class_game_a2af384524579bf3cd51c83b803146055}{getWindow}}();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_game_afb26e9f6a1ac7a52b39b1d9d1143ea87}{setScene}}(Scene\ target);}
+\DoxyCodeLine{00137\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{int}\ difficulty;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00143\ \ \ sf::Clock\ \mbox{\hyperlink{class_game_a8c624577977673b813cca5f6d59e07fc}{dt\_clock}};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_game_ad918e31c1644966465f822d912585f16}{deltaTime}};}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \ \ sf::Vector2<int>\ \mbox{\hyperlink{class_game_add7ad77d57ecf8d8bc2d7f74f515a836}{input}};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00158\ \ \ sf::RenderWindow*\ \mbox{\hyperlink{class_game_af00d15651edd39b7c28262b23bb50c7a}{window}};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00163\ \ \ Scene\ \mbox{\hyperlink{class_game_af888183ad143e5196462e6c49bd0e27b}{scene}};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00168\ \ \ sf::Font\ \mbox{\hyperlink{class_game_af729561d89036f0c841bc1a428dc43cf}{font}};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00173\ \ \ sf::Font\ \mbox{\hyperlink{class_game_ac97406f00007c55673bed6aa44324cb3}{secondaryFont}};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00178\ \ \ sf::Texture\ \mbox{\hyperlink{class_game_a64b2ead3be2e18f34814ecf72e923bd8}{backgroundTexture}};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00183\ \ \ sf::ConvexShape\ \mbox{\hyperlink{class_game_a17b553a354f00bd18b5ebafb744c25bc}{selector}};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_game_a676b573a0061e45db0099123d572ce4a}{selectedMenuItem}};}
 \DoxyCodeLine{00189\ }
-\DoxyCodeLine{00193\ \ \ \mbox{\hyperlink{class_level}{Level}}\ \mbox{\hyperlink{class_game_a675e1f674712dfccdd02db95b6105173}{level}};}
-\DoxyCodeLine{00194\ \};}
-\DoxyCodeLine{00195\ }
-\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GAME\_H}}
+\DoxyCodeLine{00195\ \ \ sf::Vector2<int>\ \mbox{\hyperlink{class_game_ad0ecff358e6227a9a7c81f23954db6c3}{calculateInputAxis}}();}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00200\ \ \ \mbox{\hyperlink{class_level}{Level}}\ \mbox{\hyperlink{class_game_a675e1f674712dfccdd02db95b6105173}{level}};}
+\DoxyCodeLine{00201\ \};}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GAME\_H}}
 
 \end{DoxyCode}

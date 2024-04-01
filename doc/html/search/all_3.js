@@ -7,9 +7,10 @@ var searchData=
   ['difficultylives_4',['difficultyLives',['../class_level.html#ae5ee314522f0e55b35cb26317aa6e870',1,'Level']]],
   ['draw_5',['draw',['../class_level.html#a20d356fa84aac7c21b39c631882642a6',1,'Level']]],
   ['drawdifficultyselect_6',['drawDifficultySelect',['../class_game.html#ad03f44883a9ec036541a0eca3c6f560c',1,'Game']]],
-  ['drawhud_7',['drawHUD',['../class_level.html#ad4e69dd973023ce4d97f928951462a92',1,'Level']]],
+  ['drawendscreen_7',['drawEndScreen',['../class_game.html#a551f1dea1cdbb57114cbcfa92244a86e',1,'Game']]],
   ['drawhud_8',['drawHud',['../class_game.html#aca213905b4ee88742b1886738b544005',1,'Game']]],
-  ['drawmainmenu_9',['drawMainMenu',['../class_game.html#a60d2050595286b752903c28f15ecf29f',1,'Game']]],
-  ['drawpausemenu_10',['drawPauseMenu',['../class_game.html#a049bd6a5d6f0989ac7dfb78e9dba9f88',1,'Game']]],
-  ['dt_5fclock_11',['dt_clock',['../class_game.html#a8c624577977673b813cca5f6d59e07fc',1,'Game']]]
+  ['drawhud_9',['drawHUD',['../class_level.html#ad4e69dd973023ce4d97f928951462a92',1,'Level']]],
+  ['drawmainmenu_10',['drawMainMenu',['../class_game.html#a60d2050595286b752903c28f15ecf29f',1,'Game']]],
+  ['drawpausemenu_11',['drawPauseMenu',['../class_game.html#a049bd6a5d6f0989ac7dfb78e9dba9f88',1,'Game']]],
+  ['dt_5fclock_12',['dt_clock',['../class_game.html#a8c624577977673b813cca5f6d59e07fc',1,'Game']]]
 ];
