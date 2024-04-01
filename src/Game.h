@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -20,7 +21,8 @@ enum Scene {
   MainMenu,
   DifficultySelect,
   Running,
-  Paused
+  Paused,
+  Ending
 };
 
 class Game {
@@ -41,6 +43,8 @@ public:
   ~Game();
 
   static Game* getInstance();
+
+  static void cleanup();
 
   /**
    * @brief Run the game loop.
@@ -66,6 +70,13 @@ public:
    * @param window The window to draw the pause menu to.
    */
   void drawPauseMenu(sf::RenderWindow& window);
+
+  /**
+   * @brief Draw the ending screen.
+   *
+   * @param window The window to draw the ending screen to.
+   */
+  void drawEndingScreen(sf::RenderWindow& window);
 
   /**
    * @brief Draw the HUD.
@@ -131,6 +142,11 @@ private:
    * @brief the internal clock of game loop. Used to calculate deltaTime.
    */
   sf::Clock dt_clock;
+
+  /**
+   * @brief Background music player.
+   */
+  sf::Music bgm;
 
   /**
    * @brief The current time since the last frame.
