@@ -5,8 +5,10 @@
 #include "Enemy.h"
 #include "Game.h"
 
+// function to round away from zero.
 int Enemy::roundAwayFromZero(float x) { return x < 0 ? floor(x) : ceil(x); }
 
+//function to generate the enemy and to hold the associated values with the character
 Enemy::Enemy(int cx, int cy) {
   spawn_x = cx;
   spawn_y = cy;
@@ -23,26 +25,32 @@ Enemy::Enemy(int cx, int cy) {
 
 Enemy::~Enemy() {}
 
+//render the enemy on the page
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const {
   target.draw(shape, states);
 }
 
+// function to reset the enemy. used when resetting the level and to restore defaults
 void Enemy::reset() {
+  // enemy visuals
   shape = sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
   shape.setFillColor(sf::Color::Red);
   shape.setPosition(spawn_x, spawn_y);
 
+  // speed parameters
   vx = MAX_SPEED;
   vy = MAX_AIR_SPEED;
 
   isDying = false;
 }
 
+// checking if the enemy is grounded
 bool Enemy::isGrounded() {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
   Level* level = Game::getInstance()->getLevel();
 
+  // checking collisions with the collision map
   for (int i = 0; i < size.x; i++) {
     if (level->checkCollision(pos.x + i, pos.y + size.y + 1)) {
       // snap to ground
@@ -51,6 +59,7 @@ bool Enemy::isGrounded() {
         newY -= 1;
       }
 
+      // setting position accordingly
       shape.setPosition(pos.x, newY - CELL_SIZE);
 
       vy = 0;
@@ -62,6 +71,7 @@ bool Enemy::isGrounded() {
   return false;
 }
 
+// check if the player collides with the enemy
 bool Enemy::checkPlayerCollision(float px, float py) {
   // if the enemy is dying, don't check for collision
   if (isDying)
@@ -76,6 +86,7 @@ bool Enemy::checkPlayerCollision(float px, float py) {
 
 sf::RectangleShape Enemy::getShape() { return shape; }
 
+// upon vertical collision from player, the enemy dies
 void Enemy::die() {
   if (!isDying) {
     // on first invocation, change color
@@ -95,6 +106,7 @@ void Enemy::update() {
   MoveEnemy(vx * dt, vy * dt);
 }
 
+// function to automatically move the enemy back and forth
 void Enemy::MoveEnemy(float xoffset, float yoffset) {
   sf::Vector2<float> pos = shape.getPosition();
   sf::Vector2<float> size = shape.getSize();
