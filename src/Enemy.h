@@ -12,6 +12,10 @@
 
 /**
  * @brief The Enemy class is responsible for handling enemy movement and interactions.
+ *
+ * @author Maaz Siddiqi
+ * @author Arsalaan Ali
+ * @author Michelle Bourdon
  */
 class Enemy : public sf::Drawable {
 public:

@@ -18,6 +18,10 @@
 
 /**
  * @brief The player class responsible for managing the player.
+ *
+ * @author Maaz Siddiqi
+ * @author Arsalaan Ali
+ * @author Michelle Bourdon
  */
 class Player : public sf::Drawable {
 public:

@@ -1,0 +1,57 @@
+\doxysection{Enemy.\+h}
+\hypertarget{_enemy_8h_source}{}\label{_enemy_8h_source}\index{src/Enemy.h@{src/Enemy.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ENEMY\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ENEMY\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ MAX\_SPEED\ 400.0f}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ DECEL\_RATE\ 3000.0f}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ ACCEL\_RATE\ 3000.0f}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ JUMP\_FORCE\ 1150.0f}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ AIR\_DECEL\_RATE\ (DECEL\_RATE\ *\ 1.0f)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ MAX\_AIR\_SPEED\ (MAX\_SPEED\ *\ 5.0f)}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_enemy}{Enemy}}\ :\ \textcolor{keyword}{public}\ sf::Drawable\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{class_enemy_aceaeebb4b2e4fd3bb44d0dc456383588}{Enemy}}(\textcolor{keywordtype}{int}\ cx,\ \textcolor{keywordtype}{int}\ cy);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{class_enemy_ac0eec4755e28c02688065f9657150ac3}{\string~Enemy}}();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_enemy_ad55ee71b5a8c23fbd00b3c368b90cc64}{update}}();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_enemy_af7979ce41aedaafa861ee0a74947dd29}{checkPlayerCollision}}(\textcolor{keywordtype}{float}\ px,\ \textcolor{keywordtype}{float}\ py);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00057\ \ \ sf::RectangleShape\ \mbox{\hyperlink{class_enemy_a9f2c58f7d089c740b5a3c6fa7cef77dc}{getShape}}();}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_enemy_a04c451624958712b36546037fc25c601}{die}}();}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_enemy_a0755a2799e2c7d10a242c13513321e3e}{reset}}();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_enemy_a1c372b4359a1e20521d6f4ffa99bc9d3}{spawn\_x}},\ spawn\_y;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_enemy_a08440057bc75fff8344e339f3cb55c13}{vx}},\ vy;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ draw(sf::RenderTarget\&\ target,\ sf::RenderStates\ states)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ sf::RectangleShape\ \mbox{\hyperlink{class_enemy_a111c95222c4a083ff3be9e2eea4e6ca3}{shape}};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ sf::Texture\ \mbox{\hyperlink{class_enemy_abbeca7c5375f4b8dd4f7d040e3887068}{texture}};}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00102\ \ \ sf::Sprite\ \mbox{\hyperlink{class_enemy_a58f0472dce634e0e04d42c3ffe3dda6f}{sprite}};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_enemy_ac6808fc8b68f76b2a3d995f53566b2cd}{isDying}};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_enemy_a2bc6728d31b8e93acaf70af4e317dc86}{isGrounded}}();}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_enemy_adffdc3ed2e2c62e3bb4c2cf8bcfe7ac7}{MoveEnemy}}(\textcolor{keywordtype}{float}\ xoffset,\ \textcolor{keywordtype}{float}\ yoffset);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_enemy_aac6c6ede5e0f249937dd0bb4206a977f}{roundAwayFromZero}}(\textcolor{keywordtype}{float}\ x);}
+\DoxyCodeLine{00133\ \};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ENEMY\_H}}
+
+\end{DoxyCode}

@@ -10,6 +10,9 @@
 
 /**
  * @brief The level class responsible for managing the game level.
+ *
+ * @author Maaz Siddiqi
+ * @author Arsalaan Ali
  */
 class Level {
 public:

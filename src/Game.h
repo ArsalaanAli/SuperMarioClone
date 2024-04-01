@@ -26,6 +26,11 @@ enum Scene {
 
 /**
  * @brief The main game class responsible for managing the game and rendering.
+ *
+ * @author Maaz Siddiqi
+ * @author Arsalaan Ali
+ * @author Daniel Park
+ * @author Jessica Kerr
  */
 class Game {
   static Game* instance;
@@ -64,10 +69,10 @@ public:
    */
   void drawDifficultySelect(sf::RenderWindow& window);
 
-    /**
-   * @brief Draw the end game screen.
-   * @param window
-   */
+  /**
+ * @brief Draw the end game screen.
+ * @param window
+ */
   void drawEndScreen(sf::RenderWindow& window);
 
   /**

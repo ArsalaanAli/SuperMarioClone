@@ -1,0 +1,87 @@
+\doxysection{Player.\+h}
+\hypertarget{_player_8h_source}{}\label{_player_8h_source}\index{src/Player.h@{src/Player.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PLAYER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PLAYER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <SFML/Graphics.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <SFML/System/Vector2.hpp>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ MAX\_SPEED\ 400.0f}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ DECEL\_RATE\ 3000.0f}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ ACCEL\_RATE\ 3000.0f}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ JUMP\_FORCE\ 1150.0f}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ AIR\_DECEL\_RATE\ (DECEL\_RATE\ *\ 1.0f)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ MAX\_AIR\_SPEED\ (MAX\_SPEED\ *\ 5.0f)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ POWERUP\_SPEED\_FACTOR\ 2.0f}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ POWERUP\_TIME\ 5.0f}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_player}{Player}}\ :\ \textcolor{keyword}{public}\ sf::Drawable\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{class_player_a426f4bf6e5dabe44db99ba60a19def7d}{Player}}(\textcolor{keywordtype}{int}\ cx,\ \textcolor{keywordtype}{int}\ cy);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \ \ \mbox{\hyperlink{class_player_a749d2c00e1fe0f5c2746f7505a58c062}{\string~Player}}();}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a70e21ca98281b7d72f105f2693113d7e}{jump}}();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a1e4b3e6ef91fc400ff2c6c26b1370f8c}{die}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a82c3476f3e65a4e2ac6bcd040771bdd4}{update}}();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a119565d18b25b7a88d8fc7f1f9aebf09}{activatePowerup}}();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00068\ \ \ sf::RectangleShape\ \mbox{\hyperlink{class_player_ac34f57243d264c3c1d3a089e14e87844}{getShape}}();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ SCALE\ =\ 2;}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ STAND\ =\ 0;}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ RUN\ =\ 1;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ draw(sf::RenderTarget\&\ target,\ sf::RenderStates\ states)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{comment}{//\ Underlying\ SFML\ object}}
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ Velocities}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{float}\ vx,\ vy;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_player_ab44a9e7e51923c6a63d0675958200861}{isDying}};}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_player_a66b850a4b84d9982891807337dbea124}{powerUpTime}};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00101\ \ \ sf::RectangleShape\ \mbox{\hyperlink{class_player_af5f79934ef0d105137f6c0a87174c92c}{shape}};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00106\ \ \ sf::Sprite\ \mbox{\hyperlink{class_player_a19bc8731e5e84613a2ae7c4b5134dfab}{sprite}};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00111\ \ \ std::vector<std::vector<sf::Texture>>\ \mbox{\hyperlink{class_player_add8f49362a9677bbf1638975d35dbccc}{textures}};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00116\ \ \ std::vector<int>\ \mbox{\hyperlink{class_player_a84947ff87c4eafb22487d29e8f254d9f}{numSprites}}\ =\ \{\ 1,\ 3\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_player_aa09c85e1bdf45655ca99819c1bb38c42}{curFrame}};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_player_a6fc6e75856e4819aad0bf46eb03818fe}{curAnim}};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_player_a97816830ea4b578ca577b9b77b531d17}{animationInterval}}\ =\ 0.15f;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_player_aa2acca0d0cd5696138ccfc1a588e784c}{animationTime}};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_player_a1e659599640d5ce99088804f3b0252cf}{powerUpActive}};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a49785a374e28017a3174a711381bce90}{AnimatePlayer}}(\textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a7701a2903435e3b48f49a6111ec50fcf}{loadSprites}}();}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_abd1beb644942953dfddebb95dc2dcebb}{processInput}}(sf::Vector2<int>\ input,\ \textcolor{keywordtype}{bool}\ grounded,\ \textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_player_af3d64046bdc7cbda61ebde419ea0706d}{isGrounded}}();}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_player_a8c59697539dfcfa8823080e1a4b9293c}{MovePlayer}}(\textcolor{keywordtype}{float}\ xoffset,\ \textcolor{keywordtype}{float}\ yoffset);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_player_a3c1615b3a432e7b9413860265f3f57aa}{shouldDie}}();}
+\DoxyCodeLine{00187\ \};}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PLAYER\_H}}
+
+\end{DoxyCode}
