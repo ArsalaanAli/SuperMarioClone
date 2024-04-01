@@ -28,6 +28,8 @@ Game::Game() {
   window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
     "Super Mario Clone");
 
+  difficulty = MEDIUM;
+
   scene = Scene::MainMenu;
 
   // Setup the selection indicator
@@ -88,10 +90,11 @@ sf::RenderWindow* Game::getWindow() {
 void Game::setScene(Scene target) {
   switch (scene) {
   case Scene::MainMenu:
+  case Scene::DifficultySelect:
     if (target == Scene::Running) {
       // Start the game
       std::cout << "Starting game..." << std::endl;
-      level = Level("assets/map1.png", "assets/newcolourmap1.png");
+      level = Level("assets/map1.png", "assets/newcolourmap1.png", difficulty);
     }
     break;
   default:
@@ -143,8 +146,10 @@ void Game::drawMainMenu(sf::RenderWindow& window) {
   copyRightText.setFillColor(sf::Color::White);
   window.draw(copyRightText);
 
+
+  // Draw "Start Game" button
   sf::RectangleShape startButton(sf::Vector2f(300, 60));
-  startButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 200);
+  startButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 260);
   startButton.setFillColor(sf::Color(0, 150, 136));
   startButton.setOutlineThickness(2);
   startButton.setOutlineColor(sf::Color(0, 188, 212));
@@ -165,9 +170,35 @@ void Game::drawMainMenu(sf::RenderWindow& window) {
   // Draw "Start Game" text
   sf::Text startGameText("Start Game", secondaryFont, 35);
   sf::FloatRect textBounds = startGameText.getLocalBounds();
-  startGameText.setPosition(windowCenter.x - textBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 190);
+  startGameText.setPosition(windowCenter.x - textBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 250);
   startGameText.setFillColor(sf::Color::White);
   window.draw(startGameText);
+
+
+  // Draw "Diificulty Select" button
+  sf::RectangleShape diffSelectButton(sf::Vector2f(300, 60));
+  diffSelectButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 180);
+  diffSelectButton.setFillColor(sf::Color(100, 150, 250));
+  diffSelectButton.setOutlineThickness(2);
+  diffSelectButton.setOutlineColor(sf::Color::White);
+
+  // Check mouse interaction with "Diificulty Select" button
+  if (diffSelectButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
+    diffSelectButton.setFillColor(sf::Color(100, 190, 250));
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      setScene(Scene::DifficultySelect);
+    }
+  }
+
+  window.draw(diffSelectButton);
+
+  // Draw "Diificulty Select" text
+  sf::Text diffSelectText("Diificulty", secondaryFont, 35);
+  sf::FloatRect diffSelectBounds = diffSelectText.getLocalBounds();
+  diffSelectText.setPosition(windowCenter.x - diffSelectBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 170);
+  diffSelectText.setFillColor(sf::Color::White);
+  window.draw(diffSelectText);
+  
 
   // Draw "Quit Game" button
   sf::RectangleShape quitButton(sf::Vector2f(300, 60));
@@ -179,12 +210,10 @@ void Game::drawMainMenu(sf::RenderWindow& window) {
   // Check mouse interaction with "Quit Game" button
   sf::Vector2i mousePositionQuit = sf::Mouse::getPosition(window);
   if (quitButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePositionQuit))) {
-    quitButton.setFillColor(sf::Color(233, 30, 99));
+    quitButton.setFillColor(sf::Color(250, 110, 102));
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
       window.close();
     }
-  } else {
-    quitButton.setFillColor(sf::Color(244, 67, 54));
   }
 
   window.draw(quitButton);
@@ -192,9 +221,101 @@ void Game::drawMainMenu(sf::RenderWindow& window) {
   // Draw "Quit Game" text
   sf::Text quitGameText("Quit Game", secondaryFont, 35);
   sf::FloatRect quitTextBounds = quitGameText.getLocalBounds();
-  quitGameText.setPosition(windowCenter.x - quitTextBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 95);
+  quitGameText.setPosition(windowCenter.x - quitTextBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 90);
   quitGameText.setFillColor(sf::Color::White);
   window.draw(quitGameText);
+}
+
+void Game::drawDifficultySelect(sf::RenderWindow& window){
+    sf::Vector2f windowCenter = window.getView().getCenter();
+
+  // Draw the overlay
+  sf::RectangleShape overlay(sf::Vector2f(windowCenter.x + WINDOW_WIDTH / 2, windowCenter.y + WINDOW_HEIGHT / 2));
+  overlay.setFillColor(sf::Color(0, 0, 0, 100)); // Semi-transparent black overlay
+  window.draw(overlay);
+
+
+  // Draw "Easy" button
+  sf::RectangleShape easyButton(sf::Vector2f(300, 60));
+  easyButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 560);
+  easyButton.setFillColor(sf::Color(0, 150, 136));
+  easyButton.setOutlineThickness(2);
+  easyButton.setOutlineColor(sf::Color(0, 188, 212));
+
+  // Check mouse interaction with "Easy" button
+  sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+  if (easyButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
+    easyButton.setFillColor(sf::Color(76, 175, 80));
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      difficulty = EASY;
+      setScene(Scene::Running);
+    }
+  } else {
+    easyButton.setFillColor(sf::Color(0, 150, 136));
+  }
+
+  window.draw(easyButton);
+
+  // Draw "Easy" text
+  sf::Text easyText("Easy", secondaryFont, 35);
+  sf::FloatRect textBounds = easyText.getLocalBounds();
+  easyText.setPosition(windowCenter.x - textBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 550);
+  easyText.setFillColor(sf::Color::White);
+  window.draw(easyText);
+
+
+  // Draw "Medium" button
+  sf::RectangleShape mediumButton(sf::Vector2f(300, 60));
+  mediumButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 480);
+  mediumButton.setFillColor(sf::Color(100, 150, 250));
+  mediumButton.setOutlineThickness(2);
+  mediumButton.setOutlineColor(sf::Color::White);
+
+  // Check mouse interaction with "Diificulty Select" button
+  if (mediumButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
+    mediumButton.setFillColor(sf::Color(100, 190, 250));
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      difficulty = MEDIUM;
+      setScene(Scene::Running);
+    }
+  }
+
+  window.draw(mediumButton);
+
+  // Draw "Medium" text
+  sf::Text mediumText("Medium", secondaryFont, 35);
+  sf::FloatRect mediumBounds = mediumText.getLocalBounds();
+  mediumText.setPosition(windowCenter.x - mediumBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 470);
+  mediumText.setFillColor(sf::Color::White);
+  window.draw(mediumText);
+  
+
+  // Draw "Hard" button
+  sf::RectangleShape hardButton(sf::Vector2f(300, 60));
+  hardButton.setPosition(windowCenter.x - 150, windowCenter.y + WINDOW_HEIGHT / 2 - 400);
+  hardButton.setFillColor(sf::Color(244, 67, 54));
+  hardButton.setOutlineThickness(2);
+  hardButton.setOutlineColor(sf::Color::White);
+
+  // Check mouse interaction with "Hard" button
+  sf::Vector2i mousePositionQuit = sf::Mouse::getPosition(window);
+  if (hardButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePositionQuit))) {
+    hardButton.setFillColor(sf::Color(250, 110, 102));
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      difficulty = HARD;
+      setScene(Scene::Running);
+    }
+  }
+
+  window.draw(hardButton);
+
+  // Draw "Hard" text
+  sf::Text HardText("Hard", secondaryFont, 35);
+  sf::FloatRect hardBounds = HardText.getLocalBounds();
+  HardText.setPosition(windowCenter.x - hardBounds.width / 2, windowCenter.y + WINDOW_HEIGHT / 2 - 390);
+  HardText.setFillColor(sf::Color::White);
+  window.draw(HardText);
+
 }
 
 void Game::drawPauseMenu(sf::RenderWindow& window) {
@@ -301,6 +422,10 @@ void Game::run() {
     case Scene::MainMenu:
       window->draw(backgroundSprite);
       drawMainMenu(*window);
+      break;
+    case Scene::DifficultySelect:
+      window->draw(backgroundSprite);
+      drawDifficultySelect(*window);
       break;
     case Scene::Running:
       // drawHud(*window, 100, 0, 3, 0);
