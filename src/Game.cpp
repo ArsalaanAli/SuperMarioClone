@@ -318,6 +318,58 @@ void Game::drawDifficultySelect(sf::RenderWindow& window){
 
 }
 
+void Game::drawEndScreen(sf::RenderWindow& window){
+    sf::Vector2f windowCenter = window.getView().getCenter();
+
+  // Draw the overlay
+  sf::RectangleShape overlay(sf::Vector2f(windowCenter.x + WINDOW_WIDTH / 2, windowCenter.y + WINDOW_HEIGHT / 2));
+  overlay.setFillColor(sf::Color(0, 0, 0, 100)); // Semi-transparent black overlay
+  window.draw(overlay);
+
+    // Draw "win" text
+  sf::Text questText("You Won!", secondaryFont, 35);
+  sf::FloatRect questBounds = questText.getLocalBounds();
+  questText.setPosition(windowCenter.x - questBounds.width / 2, 150);
+  questText.setFillColor(sf::Color::White);
+  window.draw(questText);
+
+    // Draw "thank you" text
+  sf::Text thanksText("Thank You Mario!", secondaryFont, 35);
+  sf::FloatRect textBounds = thanksText.getLocalBounds();
+  thanksText.setPosition(windowCenter.x - textBounds.width / 2, 250);
+  thanksText.setFillColor(sf::Color::White);
+  window.draw(thanksText);
+
+
+  // Draw "play again" button
+  sf::RectangleShape easyButton(sf::Vector2f(300, 60));
+  easyButton.setPosition(windowCenter.x - 150, windowCenter.y + 10);
+  easyButton.setFillColor(sf::Color(0, 150, 136));
+  easyButton.setOutlineThickness(2);
+  easyButton.setOutlineColor(sf::Color(0, 188, 212));
+
+  // Check mouse interaction with "play again" button
+  sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+  if (easyButton.getGlobalBounds().contains(window.mapPixelToCoords(mousePosition))) {
+    easyButton.setFillColor(sf::Color(76, 175, 80));
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      setScene(Scene::MainMenu);
+    }
+  } else {
+    easyButton.setFillColor(sf::Color(0, 150, 136));
+  }
+
+  window.draw(easyButton);
+
+  // Draw "play again" text
+  sf::Text easyText("Play Again", secondaryFont, 35);
+  sf::FloatRect winBounds = easyText.getLocalBounds();
+  easyText.setPosition(windowCenter.x - winBounds.width / 2, windowCenter.y + 20);
+  easyText.setFillColor(sf::Color::White);
+  window.draw(easyText);
+
+}
+
 void Game::drawPauseMenu(sf::RenderWindow& window) {
   const std::string menuLabels[3] = { "Resume", "Restart", "Quit" };
   const int fontSize = 30;
@@ -436,6 +488,11 @@ void Game::run() {
       // drawPausePopup(*window);
       window->draw(backgroundSprite);
       drawPauseMenu(*window);
+      break;
+    case Scene::EndScreen:
+      // drawPausePopup(*window);
+      window->draw(backgroundSprite);
+      drawEndScreen(*window);
       break;
     }
 
