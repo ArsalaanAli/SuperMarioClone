@@ -26,7 +26,7 @@ Game::Game() {
     exit(1);
   }
 
-  if (!bgmBuffer.loadFromFile("assets/bgm.wav")) {
+  if (!bgm.openFromFile("assets/bgm.wav")) {
     std::cerr << "Failed to load background music!" << std::endl;
     exit(1); 
   } 
@@ -44,7 +44,6 @@ Game::Game() {
   selector.setPoint(1, sf::Vector2f(20, 10));
   selector.setPoint(2, sf::Vector2f(0, 20));
   selector.setFillColor(sf::Color::Transparent);
-  bgm.setBuffer(bgmBuffer);
   bgm.setLoop(true);
   bgm.play();
 }

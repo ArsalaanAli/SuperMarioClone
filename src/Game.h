@@ -134,8 +134,7 @@ private:
   /**
    * @brief Background music player.
    */
-  sf::Sound bgm;
-  sf::SoundBuffer bgmBuffer;
+  sf::Music bgm;
 
   /**
    * @brief The current time since the last frame.
