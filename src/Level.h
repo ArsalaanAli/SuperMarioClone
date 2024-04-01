@@ -81,9 +81,15 @@ public:
   void checkPowerUp();
 
 private:
+  /**
+   * @brief The difficulty of the level.
+   */
   int difficulty;
 
-  int difficultyLives[3] = {3, 2, 1};
+  /**
+   * @brief The number of lives the player has at each difficulty.
+   */
+  int difficultyLives[3] = { 3, 2, 1 };
   /**
    * @brief the internal clock of the level.
    */
@@ -98,22 +104,25 @@ private:
    */
   std::vector<Enemy> enemies;
 
+  /**
+   * @brief The spawn points for enemies at each difficulty.
+   */
   vector<vector<int>> eSpawnPoints = {
-  //Easy Enemy Spawn
-  {
-      1500, 2300, 3500,
-      5000, 8000,
-  }, 
-  //Medium Enemy Spawn
-  {
-      1500, 2000, 2500, 3500, 3800, 4500,
-      5000, 6300, 8000, 9200,
-  },
-  //Hard Enemy Spawn
-  {
-      1500, 2000, 2300, 2500, 3500, 3800, 4500,
-      5000, 5300, 6300, 8000, 8300, 9200,
-  }};
+    //Easy Enemy Spawn
+    {
+        1500, 2300, 3500,
+        5000, 8000,
+    },
+    //Medium Enemy Spawn
+    {
+        1500, 2000, 2500, 3500, 3800, 4500,
+        5000, 6300, 8000, 9200,
+    },
+    //Hard Enemy Spawn
+    {
+        1500, 2000, 2300, 2500, 3500, 3800, 4500,
+        5000, 5300, 6300, 8000, 8300, 9200,
+    } };
 
   /**
    * @brief The texture of the level.
@@ -180,7 +189,7 @@ private:
    */
   void initCoins();
 
-  void drawCoins(sf::RenderWindow &window);
+  void drawCoins(sf::RenderWindow& window);
 
   /**
    * @brief Helper function to draw the HUD.
