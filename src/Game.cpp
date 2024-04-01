@@ -9,6 +9,7 @@ Game* Game::getInstance() {
   return instance;
 }
 
+// function to hold the game object
 Game::Game() {
   if (!font.loadFromFile("assets/SuperMario256.ttf")) {
     std::cerr << "Failed to load font file!" << std::endl;
@@ -41,17 +42,20 @@ Game::Game() {
   selector.setFillColor(sf::Color::Transparent);
 }
 
+// function to end the game
 Game::~Game() {
   delete window;
   delete instance;
 }
 
+// returns the change in time
 float Game::getDeltaTime() {
   return deltaTime;
 }
 
 sf::Vector2<int> Game::getInputAxis() { return input; }
 
+// calculating the input axis from the keyboard input from the player
 sf::Vector2<int> Game::calculateInputAxis() {
   int dir_x = 0, dir_y = 0;
 
@@ -87,6 +91,7 @@ sf::RenderWindow* Game::getWindow() {
   return window;
 }
 
+// function to generate the intiial scene
 void Game::setScene(Scene target) {
   switch (scene) {
   case Scene::MainMenu:
@@ -104,12 +109,14 @@ void Game::setScene(Scene target) {
   scene = target;
 }
 
+// find the option the user selects
 bool isMouseOverText(sf::RenderWindow& window, sf::Text& text) {
   sf::FloatRect bounds = text.getGlobalBounds();
   sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
   return bounds.contains(mousePos);
 }
 
+// function to generate the main menu, with start or quit game, and difficulty selection
 void Game::drawMainMenu(sf::RenderWindow& window) {
   sf::Vector2f windowCenter = window.getView().getCenter();
 
@@ -383,6 +390,7 @@ void Game::drawPauseMenu(sf::RenderWindow& window) {
   }
 }
 
+// function to run the game
 void Game::run() {
   sf::Sprite backgroundSprite = sf::Sprite(backgroundTexture);
 
@@ -418,6 +426,7 @@ void Game::run() {
 
     window->clear(sf::Color::Black);
 
+    // different cases based on user input
     switch (scene) {
     case Scene::MainMenu:
       window->draw(backgroundSprite);
