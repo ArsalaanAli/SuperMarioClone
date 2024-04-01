@@ -15,7 +15,7 @@ Level::Level(std::string texturePath, std::string collisionMapPath, int difficul
 
   difficulty = difficultyInput;
 
-  if (!texture.loadFromFile("assets/map1.png")) {
+  if (!texture.loadFromFile(texturePath)) {
     std::cerr << "Failed to load background texture!" << std::endl;
     exit(1);
   }
