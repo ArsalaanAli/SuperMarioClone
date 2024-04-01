@@ -98,7 +98,7 @@ void Level::update() {
       }
     }
   }
-  if(coins.size() > 0){
+  if (coins.size() > 0) {
     for (auto& coin : coins) {
       if (coin.getGlobalBounds().intersects(
         player.getShape().getGlobalBounds())) {
@@ -131,13 +131,12 @@ void Level::update() {
   }
 }
 
-void Level::initCoins(){
-    if (!coinTexture.loadFromFile("assets/coin.png"))
-  {
+void Level::initCoins() {
+  if (!coinTexture.loadFromFile("assets/coin.png")) {
     std::cerr << "Failed to load coin texture!" << std::endl;
     exit(1);
   }
-  
+
   coinsCollected = 0;
   coins.clear();
   for (int i = 500; i < levelEnd; i += 1000) {
@@ -160,15 +159,12 @@ void Level::initCoins(){
   }
 }
 
-void Level::drawCoins(sf::RenderWindow& window){
-  if(coins.size() < 1){
+void Level::drawCoins(sf::RenderWindow& window) {
+  if (coins.size() < 1) {
     return;
   }
-  if (coins[0].getTexture()->getSize().x > 100)
-  {
-    initCoins();
-  }
-  for (auto &coin : coins){
+  for (auto& coin : coins) {
+    coin.setTexture(coinTexture);
     window.draw(coin);
   }
 }
@@ -179,8 +175,7 @@ void Level::draw(sf::RenderWindow& window) {
   window.draw(sprite);
 
   drawCoins(window);
-  for (auto &pup : powerUps)
-  {
+  for (auto& pup : powerUps) {
     window.draw(pup);
   }
   for (auto& enemy : enemies) {
