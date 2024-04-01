@@ -123,6 +123,7 @@ public:
    * @param target The scene to set.
    */
   void setScene(Scene target);
+
 private:
   /**
    * @brief the internal clock of game loop. Used to calculate deltaTime.
@@ -186,5 +187,4 @@ private:
    */
   Level level;
 };
-
 #endif // GAME_H
